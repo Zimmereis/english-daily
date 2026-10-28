@@ -1,0 +1,6 @@
+{
+  "name": "english-daily",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" }
+}
