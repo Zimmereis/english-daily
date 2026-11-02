@@ -1,244 +1,408 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><script src="https://telegram.org/js/telegram-web-app.js?59"></script><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>English Daily</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<style>@font-face{font-family:"Golos Text";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/golos-text-cyrillic-400-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Golos Text";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/golos-text-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Golos Text";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/golos-text-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Golos Text";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/golos-text-cyrillic-700-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Golos Text";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/golos-text-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Golos Text";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/golos-text-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Golos Text";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/golos-text-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Golos Text";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/golos-text-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Unbounded";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/unbounded-cyrillic-500-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Unbounded";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/unbounded-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Unbounded";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/unbounded-cyrillic-700-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:"Unbounded";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/unbounded-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Unbounded";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/unbounded-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Unbounded";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/unbounded-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}</style>
+<style>@font-face{font-family:"Nunito";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/nunito-cyrillic-600-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/nunito-cyrillic-700-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:800;font-display:swap;src:url(fonts/nunito-cyrillic-800-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/nunito-cyrillic-900-normal.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/nunito-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/nunito-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:800;font-display:swap;src:url(fonts/nunito-latin-800-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:900;font-display:swap;src:url(fonts/nunito-latin-900-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}</style>
 <style>
-/* Layout: one narrow column, app-style, bottom tab bar. The flashcard is the visual centre. */
+/* Layout: one phone column. Persistent stats bar on top, five tabs at the bottom; sessions and lessons go full-screen ("focus").
+   Look: warm, playful, tactile — chunky 3D buttons, a mango mascot, five juicy accents on a warm paper ground. */
 :root{
-  --bg:#EDF2F0; --surface:#FFFFFF; --sunk:#E2EAE7; --ink:#15233A; --muted:#5B6877; --line:#D3DEDA;
-  --accent:#D5426C; --accent-soft:#F8DDE5; --mint:#23907B; --mint-soft:#D5EEE8; --ochre:#B07415; --ochre-soft:#F5E6CC;
-  --on-accent:#FFFFFF;
-  --f-display:"Unbounded","Golos Text",system-ui,sans-serif;
-  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --r:16px; --r-sm:10px;
+  --bg:#FFF5E8; --sunk:#FBE8D0; --surface:#FFFFFF; --ink:#2B1D3F; --muted:#7D6C8A; --line:#F0DEC6;
+  --mango:#FFAE1F; --mango-d:#DB8600; --mango-s:#FFE8BC; --mango-t:#B86E00;
+  --coral:#FF5468; --coral-d:#D1304A; --coral-s:#FFDDE1; --coral-t:#C42A43;
+  --grape:#7856F5; --grape-d:#5434D2; --grape-s:#E7E0FF; --grape-t:#5434D2;
+  --leaf:#17A866; --leaf-d:#0E7F4B; --leaf-s:#D2F2E0; --leaf-t:#0E7F4B;
+  --sky:#1E90F0; --sky-d:#106DBE; --sky-s:#D6EBFF; --sky-t:#106DBE;
+  --on:#FFFFFF; --on-mango:#3A2200; --shadow:rgba(90,50,10,.14); --scrim:rgba(30,15,40,.45);
+  --f:"Nunito",ui-rounded,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E161F; --surface:#16212C; --sunk:#1C2935; --ink:#E7EDF1; --muted:#93A2B0; --line:#26343F;
-  --accent:#F0698F; --accent-soft:#3B1E2A; --mint:#4CC0A6; --mint-soft:#15332D; --ochre:#E6AE4C; --ochre-soft:#3A2D16;
-  --on-accent:#1A0B11; color-scheme:dark;
+  --bg:#17112A; --sunk:#221A39; --surface:#2A2145; --ink:#FBF6FF; --muted:#B5A8CE; --line:#3A2E5A;
+  --mango:#FFB838; --mango-d:#B97300; --mango-s:#3E2F16; --mango-t:#FFC861;
+  --coral:#FF6274; --coral-d:#B82A40; --coral-s:#43202D; --coral-t:#FF8C9A;
+  --grape:#8E72FF; --grape-d:#5B3CD6; --grape-s:#2F2559; --grape-t:#B5A2FF;
+  --leaf:#1FB872; --leaf-d:#0F7D4A; --leaf-s:#153A2C; --leaf-t:#5BE0A2;
+  --sky:#2C98F2; --sky-d:#1466AE; --sky-s:#16304B; --sky-t:#7CC2FF;
+  --shadow:rgba(0,0,0,.4); --scrim:rgba(5,2,12,.6); color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#0E161F; --surface:#16212C; --sunk:#1C2935; --ink:#E7EDF1; --muted:#93A2B0; --line:#26343F;
-  --accent:#F0698F; --accent-soft:#3B1E2A; --mint:#4CC0A6; --mint-soft:#15332D; --ochre:#E6AE4C; --ochre-soft:#3A2D16;
-  --on-accent:#1A0B11; color-scheme:dark;
+  --bg:#17112A; --sunk:#221A39; --surface:#2A2145; --ink:#FBF6FF; --muted:#B5A8CE; --line:#3A2E5A;
+  --mango:#FFB838; --mango-d:#B97300; --mango-s:#3E2F16; --mango-t:#FFC861;
+  --coral:#FF6274; --coral-d:#B82A40; --coral-s:#43202D; --coral-t:#FF8C9A;
+  --grape:#8E72FF; --grape-d:#5B3CD6; --grape-s:#2F2559; --grape-t:#B5A2FF;
+  --leaf:#1FB872; --leaf-d:#0F7D4A; --leaf-s:#153A2C; --leaf-t:#5BE0A2;
+  --sky:#2C98F2; --sky-d:#1466AE; --sky-s:#16304B; --sky-t:#7CC2FF;
+  --shadow:rgba(0,0,0,.4); --scrim:rgba(5,2,12,.6); color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-tap-highlight-color:transparent}
-button,input,textarea,select{font:inherit;color:inherit}
-button{cursor:pointer}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.app{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px calc(96px + env(safe-area-inset-bottom,0px))}
-header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.brand{font-family:var(--f-display);font-weight:700;font-size:19px;letter-spacing:-.01em}
-.brand span{color:var(--accent)}
-.streak{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:5px 11px;border-radius:999px;font-variant-numeric:tabular-nums}
-.streak b{color:var(--ink)}
-.dot-live{width:8px;height:8px;border-radius:50%;background:var(--line)}
-.streak.on .dot-live{background:var(--ochre)}
-h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0 0 4px;text-wrap:balance;letter-spacing:-.01em}
-.sub{color:var(--muted);font-size:14px;margin:0}
-.label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-section[data-tab]{display:flex;flex-direction:column;gap:16px}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.45;font-weight:600;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0;-webkit-user-select:none;user-select:none}
+:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
+.ic{width:24px;height:24px;flex:none}
+h1,h2,h3{font-weight:900;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:30px;line-height:1.08}
+h2{font-size:22px;line-height:1.15}
+h3{font-size:18px}
+p{margin:0}
+.sub{color:var(--muted);font-size:15px;font-weight:600}
+.app{max-width:520px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 calc(104px + env(safe-area-inset-bottom,0px))}
+body.focus .app{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
+body.fbopen .app{padding-bottom:260px}
+section[data-tab]{display:flex;flex-direction:column;gap:20px;padding-top:4px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.link{color:var(--grape-t);font-weight:800;font-size:15px}
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
-.stat b{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
-.stat span{font-size:12px;color:var(--muted)}
-.stat.due b{color:var(--accent)}
-.stat.done b{color:var(--mint)}
+/* top stats bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);display:flex;align-items:center;gap:8px;padding:12px 0 10px}
+.top .sp{flex:1}
+.chip{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 12px;border-radius:999px;background:var(--surface);box-shadow:0 3px 0 var(--line);font-weight:900;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip .ic{width:20px;height:20px}
+.chip.fire{color:var(--coral-t)} .chip.fire.off{color:var(--muted)}
+.chip.xp{color:var(--grape-t)}
+.chip.lv{color:var(--mango-t)}
+.iconbtn{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:var(--surface);box-shadow:0 3px 0 var(--line);color:var(--muted)}
+.iconbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+body.focus .top,body.focus nav.tabs{display:none}
 
-.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:600;font-size:16px;background:var(--sunk);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn.primary{background:var(--accent);color:var(--on-accent)}
+/* surfaces */
+.card{background:var(--surface);border-radius:24px;padding:18px;box-shadow:0 4px 0 var(--line),0 14px 28px -20px var(--shadow)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-size:13px;font-weight:800;background:var(--sunk);color:var(--muted)}
+.pill .ic{width:16px;height:16px}
+.t-mango{--tc:var(--mango-t);--ts:var(--mango-s);--tb:var(--mango);--td:var(--mango-d)}
+.t-coral{--tc:var(--coral-t);--ts:var(--coral-s);--tb:var(--coral);--td:var(--coral-d)}
+.t-grape{--tc:var(--grape-t);--ts:var(--grape-s);--tb:var(--grape);--td:var(--grape-d)}
+.t-leaf{--tc:var(--leaf-t);--ts:var(--leaf-s);--tb:var(--leaf);--td:var(--leaf-d)}
+.t-sky{--tc:var(--sky-t);--ts:var(--sky-s);--tb:var(--sky);--td:var(--sky-d)}
+.pill[class*="t-"]{background:var(--ts);color:var(--tc)}
+.tile{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;flex:none;background:var(--ts);color:var(--tc)}
+.tile .ic{width:26px;height:26px}
+.tile.lg{width:56px;height:56px;border-radius:18px}
+.tile.lg .ic{width:30px;height:30px}
+
+/* chunky 3D buttons */
+.btn{--c:var(--grape);--cd:var(--grape-d);display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:12px 20px;border-radius:18px;background:var(--c);color:var(--on);font-weight:900;font-size:17px;box-shadow:0 5px 0 var(--cd);transition:transform .08s,box-shadow .08s;text-align:center}
+.btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--cd)}
 .btn.block{width:100%}
-.btn:disabled{opacity:.5;cursor:default}
-.btn.ghost{background:transparent;border:1px solid var(--line)}
-.btn.small{padding:8px 12px;font-size:14px;border-radius:10px}
-.btn svg{width:18px;height:18px}
-.seg{display:flex;background:var(--sunk);border-radius:12px;padding:3px;gap:3px}
-.seg button{flex:1;border:0;background:transparent;border-radius:9px;padding:8px 6px;font-size:14px;font-weight:600;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.btn.mango{--c:var(--mango);--cd:var(--mango-d);color:var(--on-mango)}
+.btn.leaf{--c:var(--leaf);--cd:var(--leaf-d)}
+.btn.coral{--c:var(--coral);--cd:var(--coral-d)}
+.btn.sky{--c:var(--sky);--cd:var(--sky-d)}
+.btn.ghost{--c:var(--surface);--cd:var(--line);color:var(--ink)}
+.btn.small{min-height:42px;padding:8px 14px;font-size:15px;border-radius:14px;box-shadow:0 4px 0 var(--cd)}
+.btn:disabled{--c:var(--sunk);--cd:var(--line);color:var(--muted);cursor:default}
+.btn .ic{width:22px;height:22px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row .btn{flex:1}
+.spk{width:52px;height:52px;border-radius:18px;background:var(--sky);color:#fff;box-shadow:0 4px 0 var(--sky-d);display:grid;place-items:center;flex:none}
+.spk:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sky-d)}
+.spk.sm{width:38px;height:38px;border-radius:13px;box-shadow:0 3px 0 var(--sky-d)}
+.spk.sm .ic{width:20px;height:20px}
+
+/* mascot + bubble */
+.mascot{display:block;flex:none;overflow:visible}
+.mascot.bob{animation:bob 3.4s ease-in-out infinite;transform-origin:50% 95%}
+.mascot.jump{animation:jump .8s cubic-bezier(.3,1.6,.5,1) 2;transform-origin:50% 95%}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-5px) rotate(1.5deg)}}
+@keyframes jump{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-18px) scale(1.04,.96)}}
+.hero{display:flex;align-items:flex-end;gap:10px}
+.bubble{position:relative;flex:1;min-width:0;background:var(--surface);border-radius:22px 22px 22px 8px;padding:14px 16px;box-shadow:0 4px 0 var(--line);margin-bottom:22px;display:flex;flex-direction:column;gap:2px}
+.bubble b{font-size:19px;font-weight:900}
+.bubble span{color:var(--muted);font-weight:700}
+
+/* today */
+.goal{display:flex;align-items:center;gap:16px}
+.ring{width:92px;height:92px;flex:none;position:relative}
+.ring>svg{width:100%;height:100%;display:block}
+.ring>svg circle{fill:none;stroke-width:10;stroke-linecap:round}
+.ring .rb{stroke:var(--sunk)}
+.ring .rf{stroke:var(--mango);transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.ring.full .rf{stroke:var(--leaf)}
+.ring .ri{position:absolute;inset:0;display:grid;place-items:center;color:var(--mango)}
+.ring.full .ri{color:var(--leaf)}
+.ring .ri .ic{width:34px;height:34px}
+.goal .gx{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.goal .num{font-size:30px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1}
+.goal .num small{font-size:16px;color:var(--muted);font-weight:800}
+.plan{display:flex;flex-direction:column;gap:10px}
+.task{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--surface);border-radius:20px;padding:14px;box-shadow:0 4px 0 var(--line);transition:transform .08s,box-shadow .08s}
+.task:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.task .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.task b{font-size:17px;font-weight:900;line-height:1.25}
+.task small{color:var(--muted);font-size:14px;font-weight:700}
+.check{width:30px;height:30px;border-radius:50%;border:3px solid var(--line);display:grid;place-items:center;flex:none;color:transparent}
+.check .ic{width:18px;height:18px;stroke-width:3.2}
+.task.done .check{background:var(--leaf);border-color:var(--leaf);color:#fff;animation:pop .4s cubic-bezier(.3,1.8,.5,1)}
+@keyframes pop{0%{transform:scale(.4)}100%{transform:scale(1)}}
+.lvlcard{display:flex;flex-direction:column;gap:10px}
+.lvlcard .row{justify-content:space-between}
+.lvbadge{width:52px;height:52px;border-radius:50%;background:var(--mango);color:var(--on-mango);display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 4px 0 var(--mango-d);flex:none}
+.bar{height:14px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:inherit;background:var(--tb,var(--leaf));transition:width .7s cubic-bezier(.2,.8,.2,1);min-width:0}
+.bar.thin{height:8px}
+.badges{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.badges::-webkit-scrollbar{display:none}
+.bdg{flex:none;width:76px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.bdg small{font-size:12px;font-weight:800;line-height:1.2;color:var(--muted)}
+.medal{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--sunk);color:var(--muted);box-shadow:0 4px 0 var(--line);position:relative}
+.medal .ic{width:30px;height:30px}
+.medal.on{background:var(--tb);color:#fff;box-shadow:0 4px 0 var(--td)}
+.medal.on::after{content:"";position:absolute;inset:6px;border-radius:50%;border:2px solid rgba(255,255,255,.4)}
+.medal:not(.on) .ic{opacity:.55}
+
+/* words */
+.study{display:flex;flex-direction:column;gap:14px}
+.study .hero{margin:-4px 0 -6px}
+.study .bubble{margin-bottom:16px;box-shadow:none;background:var(--sunk)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.topic{text-align:left;background:var(--surface);border-radius:22px;padding:14px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;gap:10px;min-width:0;transition:transform .08s,box-shadow .08s}
+.topic:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.topic .nm{font-weight:900;font-size:15.5px;line-height:1.2}
+.topic small{color:var(--muted);font-size:13px;font-weight:700}
+.wl{display:flex;flex-direction:column}
+.wl .w{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:2px solid var(--line)}
+.wl .w:first-child{border-top:0}
+.wl .w .tx{flex:1;min-width:0}
+.wl .w b{display:block;font-weight:900}
+.wl .w span{color:var(--muted);font-size:14px}
+.dots{display:flex;gap:3px;flex:none}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--leaf)}
+
+/* focus mode: session + lesson head */
+.shead{display:flex;align-items:center;gap:12px;padding:14px 0 8px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+.x{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--muted);flex:none}
+.x .ic{width:26px;height:26px;stroke-width:2.6}
+.pbar{flex:1;height:18px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--leaf);border-radius:inherit;transition:width .4s cubic-bezier(.2,.8,.2,1);position:relative;min-width:18px}
+.pbar i::after{content:"";position:absolute;left:8px;right:8px;top:4px;height:4px;border-radius:9px;background:rgba(255,255,255,.4)}
+.shead .cnt{font-weight:900;color:var(--muted);font-variant-numeric:tabular-nums;font-size:15px}
 
 /* flashcard */
-.fc{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 20px 20px;min-height:300px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px -18px rgba(21,35,58,.35)}
-.fc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.tag{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted)}
-.tag.new{background:var(--accent-soft);color:var(--accent)}
-.boxes{display:flex;gap:4px;flex:none}
-.boxes i{width:14px;height:5px;border-radius:3px;background:var(--line)}
-.boxes i.on{background:var(--mint)}
-.fc-front{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;padding:18px 0 6px}
-.fc-word{font-family:var(--f-display);font-weight:600;font-size:clamp(26px,8vw,36px);line-height:1.15;letter-spacing:-.015em;overflow-wrap:anywhere}
-.fc-ipa{color:var(--muted);font-size:16px}
-.fc-back{border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
-.fc-tr{font-size:21px;font-weight:600}
-.fc-ex{font-size:15px}
-.fc-ex small{display:block;color:var(--muted);font-size:14px}
-.speak{border:1px solid var(--line);background:var(--bg);border-radius:999px;width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;flex:none;color:var(--ink);padding:0}
-.speak svg{width:18px;height:18px}
-.row-inline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.grades button{border:0;border-radius:12px;padding:12px 6px;font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:1px}
-.grades button small{font-weight:500;font-size:11px;opacity:.85}
-.g-again{background:var(--accent-soft);color:var(--accent)}
-.g-hard{background:var(--ochre-soft);color:var(--ochre)}
-.g-good{background:var(--mint-soft);color:var(--mint)}
-.progress{height:4px;background:var(--sunk);border-radius:2px;overflow:hidden}
-.progress i{display:block;height:100%;background:var(--accent);transition:width .25s}
-.session-head{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
-.linkbtn{border:0;background:none;color:var(--muted);font-size:14px;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
-.done-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:10px}
-.done-box h3{font-family:var(--f-display);font-size:20px;margin:0}
+.flipwrap{perspective:1400px}
+.flipwrap.in{animation:cardin .35s cubic-bezier(.2,1.3,.4,1)}
+.flipwrap.out{animation:cardout .2s ease-in forwards}
+@keyframes cardin{from{transform:translateX(40px) rotate(3deg);opacity:0}}
+@keyframes cardout{to{transform:translateX(-50px) rotate(-5deg);opacity:0}}
+.flip{position:relative;height:min(62vh,430px);min-height:340px;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.3,1.25,.45,1);cursor:pointer}
+.flip.flipped{transform:rotateY(180deg);cursor:default}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border-radius:30px;padding:20px;box-shadow:0 6px 0 var(--line),0 22px 40px -24px var(--shadow);display:flex;flex-direction:column;gap:10px;overflow:auto}
+.face.back{transform:rotateY(180deg)}
+.flip:not(.flipped) .back,.flip.flipped .front{pointer-events:none}
+.face .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.fc-top{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.word{font-weight:900;font-size:clamp(34px,10vw,46px);line-height:1.05;letter-spacing:-.015em;overflow-wrap:anywhere}
+.word.md{font-size:clamp(26px,7.5vw,34px)}
+.ipa{color:var(--muted);font-weight:700;font-size:17px}
+.hint{color:var(--muted);font-size:14px;font-weight:700;text-align:center;display:flex;gap:6px;align-items:center;justify-content:center}
+.hint .ic{width:18px;height:18px}
+.exbox{background:var(--sunk);border-radius:18px;padding:12px 14px;display:flex;gap:12px;align-items:center}
+.exbox p{flex:1;min-width:0;font-weight:800}
+.exbox p small{display:block;color:var(--muted);font-weight:700;font-size:14px}
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grades .btn{flex-direction:column;gap:0;min-height:66px;padding:8px 6px;font-size:16px;line-height:1.15}
+.grades small{font-weight:800;font-size:11.5px;opacity:.92}
+.stage{display:flex;flex-direction:column;gap:18px}
+.result{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding-top:24px}
+.result .row{width:100%}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.stat{border-radius:18px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--tb);color:#fff;box-shadow:0 4px 0 var(--td)}
+.stat b{font-size:24px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:12.5px;font-weight:800;opacity:.95}
+.t-mango.stat{color:var(--on-mango)}
 
-details.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
-details.panel summary{padding:14px 16px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:8px}
-details.panel summary::-webkit-details-marker{display:none}
-details.panel summary::after{content:"+";color:var(--muted);font-weight:500}
-details.panel[open] summary::after{content:"–"}
-.panel-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px}
-.field{display:flex;flex-direction:column;gap:4px}
-.field label{font-size:13px;color:var(--muted)}
-.field input,.field select,textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 12px;font-size:16px}
-.wordlist{display:flex;flex-direction:column}
-.wl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:15px;align-items:center}
-.wl:first-child{border-top:0}
-.wl span:nth-child(2){color:var(--muted)}
-.wl .boxes i{width:8px}
-.ok-msg{font-size:14px;color:var(--mint)}
-.err{font-size:14px;color:var(--accent);margin:0}
+/* lessons map */
+.unit{border-radius:22px;padding:16px 18px;background:var(--tb);color:#fff;box-shadow:0 5px 0 var(--td);display:flex;align-items:center;gap:12px}
+.unit.t-mango{color:var(--on-mango)}
+.unit .tx{flex:1;min-width:0}
+.unit b{display:block;font-size:19px;font-weight:900}
+.unit small{font-weight:800;opacity:.9}
+.path{display:flex;flex-direction:column;align-items:center;gap:20px;padding:18px 0 26px}
+.node{display:flex;flex-direction:column;align-items:center;gap:6px;width:160px;transform:translateX(var(--dx,0))}
+.node .nb{width:78px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--sunk);color:var(--muted);box-shadow:0 7px 0 var(--line);font-weight:900;font-size:24px;transition:transform .08s,box-shadow .08s}
+.node:active .nb{transform:translateY(5px);box-shadow:0 2px 0 var(--line)}
+.node.done .nb{background:var(--leaf);color:#fff;box-shadow:0 7px 0 var(--leaf-d)}
+.node.cur .nb{background:var(--mango);color:var(--on-mango);box-shadow:0 7px 0 var(--mango-d);animation:pulse 1.8s ease-in-out infinite}
+.node .nb .ic{width:32px;height:32px}
+@keyframes pulse{0%,100%{box-shadow:0 7px 0 var(--mango-d),0 0 0 0 rgba(255,174,31,.45)}50%{box-shadow:0 7px 0 var(--mango-d),0 0 0 12px rgba(255,174,31,0)}}
+.node .nm{font-weight:900;font-size:14px;text-align:center;line-height:1.2}
+.node.cur .nm::before{content:"Сейчас: ";color:var(--mango-t)}
+.stars{display:flex;gap:2px}
+.stars .ic{width:17px;height:17px;color:var(--line)}
+.stars .ic.on{color:var(--mango)}
+.bigstars{display:flex;gap:10px;align-items:flex-end}
+.bigstars .ic{width:56px;height:56px;color:var(--line)}
+.bigstars .ic:nth-child(2){width:72px;height:72px}
+.bigstars .ic.on{color:var(--mango);animation:starpop .5s cubic-bezier(.3,1.8,.5,1) both}
+.bigstars .ic.on:nth-child(2){animation-delay:.18s}
+.bigstars .ic.on:nth-child(3){animation-delay:.36s}
+@keyframes starpop{from{transform:scale(0) rotate(-40deg)}}
 
-.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:500;white-space:nowrap}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+/* lesson */
+.theory{display:flex;flex-direction:column;gap:12px}
+.theory p{font-weight:600}
+.formula{background:var(--grape-s);color:var(--grape-t);border-radius:16px;padding:12px 14px;font-weight:900;line-height:1.7}
+.exs{display:flex;flex-direction:column;gap:10px}
+.exs div{display:flex;gap:12px;align-items:center}
+.exs p{font-weight:800}
+.exs p small{display:block;color:var(--muted);font-weight:700;font-size:14px}
+.qtitle{font-size:24px;font-weight:900;line-height:1.25}
+.qkind{color:var(--grape-t);font-weight:900;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opt{width:100%;text-align:left;padding:16px 18px;border-radius:18px;background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 0 var(--line);font-weight:800;font-size:17px;transition:transform .08s,box-shadow .08s}
+.opt:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.opt.right{background:var(--leaf-s);border-color:var(--leaf);box-shadow:0 4px 0 var(--leaf);color:var(--leaf-t)}
+.opt.wrong{background:var(--coral-s);border-color:var(--coral);box-shadow:0 4px 0 var(--coral);color:var(--coral-t);animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.build{min-height:120px;border-bottom:2px solid var(--line);padding:6px 0 14px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px 0}
+.tok{padding:10px 14px;border-radius:14px;background:var(--surface);border:2px solid var(--line);box-shadow:0 3px 0 var(--line);font-weight:800;font-size:17px}
+.tok:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.tok.ghost{visibility:hidden}
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));border-radius:26px 26px 0 0;transform:translateY(110%);transition:transform .3s cubic-bezier(.2,1.15,.3,1)}
+.fb.show{transform:none}
+.fb.good{background:var(--leaf-s);color:var(--leaf-t)}
+.fb.bad{background:var(--coral-s);color:var(--coral-t)}
+.fb .in{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.fb h3{font-size:23px;display:flex;align-items:center;gap:10px}
+.fb h3 .ic{width:30px;height:30px;stroke-width:3}
+.fb h3 em{font-style:normal;margin-left:auto;font-size:16px;color:var(--grape-t)}
+.fb p{color:var(--ink);font-weight:700}
+.fb .ans{font-weight:900}
 
 /* phrases */
-.plist{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
-.ph{display:flex;gap:10px;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}
-.ph:first-child{border-top:0}
-.ph-txt{flex:1;min-width:0}
-.ph-en{font-weight:600}
-.ph-ru{color:var(--muted);font-size:14px}
-.addc{border:1px solid var(--line);background:transparent;border-radius:999px;height:38px;padding:0 11px;font-size:13px;font-weight:600;flex:none;color:var(--accent)}
-.addc[disabled]{color:var(--mint);border-color:var(--mint-soft);background:var(--mint-soft)}
-
-/* grammar */
-.lessons{display:flex;flex-direction:column;gap:8px}
-.lesson{display:flex;align-items:center;gap:14px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 16px;width:100%}
-.lesson .n{font-family:var(--f-display);font-weight:600;font-size:14px;width:30px;height:30px;border-radius:50%;background:var(--sunk);display:flex;align-items:center;justify-content:center;flex:none;font-variant-numeric:tabular-nums}
-.lesson.ok .n{background:var(--mint);color:var(--surface)}
-.lesson .t{flex:1;min-width:0}
-.lesson .t b{display:block}
-.lesson .t small{color:var(--muted);font-size:13px}
-.lesson .sc{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.expl{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
-.expl p{margin:0}
-.formula{font-family:var(--f-display);font-size:13.5px;background:var(--sunk);border-radius:8px;padding:10px 12px;line-height:1.7}
-.exs{display:flex;flex-direction:column;gap:8px}
-.exs div{display:flex;gap:10px;align-items:center}
-.exs .speak{width:32px;height:32px}
-.exs p{margin:0}
-.exs p small{color:var(--muted);display:block;font-size:14px}
-.quiz{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 16px;display:flex;flex-direction:column;gap:12px}
-.q{font-size:19px;font-weight:600}
-.opts{display:flex;flex-direction:column;gap:8px}
-.opt{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;font-size:16px}
-.opt.right{border-color:var(--mint);background:var(--mint-soft)}
-.opt.wrong{border-color:var(--accent);background:var(--accent-soft)}
-.qfb{font-size:15px;padding:10px 12px;border-radius:10px;background:var(--sunk)}
-.qfb.good{background:var(--mint-soft)}
-.qfb.bad{background:var(--accent-soft)}
-.build-line{min-height:52px;border:1px dashed var(--line);border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;background:var(--bg)}
-.build-line:empty::before{content:"Нажимай на слова по порядку";color:var(--muted);font-size:14px;padding:6px}
-.pool{display:flex;flex-wrap:wrap;gap:6px}
-.tok{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;font-size:16px;font-weight:500}
-.build-line .tok{background:var(--sunk);border-color:transparent}
-.tok[disabled]{visibility:hidden}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;margin:0 -2px}
+.chips::-webkit-scrollbar{display:none}
+.chipbtn{flex:none;display:inline-flex;align-items:center;gap:6px;height:42px;padding:0 14px;border-radius:14px;background:var(--surface);box-shadow:0 3px 0 var(--line);font-weight:800;font-size:15px;white-space:nowrap}
+.chipbtn .ic{width:18px;height:18px;color:var(--tc)}
+.chipbtn[aria-pressed="true"]{background:var(--tb);color:#fff;box-shadow:0 3px 0 var(--td)}
+.chipbtn[aria-pressed="true"] .ic{color:#fff}
+.plist{display:flex;flex-direction:column;gap:10px}
+.ph{display:flex;gap:12px;align-items:center;background:var(--surface);border-radius:20px;padding:12px 14px;box-shadow:0 4px 0 var(--line)}
+.ph .tx{flex:1;min-width:0}
+.ph b{display:block;font-weight:900;font-size:16.5px;line-height:1.3}
+.ph span{color:var(--muted);font-size:14px;font-weight:700}
+.add{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;flex:none;background:var(--grape-s);color:var(--grape-t)}
+.add .ic{width:20px;height:20px;stroke-width:2.6}
+.add[disabled]{background:var(--leaf-s);color:var(--leaf-t)}
 
 /* dialogs */
-.dlist{display:flex;flex-direction:column;gap:8px}
-.ai-card{display:flex;align-items:center;gap:14px;text-align:left;width:100%;border:0;border-radius:var(--r);padding:16px;background:var(--ink);color:var(--bg)}
-.ai-card b{display:block;font-size:16px}
-.ai-card small{font-size:13px;opacity:.75}
-.ai-card .ic{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;flex:none}
-.ai-card .ic svg{width:20px;height:20px}
-.dl{display:flex;flex-direction:column;gap:10px}
-.line{display:flex;gap:8px;align-items:flex-end;max-width:92%}
+.list{display:flex;flex-direction:column;gap:10px}
+.aicard{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border-radius:24px;padding:14px 16px 14px 10px;background:var(--grape);color:#fff;box-shadow:0 5px 0 var(--grape-d)}
+.aicard:active{transform:translateY(3px);box-shadow:0 2px 0 var(--grape-d)}
+.aicard .tx{flex:1;min-width:0}
+.aicard b{display:block;font-size:19px;font-weight:900}
+.aicard small{font-weight:700;opacity:.9}
+.dtag{font-size:11.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--mango-t)}
+.dl{display:flex;flex-direction:column;gap:12px}
+.line{display:flex;gap:8px;align-items:flex-end;max-width:94%}
 .line.me{align-self:flex-end;flex-direction:row-reverse}
-.bub{padding:10px 14px;border-radius:18px;font-size:16px;overflow-wrap:anywhere;text-align:left;border:1px solid var(--line);background:var(--surface);min-width:0}
+.ava{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:none;font-weight:900;font-size:14px;background:var(--ts,var(--coral-s));color:var(--tc,var(--coral-t))}
+.ava .ic{width:19px;height:19px}
+.line.me .ava{background:var(--grape-s);color:var(--grape-t)}
+.bub{padding:11px 14px;border-radius:20px;font-size:16.5px;font-weight:700;text-align:left;background:var(--surface);box-shadow:0 3px 0 var(--line);min-width:0;overflow-wrap:anywhere}
 .line.a .bub{border-bottom-left-radius:6px}
-.line.me .bub{background:var(--ink);color:var(--bg);border-color:var(--ink);border-bottom-right-radius:6px}
-.bub .ru{display:block;font-size:14px;opacity:.7;margin-top:4px}
-.bub .hidden-en{font-style:italic;opacity:.75}
-.line .speak{width:32px;height:32px}
-.line.playing .bub{outline:2px solid var(--accent);outline-offset:1px}
+.line.me .bub{background:var(--grape);color:#fff;box-shadow:0 3px 0 var(--grape-d);border-bottom-right-radius:6px}
+.bub .ru{display:block;font-size:14px;opacity:.75;margin-top:3px;font-weight:600}
+.line.me .bub.hid{background:var(--surface);color:var(--ink);border:2px dashed var(--grape);box-shadow:none}
+.line.me .bub.hid .ru{opacity:1;color:var(--grape-t);font-weight:800}
+.line.playing .bub{outline:3px solid var(--mango);outline-offset:2px}
 .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.toolbar .btn{flex:1;min-width:max-content}
+.toolbar .btn[aria-pressed="true"]{--c:var(--grape);--cd:var(--grape-d);color:#fff}
+.backlink{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:800;align-self:flex-start;padding:6px 0}
+.backlink .ic{width:20px;height:20px}
 
 /* AI chat */
-.scen{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.sc-card{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
-.sc-card b{font-size:15px}
-.sc-card small{color:var(--muted);font-size:13px;line-height:1.35}
+.scen{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scen .topic{gap:8px}
 .chat{display:flex;flex-direction:column;gap:10px}
-.msg{max-width:88%;padding:11px 14px;border-radius:18px;font-size:16px;overflow-wrap:anywhere}
-.msg.ai{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:6px;align-self:flex-start}
-.msg.me{background:var(--ink);color:var(--bg);border-bottom-right-radius:6px;align-self:flex-end}
-.msg .ru{color:var(--muted);font-size:14px;margin-top:6px;border-top:1px dashed var(--line);padding-top:6px}
-.msg-actions{display:flex;gap:6px;margin-top:8px}
-.msg-actions button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 10px;font-size:13px;display:inline-flex;align-items:center;gap:5px}
-.msg-actions svg{width:14px;height:14px}
-.corr{align-self:flex-end;max-width:88%;background:var(--ochre-soft);border-radius:12px;padding:10px 12px;font-size:14px;display:flex;flex-direction:column;gap:4px}
-.corr b{color:var(--ochre);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
-.corr .better{font-weight:600;font-size:15px}
-.corr.okc{background:var(--mint-soft)}
-.corr.okc b{color:var(--mint)}
-.thinking{align-self:flex-start;color:var(--muted);font-size:14px;padding:6px 4px}
+.msg{max-width:88%;padding:11px 14px;border-radius:20px;font-size:16.5px;font-weight:700;overflow-wrap:anywhere}
+.msg.ai{background:var(--surface);box-shadow:0 3px 0 var(--line);border-bottom-left-radius:6px;align-self:flex-start}
+.msg.me{background:var(--grape);color:#fff;box-shadow:0 3px 0 var(--grape-d);border-bottom-right-radius:6px;align-self:flex-end}
+.msg .ru{color:var(--muted);font-size:14px;margin-top:6px;border-top:2px dashed var(--line);padding-top:6px}
+.msg-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.msg-actions button{background:var(--sunk);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:5px}
+.msg-actions .ic{width:15px;height:15px}
+.corr{align-self:flex-end;max-width:88%;background:var(--mango-s);border-radius:16px;padding:10px 12px;font-size:14px;display:flex;flex-direction:column;gap:3px;font-weight:700}
+.corr b{color:var(--mango-t);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:900}
+.corr .better{font-weight:900;font-size:15.5px}
+.corr.okc{background:var(--leaf-s)}
+.corr.okc b{color:var(--leaf-t)}
+.thinking{align-self:flex-start;color:var(--muted);font-weight:800;padding:6px 4px}
 .thinking::after{content:"";animation:dots 1.2s steps(4) infinite}
 @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
-.composer{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));background:var(--bg);padding-top:8px;display:flex;flex-direction:column;gap:8px}
+.composer{position:sticky;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--bg);padding-top:8px;display:flex;flex-direction:column;gap:8px}
 .comp-row{display:flex;gap:8px;align-items:flex-end}
-.comp-row textarea{flex:1;min-width:0;resize:none;min-height:46px;max-height:140px}
-.hintbox{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:15px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+textarea,.field input,.field select{width:100%;border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:12px 14px;font-size:16px;font-weight:700}
+.comp-row textarea{flex:1;min-width:0;resize:none;min-height:52px;max-height:140px}
+.comp-row .btn{min-height:52px;padding:0 16px}
+.hintbox{background:var(--surface);border:2px dashed var(--grape);border-radius:16px;padding:10px 12px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.err{color:var(--coral-t);font-weight:800;font-size:14px}
+.okmsg{color:var(--leaf-t);font-weight:800;font-size:14px}
+.tgl{display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:800;font-size:14px}
 
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--surface);border-top:1px solid var(--line);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
-nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
-nav.tabs button{border:0;background:none;padding:9px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted);position:relative}
-nav.tabs button svg{width:22px;height:22px}
-nav.tabs button[aria-current="page"]{color:var(--accent)}
-nav.tabs .badge{position:absolute;top:5px;left:calc(50% + 8px);background:var(--accent);color:var(--on-accent);font-size:10px;border-radius:999px;padding:0 5px;line-height:16px;font-variant-numeric:tabular-nums}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* sheet, toast, xp float, confetti */
+.sheet-bg{position:fixed;inset:0;background:var(--scrim);z-index:30;opacity:0;transition:opacity .25s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:31;max-height:88vh;overflow:auto;background:var(--bg);border-radius:30px 30px 0 0;padding:8px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));transform:translateY(100%);transition:transform .32s cubic-bezier(.2,1,.3,1)}
+.sheet .in{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.grab{width:46px;height:5px;border-radius:9px;background:var(--line);margin:6px auto 4px}
+.shopen .sheet-bg{opacity:1}
+.shopen .sheet{transform:none}
+.sheet-h{display:flex;align-items:center;gap:14px}
+.sheet-h .tx{flex:1;min-width:0}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.flabel{font-size:14px;color:var(--muted);font-weight:800}
+.seg{display:flex;background:var(--sunk);border-radius:16px;padding:4px;gap:4px}
+.seg button{flex:1;border-radius:12px;padding:10px 6px;font-size:15px;font-weight:800;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 2px 0 var(--line)}
+.achrow{display:flex;align-items:center;gap:14px}
+.achrow .tx{flex:1;min-width:0}
+.achrow b{display:block;font-weight:900}
+.achrow span{color:var(--muted);font-size:14px;font-weight:700}
+.achrow .medal{width:54px;height:54px}
+.achrow .medal .ic{width:26px;height:26px}
+.toast{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top,0px));z-index:50;transform:translate(-50%,-140%);transition:transform .4s cubic-bezier(.2,1.3,.4,1);background:var(--surface);border-radius:22px;padding:10px 18px 10px 10px;display:flex;align-items:center;gap:12px;box-shadow:0 5px 0 var(--line),0 20px 40px -18px var(--shadow);max-width:calc(100% - 32px);min-width:240px}
+.toast.in{transform:translate(-50%,0)}
+.toast .medal{width:48px;height:48px}
+.toast .medal .ic{width:24px;height:24px}
+.toast b{display:block;font-weight:900;font-size:16px}
+.toast small{color:var(--muted);font-weight:800;font-size:14px}
+.xpf{position:fixed;z-index:45;transform:translate(-50%,0);font-weight:900;color:var(--grape-t);font-size:20px;pointer-events:none;animation:xpf 1s ease-out forwards;text-shadow:0 2px 0 var(--bg)}
+@keyframes xpf{to{transform:translate(-50%,-70px);opacity:0}}
+.confetti{position:fixed;inset:0;width:100%;height:100%;z-index:60;pointer-events:none}
+
+/* bottom tabs */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--surface);border-top:2px solid var(--line);padding-left:max(6px,env(safe-area-inset-left,0px));padding-right:max(6px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabs button{padding:8px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:800;color:var(--muted);position:relative}
+nav.tabs .tb{width:46px;height:32px;border-radius:12px;display:grid;place-items:center;transition:background .2s}
+nav.tabs .ic{width:25px;height:25px}
+nav.tabs button[aria-current="page"]{color:var(--grape-t)}
+nav.tabs button[aria-current="page"] .tb{background:var(--grape-s)}
+nav.tabs .badge{position:absolute;top:4px;left:calc(50% + 10px);background:var(--coral);color:#fff;font-size:10.5px;font-weight:900;border-radius:999px;padding:0 6px;line-height:17px;font-variant-numeric:tabular-nums;border:2px solid var(--surface)}
+.no-audio .spk,.no-audio [data-act="playAll"],.no-audio .msg-actions [data-say]{display:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
 <div class="app">
-  <header class="top">
-    <div class="brand">English<span>.</span>Daily</div>
-    <div class="streak" id="streak"><i class="dot-live"></i><span id="streakTxt">—</span></div>
-  </header>
-  <section data-tab="words" id="tab-words"></section>
+  <header class="top" id="top"></header>
+  <section data-tab="today" id="tab-today"></section>
+  <section data-tab="words" id="tab-words" hidden></section>
   <section data-tab="grammar" id="tab-grammar" hidden></section>
   <section data-tab="phrases" id="tab-phrases" hidden></section>
   <section data-tab="dialogs" id="tab-dialogs" hidden></section>
 </div>
-
-<nav class="tabs" aria-label="Разделы">
-  <div class="in">
-    <button data-go="words" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="14" height="15" rx="2.5"/><path d="M7 3h11.5A2.5 2.5 0 0 1 21 5.5V17"/></svg>Слова<span class="badge" id="dueBadge" hidden></span></button>
-    <button data-go="grammar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 0 1 2-2h12v15H6a2 2 0 0 0 0 4h12"/><path d="M8 8h6M8 12h4"/></svg>Грамматика</button>
-    <button data-go="phrases"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>Фразы</button>
-    <button data-go="dialogs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg>Диалоги</button>
-  </div>
-</nav>
+<div class="fb" id="fb" aria-live="polite"></div>
+<div id="sheetRoot"></div>
+<nav class="tabs" aria-label="Разделы"><div class="in" id="tabs"></div></nav>
 
 <script>
 /* ---------------- CONTENT ---------------- */
@@ -977,26 +1141,133 @@ const SCENARIOS = [
 ];
 
 
+/* ---------------- ICONS & MASCOT ---------------- */
+const ICONS={
+ x:'<path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8l-5.2 2.7 1-5.8L3.6 9.6l5.8-.8z"/>',
+ q:'<path d="M4 5h16v11.5H10l-4 3.5v-3.5H4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.5.2-.6.5-.6 1v.4"/><path d="M12 14.6v.1"/>',
+ p:'<circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="16.5" cy="9" r="2.4"/><path d="M16 14.1c2.3-.2 4 1.3 4.6 4.4"/>',
+ n:'<path d="M4.5 8.5l2-1.5V17"/><path d="M9.5 9a2 2 0 1 1 3.4 1.5L9.5 17h4.3"/><path d="M16.5 7.5h3.5l-2 3a2.4 2.4 0 1 1-2 4"/>',
+ d:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+ k:'<path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.2 0 1.8-.8 1.8-1.7 0-1-.8-1.4-.8-2.3 0-1 .8-1.7 1.8-1.7h2.2a3.5 3.5 0 0 0 3.5-3.5C20.5 7 16.7 3.5 12 3.5z"/><path d="M8 10.2v.1M12 7.6v.1M16 10.2v.1"/>',
+ f:'<path d="M3.5 11.5h17a8.5 8.5 0 0 1-17 0z"/><path d="M8.5 20.5h7"/><path d="M13.5 3.5l-2.5 8M18 4.5l-4.5 7"/>',
+ h:'<path d="M3.5 11l8.5-7 8.5 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5.5h4V20"/>',
+ c:'<rect x="5" y="3.5" width="14" height="13.5" rx="3"/><path d="M5 11h14M8 20.5V17M16 20.5V17M8.5 14v.1M15.5 14v.1"/>',
+ s:'<path d="M5 8h14l-1 12.5H6z"/><path d="M9 10.5V7a3 3 0 0 1 6 0v3.5"/>',
+ b:'<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/><path d="M12 10.5v5M9.5 13h5"/>',
+ w:'<circle cx="9" cy="9" r="3.2"/><path d="M9 3v1.3M3 9h1.3M4.8 4.8l.9.9M13.2 4.8l-.9.9"/><path d="M8 19.5h9.5a3.5 3.5 0 0 0 0-7 4.5 4.5 0 0 0-8.4 1.3A2.9 2.9 0 0 0 8 19.5z"/>',
+ v:'<path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/>',
+ a:'<path d="M10 4l1.6 4.4L16 10l-4.4 1.6L10 16l-1.6-4.4L4 10l4.4-1.6z"/><path d="M17.5 14l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
+ my:'<path d="M7 3.5h10v17l-5-3.7-5 3.7z"/>',
+ words:'<rect x="3.5" y="6.5" width="12" height="14" rx="2.5"/><path d="M8 3.5h10a2.5 2.5 0 0 1 2.5 2.5v11"/>',
+ book:'<path d="M5 4.5h11.5a2 2 0 0 1 2 2V20.5H7a2 2 0 0 1-2-2z"/><path d="M5 18.5a2 2 0 0 1 2-2h11.5"/><path d="M9 8.5h5.5"/>',
+ lines:'<path d="M4 6h16M4 12h11M4 18h14"/>',
+ chat:'<path d="M4 4.5h16v11.5H9.5L5 19.5v-3.5H4z"/><path d="M8 9h8M8 12h5"/>',
+ today:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>',
+ trophy:'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v3.5M8.5 20.5h7M10 16.5h4"/>',
+ target:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12v.1"/>',
+ spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',
+ close:'<path d="M6 6l12 12M18 6L6 18"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/>',
+ spk:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+ lang:'<path d="M4 6h8M8 4v2M5.5 6c.5 3 2.5 5.5 5.5 6.5M10.5 6c-.6 3-2.6 5.5-5.5 6.5"/><path d="M12.5 20l3.5-9 3.5 9M13.8 17h4.4"/>',
+ bulb:'<path d="M9 17h6M10 20h4M12 3.5a5.5 5.5 0 0 0-3.2 10c.6.5 1.2 1.2 1.2 2V17h4v-1.5c0-.8.6-1.5 1.2-2A5.5 5.5 0 0 0 12 3.5z"/>',
+ tap:'<path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10l4.6 1a2 2 0 0 1 1.5 2.3L17 19.5H10l-3.6-4.8a1.5 1.5 0 0 1 2.3-1.9L9 13"/>',
+ fire:'<path d="M12 21.5c-4 0-6.8-2.7-6.8-6.4 0-3.7 2.8-5.6 3.9-9.1.4 1.7 1.4 2.8 2.7 3.3C12.5 6.5 14 4.2 16.5 2.8c-.5 2.7.5 4.8 1.7 6.6 1 1.5 1.6 3.1 1.6 4.9 0 4.2-3.3 7.2-7.8 7.2z"/>',
+ xp:'<path d="M12 2.5l8 4.6v9.8l-8 4.6-8-4.6V7.1z"/>',
+ starf:'<path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/>',
+};
+const FILLED=new Set(["fire","xp","starf"]);
+function ic(n,cls=""){
+  const p=ICONS[n]||ICONS.x;
+  return FILLED.has(n)
+    ? `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${p}</svg>`
+    : `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+}
+let mascotN=0;
+/* Манго — the app's mascot. moods: happy, wave, cheer, think, sad */
+function mascot(mood="happy",size=96,anim="bob"){
+  const id="mg"+(++mascotN), INK="#3A2340", ARM="#EE8A16";
+  const eyesOpen=(dx=0,dy=0)=>`<ellipse cx="${46+dx}" cy="${61+dy}" rx="5.4" ry="7" fill="${INK}"/><ellipse cx="${74+dx}" cy="${61+dy}" rx="5.4" ry="7" fill="${INK}"/><circle cx="${48+dx}" cy="${58+dy}" r="2.2" fill="#fff"/><circle cx="${76+dx}" cy="${58+dy}" r="2.2" fill="#fff"/>`;
+  const eyes={
+    cheer:`<path d="M39 62q7-9 14 0M67 62q7-9 14 0" stroke="${INK}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
+    think:eyesOpen(3,-3),
+    sad:eyesOpen(0,2)+`<path d="M38 50l12 3M82 50l-12 3" stroke="${INK}" stroke-width="3.5" stroke-linecap="round"/>`,
+  }[mood]||eyesOpen();
+  const mouth={
+    cheer:`<path d="M49 72q11 16 22 0z" fill="${INK}"/><path d="M54 79q6 5 12 0" fill="#FF7183"/>`,
+    think:`<ellipse cx="66" cy="78" rx="3.5" ry="3" fill="${INK}"/>`,
+    sad:`<path d="M51 81q9-7 18 0" stroke="${INK}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+  }[mood]||`<path d="M50 74q10 10 20 0" stroke="${INK}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  const arms={
+    cheer:`<path d="M22 64q-12-8-10-24M98 64q12-8 10-24" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`,
+    wave:`<path d="M21 76q-7 6-5 13" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/><g class="wv"><path d="M99 66q10-6 12-20" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/></g>`,
+    think:`<path d="M21 76q-7 6-5 13" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M98 80q-8 10-24 6" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`,
+    sad:`<path d="M21 78q-5 8-2 14M99 78q5 8 2 14" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`,
+  }[mood]||`<path d="M21 76q-7 6-5 13M99 76q7 6 5 13" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+  const extra=mood==="cheer"?`<path d="M14 26l2 5 5 2-5 2-2 5-2-5-5-2 5-2zM104 20l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#FFC93C"/>`
+    :mood==="think"?`<circle cx="100" cy="30" r="3" fill="#B9A6D9"/><circle cx="108" cy="20" r="4.5" fill="#B9A6D9"/>`:"";
+  return `<svg class="mascot ${anim}" width="${size}" height="${size}" viewBox="0 0 120 120" aria-hidden="true">
+   <defs><radialGradient id="${id}" cx="38%" cy="30%" r="80%"><stop offset="0" stop-color="#FFE36E"/><stop offset=".55" stop-color="#FFAE1F"/><stop offset="1" stop-color="#FF7A2F"/></radialGradient></defs>
+   <ellipse cx="60" cy="112" rx="30" ry="5" fill="#000" opacity=".12"/>
+   ${arms}
+   <path d="M60 22c25 0 42 20 42 46 0 25-18 40-42 40S18 93 18 68c0-26 17-46 42-46z" fill="url(#${id})"/>
+   <ellipse cx="43" cy="42" rx="10" ry="6" fill="#fff" opacity=".45" transform="rotate(-25 43 42)"/>
+   <path d="M60 25q-1-8 3-13" stroke="#7A4A1A" stroke-width="4" fill="none" stroke-linecap="round"/>
+   <path d="M62 14c8-9 21-8 26-4-4 10-17 13-26 4z" fill="#2DBE6C"/><path d="M64 14q11-1 21-4" stroke="#1C9A55" stroke-width="2" fill="none" stroke-linecap="round"/>
+   <ellipse cx="36" cy="74" rx="6.5" ry="4.2" fill="#FF6F7D" opacity=".55"/><ellipse cx="84" cy="74" rx="6.5" ry="4.2" fill="#FF6F7D" opacity=".55"/>
+   ${eyes}${mouth}${extra}</svg>`;
+}
+
 /* ---------------- STATE ---------------- */
-const IS_APP = !!window.AndroidTTS;
-const WORDS = WORDS_RAW.trim().split("\n").map(l=>{const [cat,en,ipa,ru,ex,exru]=l.split("|");return {id:"w:"+en,en,ipa,ru,ex,exru,cat}});
-const CAT_NAMES = Object.fromEntries([["my","Мои слова"],...WORD_CATS]);
-const INT = [0,1,3,7,14,30,60];
-const KEY = "english-daily-v1";
-const today = ()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
-const blank = ()=>({v:2,cards:{},custom:[],grammar:{},newDay:0,newCount:0,days:[],dir:"en",perDay:10,topic:"all",updatedAt:0});
+const IS_APP=!!window.AndroidTTS;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const WORDS=WORDS_RAW.trim().split("\n").map(l=>{const [cat,en,ipa,ru,ex,exru]=l.split("|");return {id:"w:"+en,en,ipa,ru,ex,exru,cat}});
+const CAT_NAMES=Object.fromEntries([["my","Мои слова"],...WORD_CATS]);
+const CAT_COLOR={x:"mango",q:"grape",p:"coral",n:"sky",d:"grape",k:"coral",f:"mango",h:"leaf",c:"sky",s:"coral",b:"leaf",w:"sky",v:"grape",a:"mango",my:"grape"};
+const PH_IC=["x","q","p","f","s","c","h","b"], PH_COL=["mango","grape","coral","mango","coral","sky","leaf","leaf"];
+const DLG_IC=["p","f","s","s","c","c","h","b","w","c","f"], DLG_COL=["coral","mango","leaf","coral","sky","sky","grape","leaf","sky","grape","mango"];
+const SC_IC=["f","s","c","c","p","a"], SC_COL=["mango","coral","sky","grape","leaf","grape"];
+const UNITS=[{t:"Основы",s:"Быть, иметь, говорить о себе",from:0,to:6,col:"grape"},{t:"Каждый день",s:"Привычки, вопросы, место и время",from:6,to:12,col:"sky"},{t:"Прошлое и будущее",s:"Что было, что будет, сравнения",from:12,to:18,col:"coral"}];
+const ACH=[
+ {id:"first",t:"Первый шаг",d:"Пройди первую карточку",ic:"x",c:"mango"},
+ {id:"w10",t:"10 слов",d:"Выучи 10 слов",ic:"words",c:"sky"},
+ {id:"w50",t:"50 слов",d:"Выучи 50 слов",ic:"words",c:"grape"},
+ {id:"w150",t:"150 слов",d:"Выучи 150 слов",ic:"words",c:"coral"},
+ {id:"s3",t:"Разогрев",d:"Занимайся 3 дня подряд",ic:"fire",c:"coral"},
+ {id:"s7",t:"Неделя огня",d:"7 дней подряд",ic:"fire",c:"mango"},
+ {id:"s30",t:"Месяц огня",d:"30 дней подряд",ic:"fire",c:"grape"},
+ {id:"l1",t:"Первый урок",d:"Пройди урок грамматики",ic:"book",c:"leaf"},
+ {id:"perfect",t:"Без ошибок",d:"Пройди урок на 3 звезды",ic:"starf",c:"mango"},
+ {id:"lall",t:"Грамматика A2",d:"Освой все 18 тем",ic:"trophy",c:"grape"},
+ {id:"d1",t:"Первый диалог",d:"Потренируй диалог",ic:"chat",c:"sky"},
+ {id:"ai",t:"Болтушка",d:"Поговори с ИИ",ic:"spark",c:"leaf"},
+ {id:"goal",t:"Цель дня",d:"Набери дневную цель XP",ic:"target",c:"coral"},
+];
+const INT=[0,1,3,7,14,30,60];
+const KEY="english-daily-v1";
+const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
+const blank=()=>({v:3,cards:{},custom:[],grammar:{},newDay:0,newCount:0,days:[],dir:"en",perDay:10,topic:"all",
+  xp:0,xpDay:0,xpToday:0,goal:50,goalHit:0,ach:{},sound:true,cardsDay:0,cardsToday:0,lessonDay:0,dialogDay:0,chatDay:0,dlg:{},updatedAt:0});
 function normalize(s){
   const b=blank();s=Object.assign(b,s||{});
-  if(!Array.isArray(s.custom))s.custom=[];if(!Array.isArray(s.days))s.days=[];
-  if(typeof s.cards!=="object"||!s.cards)s.cards={};if(typeof s.grammar!=="object"||!s.grammar)s.grammar={};
-  if(s.v<2){s.grammar={};s.v=2} /* lessons were renumbered */
+  for(const k of ["cards","grammar","ach","dlg"])if(typeof s[k]!=="object"||!s[k]||Array.isArray(s[k]))s[k]={};
+  for(const k of ["custom","days"])if(!Array.isArray(s[k]))s[k]=[];
+  if(s.v<2)s.grammar={};
+  s.v=3;
   if(![5,10,15,20].includes(s.perDay))s.perDay=10;
+  if(![30,50,100].includes(s.goal))s.goal=50;
+  if(typeof s.xp!=="number"||!isFinite(s.xp))s.xp=0;
   return s;
 }
-let S = blank();
+let S=blank();
 try{const raw=localStorage.getItem(KEY);if(raw)S=normalize(JSON.parse(raw))}catch(e){}
 
-let remoteRef=null, saveTimer=null, writing=false, again=false;
+let remoteRef=null,saveTimer=null,writing=false,again=false;
 function save(){
   S.updatedAt=Date.now();
   try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
@@ -1012,12 +1283,78 @@ async function flush(){
 }
 function markDay(){const t=today();if(!S.days.includes(t)){S.days.push(t);S.days=S.days.slice(-120)}}
 function streak(){const set=new Set(S.days);let t=today();if(!set.has(t))t--;let n=0;while(set.has(t)){n++;t--}return {n,todayDone:set.has(today())}}
+function plural(n,a,b,c){n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c}
+const reduced=()=>{try{return matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){return false}};
 
-const esc = s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const SPK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>`;
-const sayText = t=>String(t).replace(/\s*\/\s*/g,". ").replace(/…/g,"");
+/* ---------------- XP, LEVELS, ACHIEVEMENTS ---------------- */
+const xpToday=()=>S.xpDay===today()?S.xpToday:0;
+function levelOf(xp){let L=1,need=100,rest=xp;while(rest>=need){rest-=need;L++;need=100+(L-1)*50}return {level:L,into:rest,need}}
+function addXP(n){
+  if(S.xpDay!==today()){S.xpDay=today();S.xpToday=0}
+  const before=S.xpToday,l0=levelOf(S.xp).level;
+  S.xp+=n;S.xpToday+=n;markDay();
+  if(before<S.goal&&S.xpToday>=S.goal){S.goalHit=today();setTimeout(()=>{confetti();sfx("win");queueToast(`<span class="medal on t-coral">${ic("target")}</span><div><b>Цель дня выполнена!</b><small>${S.goal} XP — Манго гордится</small></div>`)},350)}
+  const l1=levelOf(S.xp).level;
+  if(l1>l0)setTimeout(()=>{sfx("win");queueToast(`<span class="medal on t-mango">${ic("xp")}</span><div><b>Уровень ${l1}!</b><small>Так держать</small></div>`)},700);
+  checkAch();save();renderTop();
+}
+function floatXP(el,n){
+  try{
+    const r=el?el.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0};
+    const f=document.createElement("div");f.className="xpf";f.textContent=`+${n} XP`;
+    f.style.left=(r.left+r.width/2)+"px";f.style.top=Math.max(40,r.top-10)+"px";
+    document.body.appendChild(f);setTimeout(()=>f.remove(),1050);
+  }catch(e){}
+}
+const learnedCount=()=>deck().filter(c=>S.cards[c.id]&&S.cards[c.id].b>=3).length;
+function checkAch(){
+  const st=streak().n,learned=learnedCount();
+  const cond={first:Object.keys(S.cards).length>0,w10:learned>=10,w50:learned>=50,w150:learned>=150,s3:st>=3,s7:st>=7,s30:st>=30,
+    l1:Object.keys(S.grammar).length>0,perfect:LESSONS.some((L,i)=>(S.grammar[i]||0)>=L.q.length),
+    lall:LESSONS.every((_,i)=>lessonDone(i)),d1:Object.keys(S.dlg).length>0,ai:!!S.chatDay,goal:!!S.goalHit};
+  ACH.forEach(a=>{if(cond[a.id]&&!S.ach[a.id]){S.ach[a.id]=today();setTimeout(()=>{sfx("win");queueToast(`${medal(a,true)}<div><b>Новая награда!</b><small>${esc(a.t)}</small></div>`)},500)}});
+}
+const medal=(a,on)=>`<span class="medal ${on?"on":""} t-${a.c}">${ic(a.ic)}</span>`;
+
+/* ---------------- FEEDBACK: sound, confetti, toast ---------------- */
+let actx=null;
+function sfx(kind){
+  if(!S.sound)return;
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    if(actx.state==="suspended")actx.resume();
+    const t=actx.currentTime;
+    const notes={ok:[660,990],bad:[310,230],win:[523,659,784,1047],tap:[880]}[kind]||[];
+    notes.forEach((f,i)=>{const o=actx.createOscillator(),g=actx.createGain();o.type=kind==="bad"?"triangle":"sine";o.frequency.value=f;
+      const s=t+i*.085;g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(.16,s+.02);g.gain.exponentialRampToValueAtTime(.0001,s+.24);
+      o.connect(g).connect(actx.destination);o.start(s);o.stop(s+.26)});
+  }catch(e){}
+}
+function confetti(){
+  if(reduced())return;
+  try{
+    const c=document.createElement("canvas");c.className="confetti";document.body.appendChild(c);
+    const d=window.devicePixelRatio||1,W=innerWidth,H=innerHeight;c.width=W*d;c.height=H*d;const x=c.getContext("2d");x.scale(d,d);
+    const cs=getComputedStyle(document.documentElement),cols=["mango","coral","grape","leaf","sky"].map(v=>cs.getPropertyValue("--"+v).trim()||"#FFAE1F");
+    const P=Array.from({length:120},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.38,vx:(Math.random()-.5)*14,vy:-Math.random()*13-5,r:Math.random()*7+5,c:cols[Math.random()*cols.length|0],a:Math.random()*6,va:(Math.random()-.5)*.35,s:Math.random()<.6}));
+    let last=performance.now();const end=last+2600;
+    (function f(now){const dt=Math.min(32,now-last)/16;last=now;x.clearRect(0,0,W,H);let alive=0;
+      P.forEach(p=>{p.vy+=.38*dt;p.vx*=.985;p.x+=p.vx*dt;p.y+=p.vy*dt;p.a+=p.va*dt;if(p.y<H+20)alive++;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;
+        if(p.s)x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);else{x.beginPath();x.arc(0,0,p.r/2.4,0,7);x.fill()}x.restore()});
+      if(alive&&now<end)requestAnimationFrame(f);else c.remove()})(last);
+  }catch(e){}
+}
+const toastQ=[];let toastBusy=false;
+function queueToast(html){toastQ.push(html);if(!toastBusy)nextToast()}
+function nextToast(){
+  const html=toastQ.shift();if(!html){toastBusy=false;return}
+  toastBusy=true;const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.innerHTML=html;document.body.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add("in")));
+  setTimeout(()=>{t.classList.remove("in");setTimeout(()=>{t.remove();nextToast()},420)},2200);
+}
 
 /* ---------------- SPEECH ---------------- */
+const sayText=t=>String(t).replace(/\s*\/\s*/g,". ").replace(/…/g,"");
 let webVoice=null;
 function pickVoice(){try{const vs=speechSynthesis.getVoices();webVoice=vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}catch(e){}}
 try{if(!IS_APP&&window.speechSynthesis){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}}catch(e){}
@@ -1029,14 +1366,10 @@ function speak(text){
   }catch(e){}
 }
 function stopSpeech(){try{if(IS_APP)window.AndroidTTS.stop();else if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}}
-/* plays lines one after another; onLine(i) highlights the current one */
 let playToken=0;
 function speakSeq(items,onLine,onDone){
   const my=++playToken;stopSpeech();
-  if(IS_APP){
-    try{items.forEach((it,i)=>{i===0?window.AndroidTTS.speak(sayText(it.text)):window.AndroidTTS.add(sayText(it.text))})}catch(e){}
-    onDone&&onDone();return;
-  }
+  if(IS_APP){try{items.forEach((it,i)=>{i===0?window.AndroidTTS.speak(sayText(it.text)):window.AndroidTTS.add(sayText(it.text))})}catch(e){}onDone&&onDone();return}
   if(!window.speechSynthesis){onDone&&onDone();return}
   let i=0;
   const next=()=>{
@@ -1048,295 +1381,292 @@ function speakSeq(items,onLine,onDone){
   };
   next();
 }
-document.addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b){e.preventDefault();e.stopPropagation();playToken++;speak(b.getAttribute("data-say"))}});
-const boxes=(b,n=6)=>`<span class="boxes" aria-label="Уровень ${b} из ${n}">${Array.from({length:n},(_,i)=>`<i class="${i<b?"on":""}"></i>`).join("")}</span>`;
-const spkBtn=(t,label="Озвучить")=>`<button class="speak" data-say="${esc(t)}" aria-label="${label}">${SPK}</button>`;
+const spk=(t,sm,label="Озвучить")=>`<button class="spk ${sm?"sm":""}" data-say="${esc(t)}" aria-label="${label}">${ic("spk")}</button>`;
 
-/* ---------------- HEADER / TABS ---------------- */
-function plural(n,a,b,c){n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c}
-function renderHeader(){
-  const st=streak();
-  document.getElementById("streak").classList.toggle("on",st.todayDone);
-  document.getElementById("streakTxt").innerHTML = st.n? `<b>${st.n}</b> ${plural(st.n,"день","дня","дней")} подряд` : "Начни серию сегодня";
-  const due=countDue();const bd=document.getElementById("dueBadge");bd.hidden=!due;bd.textContent=due;
+/* ---------------- NAV, SHEET, FOCUS ---------------- */
+const TABS=[["today","Сегодня","today"],["words","Слова","words"],["grammar","Уроки","book"],["phrases","Фразы","lines"],["dialogs","Диалоги","chat"]];
+let TAB="today",SHEET=null;
+function renderTabs(){
+  const due=countDue();
+  $("#tabs").innerHTML=TABS.map(([k,n,i])=>`<button data-act="go" data-t="${k}" ${TAB===k?'aria-current="page"':""}><span class="tb">${ic(i)}</span>${n}${k==="words"&&due?`<span class="badge">${due}</span>`:""}</button>`).join("");
 }
-let TAB="words";
-document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+function renderTop(){
+  const st=streak(),lv=levelOf(S.xp);
+  $("#top").innerHTML=`<span class="chip fire ${st.todayDone?"":"off"}" title="Дней подряд">${ic("fire")}${st.n}</span>
+    <span class="chip xp" title="Опыт">${ic("xp")}${S.xp}</span>
+    <span class="chip lv" title="Уровень">Ур. ${lv.level}</span><span class="sp"></span>
+    <button class="iconbtn" data-act="settings" aria-label="Настройки">${ic("gear")}</button>`;
+  renderTabs();
+}
+function syncFocus(){document.body.classList.toggle("focus",(TAB==="words"&&!!SES)||(TAB==="grammar"&&!!LES))}
+function renderTab(t){({today:renderToday,words:renderWords,grammar:renderGrammar,phrases:renderPhrases,dialogs:renderDialogs})[t]()}
 function go(t){
   TAB=t;playToken++;stopSpeech();
   document.querySelectorAll("section[data-tab]").forEach(s=>s.hidden=s.dataset.tab!==t);
-  document.querySelectorAll("nav.tabs button").forEach(b=>{if(b.dataset.go===t)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
-  window.scrollTo({top:0});
+  renderTab(t);renderTabs();syncFocus();window.scrollTo({top:0});
 }
-/* Android back button: returns true when the app handled it */
+function openSheet(html){
+  SHEET=true;
+  $("#sheetRoot").innerHTML=`<div class="sheet-bg" data-act="closeSheet"></div><div class="sheet" role="dialog" aria-modal="true"><div class="in"><div class="grab"></div>${html}</div></div>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>$("#sheetRoot").classList.add("shopen")));
+}
+function setSheet(html){const s=$("#sheetRoot .sheet .in");if(s)s.innerHTML=`<div class="grab"></div>${html}`}
+function closeSheet(){
+  if(!SHEET)return;SHEET=null;const r=$("#sheetRoot");r.classList.remove("shopen");
+  setTimeout(()=>{if(!SHEET)r.innerHTML=""},330);
+}
 window.__back=function(){
   playToken++;stopSpeech();
-  if(TAB==="words"&&SES){SES=null;renderWords();return true}
-  if(TAB==="grammar"&&LES){LES=null;renderGrammar();window.scrollTo({top:0});return true}
+  if(SHEET){closeSheet();return true}
+  if(TAB==="words"&&SES){SES=null;renderWords();syncFocus();return true}
+  if(TAB==="grammar"&&LES){LES=null;hideFb();renderGrammar();syncFocus();window.scrollTo({top:0});return true}
   if(TAB==="dialogs"&&(DLG!==null||CH||CHPICK)){DLG=null;CH=null;CHPICK=false;renderDialogs();window.scrollTo({top:0});return true}
-  if(TAB!=="words"){go("words");return true}
+  if(TAB!=="today"){go("today");return true}
   return false;
 };
+
+/* ---------------- TODAY ---------------- */
+function renderToday(){
+  const el=$("#tab-today"),t=today(),xt=xpToday(),goal=S.goal,pct=Math.min(1,xt/goal),lv=levelOf(S.xp);
+  const due=countDue(),nl=Math.min(newLeft(),freshPool("all").length),left=due+nl,doneC=S.cardsDay===t?S.cardsToday:0;
+  const nextL=LESSONS.findIndex((_,i)=>!lessonDone(i)),dI=t%DIALOGS.length;
+  const tasks=[
+    {act:"study",ic:"words",col:"sky",t:"Карточки дня",s:left?`Осталось ${left} ${plural(left,"карточка","карточки","карточек")}`:doneC?`Пройдено ${doneC} — на сегодня всё`:"Новые карточки будут завтра",done:!left&&doneC>0},
+    {act:"lesson",ic:"book",col:"grape",t:nextL>=0?`Урок: ${LESSONS[nextL].t}`:"Повторить любой урок",s:S.lessonDay===t?"Сегодня урок пройден":"7 заданий · до +30 XP",done:S.lessonDay===t,i:nextL>=0?nextL:0},
+    {act:"dialog",ic:DLG_IC[dI],col:"coral",t:`Диалог: ${DIALOGS[dI].t}`,s:S.dialogDay===t?"Потренировано":"Вспомни свои реплики · +15 XP",done:S.dialogDay===t,i:dI},
+  ];
+  if(SAMPLE)tasks.push({act:"chat",ic:"spark",col:"leaf",t:"Поболтать с ИИ",s:S.chatDay===t?"Сегодня уже поговорили":"Ошибки поправит по-русски",done:S.chatDay===t});
+  const doneN=tasks.filter(x=>x.done).length,all=doneN===tasks.length;
+  const h=new Date().getHours(),greet=h<5?"Доброй ночи!":h<12?"Доброе утро!":h<18?"Привет!":"Добрый вечер!";
+  const mood=all?"cheer":xt===0?"wave":"happy";
+  const msg=all?"План на сегодня выполнен. Можно гордиться собой, я разрешаю."
+    :xt===0?(streak().n?`Серия ${streak().n} ${plural(streak().n,"день","дня","дней")} — не дадим ей погаснуть.`:"Начнём с карточек? Это пять минут.")
+    :xt<goal?`До цели дня ${goal-xt} XP. Почти!`:"Цель дня есть. Дальше — только для удовольствия.";
+  const C=2*Math.PI*36,earned=Object.keys(S.ach).length;
+  const sortedAch=[...ACH].sort((a,b)=>(S.ach[b.id]?1:0)-(S.ach[a.id]?1:0));
+  el.innerHTML=`
+    <div class="hero">${mascot(mood,108,mood==="cheer"?"jump":"bob")}<div class="bubble"><b>${greet}</b><span>${esc(msg)}</span></div></div>
+    <div class="card goal">
+      <div class="ring ${pct>=1?"full":""}"><svg viewBox="0 0 92 92"><circle class="rb" cx="46" cy="46" r="36"/><circle class="rf" cx="46" cy="46" r="36" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C*(1-pct)).toFixed(2)}" transform="rotate(-90 46 46)"/></svg><span class="ri">${ic(pct>=1?"check":"target")}</span></div>
+      <div class="gx"><span class="sub">Цель дня</span><span class="num">${xt}<small> / ${goal} XP</small></span><span class="sub">${pct>=1?"Выполнено!":"Карточки, уроки и диалоги дают опыт"}</span></div>
+    </div>
+    <div><div class="sec-h"><h2>План на сегодня</h2><span class="sub">${doneN} из ${tasks.length}</span></div>
+      <div class="plan">${tasks.map(x=>`<button class="task ${x.done?"done":""}" data-act="${x.act}" ${x.i!=null?`data-i="${x.i}"`:""}><span class="tile t-${x.col}">${ic(x.ic)}</span><span class="tx"><b>${esc(x.t)}</b><small>${esc(x.s)}</small></span><span class="check">${ic("check")}</span></button>`).join("")}</div></div>
+    <div class="card lvlcard">
+      <div class="row"><span class="lvbadge">${lv.level}</span><div style="flex:1;min-width:0"><h3>Уровень ${lv.level}</h3><span class="sub">До уровня ${lv.level+1}: ${lv.need-lv.into} XP</span></div></div>
+      <div class="bar t-mango"><i style="width:${(lv.into/lv.need*100).toFixed(1)}%"></i></div>
+    </div>
+    <div><div class="sec-h"><h2>Награды</h2><button class="link" data-act="achs">${earned} из ${ACH.length} →</button></div>
+      <div class="badges">${sortedAch.map(a=>`<button class="bdg" data-act="achs">${medal(a,!!S.ach[a.id])}<small>${esc(a.t)}</small></button>`).join("")}</div></div>`;
+}
 
 /* ---------------- WORDS ---------------- */
 const deck=()=>[...S.custom,...WORDS];
 function countDue(){const t=today();return deck().filter(c=>S.cards[c.id]&&S.cards[c.id].due<=t).length}
 function newLeft(){return S.newDay===today()?Math.max(0,S.perDay-S.newCount):S.perDay}
-function freshPool(){const all=deck().filter(c=>!S.cards[c.id]);if(S.topic==="all")return all;const f=all.filter(c=>c.cat===S.topic);return f}
+function freshPool(topic){const all=deck().filter(c=>!S.cards[c.id]);return !topic||topic==="all"?all:all.filter(c=>c.cat===topic)}
+function topicStats(k){
+  const ws=deck().filter(c=>c.cat===k),t=today();
+  const learned=ws.filter(c=>S.cards[c.id]&&S.cards[c.id].b>=3).length;
+  const due=ws.filter(c=>S.cards[c.id]&&S.cards[c.id].due<=t).length;
+  const fresh=ws.filter(c=>!S.cards[c.id]).length;
+  return {ws,learned,due,fresh,can:due+Math.min(newLeft(),fresh)};
+}
 let SES=null;
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function startSession(){
-  const t=today();
-  const due=shuffle(deck().filter(c=>S.cards[c.id]&&S.cards[c.id].due<=t));
-  const fresh=freshPool().slice(0,newLeft());
-  SES={queue:[...due,...fresh],i:0,total:due.length+fresh.length,shown:false,good:0};
-  renderWords();
+function startSession(topic){
+  const t=today(),inT=c=>!topic||topic==="all"||c.cat===topic;
+  const due=shuffle(deck().filter(c=>inT(c)&&S.cards[c.id]&&S.cards[c.id].due<=t));
+  const fresh=deck().filter(c=>inT(c)&&!S.cards[c.id]).slice(0,newLeft());
+  SES={queue:[...due,...fresh],i:0,total:due.length+fresh.length,shown:false,good:0,xp:0,lock:false,said:-1,fin:false};
+  closeSheet();
+  if(TAB!=="words")go("words");else{renderWords();syncFocus();window.scrollTo({top:0})}
 }
 function grade(g){
-  const c=SES.queue[SES.i];const t=today();const st=S.cards[c.id];
+  const c=SES.queue[SES.i],t=today(),st=S.cards[c.id];
   if(!st){if(S.newDay!==t){S.newDay=t;S.newCount=0}S.newCount++}
   let b=st?st.b:0,due;
   if(g==="again"){b=0;due=t;SES.queue.push(c)}
   else if(g==="hard"){b=Math.max(1,b);due=t+1}
-  else {b=Math.min(6,b+1);due=t+INT[b];SES.good++}
+  else{b=Math.min(6,b+1);due=t+INT[b];SES.good++}
   S.cards[c.id]={b,due};
-  markDay();save();
-  SES.i++;SES.shown=false;
-  renderWords();renderHeader();window.scrollTo({top:0});
+  if(S.cardsDay!==t){S.cardsDay=t;S.cardsToday=0}
+  S.cardsToday++;
+  const xp={good:10,hard:6,again:2}[g]||0;SES.xp+=xp;addXP(xp);
+  SES.i++;SES.shown=false;SES.lock=false;
+  renderWords();
 }
 function fmtInt(b){const d=INT[b];return d===1?"через день":`через ${d} ${plural(d,"день","дня","дней")}`}
-function renderWords(){
-  const el=document.getElementById("tab-words");
-  if(SES&&SES.i<SES.queue.length){
-    const c=SES.queue[SES.i];const st=S.cards[c.id];const ru=S.dir==="ru";
-    const pct=Math.min(100,Math.round(SES.i/Math.max(SES.queue.length,1)*100));
-    const enBlock=`<div class="row-inline"><div class="fc-word">${esc(c.en)}</div>${spkBtn(c.en)}</div>${c.ipa?`<div class="fc-ipa">[${esc(c.ipa)}]</div>`:""}`;
-    const front = ru? `<div class="fc-word">${esc(c.ru)}</div><div class="fc-ipa">Как это по-английски?</div>` : enBlock;
-    const back = ru? enBlock.replace("fc-word","fc-tr") : `<div class="fc-tr">${esc(c.ru)}</div>`;
-    const ex = c.ex? `<div class="row-inline" style="flex-wrap:nowrap">${spkBtn(c.ex,"Озвучить пример")}<div class="fc-ex">${esc(c.ex)}<small>${esc(c.exru||"")}</small></div></div>`:"";
-    el.innerHTML=`
-      <div class="session-head"><span>${SES.i+1} / ${SES.queue.length}</span><button class="linkbtn" id="endSes">Закончить</button></div>
-      <div class="progress"><i style="width:${pct}%"></i></div>
-      <div class="fc">
-        <div class="fc-top"><span class="tag ${st?"":"new"}">${st?"Повторение":"Новое слово"} · ${esc(CAT_NAMES[c.cat]||"")}</span>${boxes(st?st.b:0)}</div>
-        <div class="fc-front">${front}</div>
-        <div class="fc-back" ${SES.shown?"":"hidden"}>${back}${ex}</div>
-      </div>
-      ${SES.shown? `<div class="grades">
-          <button class="g-again" data-g="again">Не помню<small>ещё раз сегодня</small></button>
-          <button class="g-hard" data-g="hard">Трудно<small>завтра</small></button>
-          <button class="g-good" data-g="good">Помню<small>${fmtInt(Math.min(6,(st?st.b:0)+1))}</small></button></div>`
-        : `<button class="btn primary block" id="reveal">Показать ответ</button>`}`;
-    el.querySelector("#endSes").onclick=()=>{SES=null;renderWords()};
-    const rv=el.querySelector("#reveal");if(rv)rv.onclick=()=>{SES.shown=true;renderWords();if(ru)speak(c.en)};
-    el.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>grade(b.dataset.g));
-    if(!ru&&!SES.shown&&SES.autoSaid!==SES.i){SES.autoSaid=SES.i;speak(c.en)}
+function renderSession(){
+  const el=$("#tab-words");
+  if(SES.i>=SES.queue.length){
+    if(!SES.fin){SES.fin=true;confetti();sfx("win")}
+    el.innerHTML=`<div class="result">${mascot("cheer",150,"jump")}<h1>Карточки готовы!</h1><p class="sub">Забытые слова вернутся завтра — так они запоминаются лучше, чем если зубрить подряд.</p>
+      <div class="stats3"><div class="stat t-sky"><b>${SES.total}</b><span>карточек</span></div><div class="stat t-leaf"><b>${SES.good}</b><span>помню сразу</span></div><div class="stat t-grape"><b>+${SES.xp}</b><span>опыта</span></div></div>
+      <button class="btn mango block" data-act="endSes">Продолжить</button></div>`;
     return;
   }
-  if(SES&&SES.total>0){
-    el.innerHTML=`<div class="done-box"><h3>Готово на сегодня</h3><p class="sub">Карточек пройдено: ${SES.total}. Сразу вспомнила: ${SES.good}. Забытые слова вернутся завтра — так они запоминаются лучше, чем если зубрить подряд.</p><button class="btn ghost" id="back">К словам</button></div>`;
-    el.querySelector("#back").onclick=()=>{SES=null;renderWords()};
-    return;
-  }
-  SES=null;
-  const all=deck();const due=countDue();const nl=Math.min(newLeft(),freshPool().length);
-  const learned=all.filter(c=>S.cards[c.id]&&S.cards[c.id].b>=3).length;
-  const can=due+nl;
-  const topicOpts=[["all","Все темы по порядку"],...WORD_CATS.filter(([k])=>WORDS.some(w=>w.cat===k)),...(S.custom.length?[["my","Мои слова"]]:[])];
+  const c=SES.queue[SES.i],st=S.cards[c.id],ru=S.dir==="ru",col=CAT_COLOR[c.cat]||"grape";
+  const pct=SES.i/SES.queue.length*100;
+  const tags=`<div class="fc-top"><span class="pill t-${col}">${ic(c.cat==="my"?"my":c.cat)}${esc(CAT_NAMES[c.cat]||"")}</span>${st?`<span class="pill">Повторение</span>`:`<span class="pill t-coral">Новое слово</span>`}</div>`;
+  const en=`<div class="row" style="flex-wrap:nowrap;align-items:center"><div class="word" style="flex:1;min-width:0">${esc(c.en)}</div>${spk(c.en)}</div>${c.ipa?`<div class="ipa">[${esc(c.ipa)}]</div>`:""}`;
+  const front=ru?`<div class="word">${esc(c.ru)}</div><div class="ipa">Как это по-английски?</div>`:en;
+  const back=ru?en:`<div class="ipa">${esc(c.en)}${c.ipa?` · [${esc(c.ipa)}]`:""}</div><div class="word md">${esc(c.ru)}</div>`;
+  const ex=c.ex?`<div class="exbox">${spk(c.ex,true,"Озвучить пример")}<p>${esc(c.ex)}<small>${esc(c.exru||"")}</small></p></div>`:"";
   el.innerHTML=`
-    <div><h2>Слова</h2><p class="sub">Карточки с повторением по интервалам: слова, которые помнишь, показываются всё реже, а забытые — чаще. ${S.perDay} новых слов в день.</p></div>
-    <div class="stats">
-      <div class="stat due"><b>${due}</b><span>повторить</span></div>
-      <div class="stat"><b>${nl}</b><span>новых сегодня</span></div>
-      <div class="stat done"><b>${learned}</b><span>выучено из ${all.length}</span></div>
-    </div>
-    <div class="seg" role="group" aria-label="Направление">
-      <button data-dir="en" aria-pressed="${S.dir!=="ru"}">English → русский</button>
-      <button data-dir="ru" aria-pressed="${S.dir==="ru"}">Русский → English</button>
-    </div>
-    <button class="btn primary block" id="start" ${can?"":"disabled"}>${can?`Начать · ${can} ${plural(can,"карточка","карточки","карточек")}`:"На сегодня всё повторено"}</button>
-    <details class="panel" id="setPanel">
-      <summary>Настройки</summary>
-      <div class="panel-body">
-        <div class="field"><label for="setTopic">Откуда брать новые слова</label>
-          <select id="setTopic">${topicOpts.map(([k,n])=>`<option value="${k}" ${S.topic===k?"selected":""}>${esc(n)}</option>`).join("")}</select></div>
-        <div class="field"><label>Новых слов в день</label>
-          <div class="seg" role="group">${[5,10,15,20].map(n=>`<button data-per="${n}" aria-pressed="${S.perDay===n}">${n}</button>`).join("")}</div></div>
-      </div>
-    </details>
-    <details class="panel" id="addPanel">
-      <summary>Добавить своё слово</summary>
-      <form class="panel-body" id="addForm">
-        <div class="field"><label for="addEn">По-английски</label><input id="addEn" autocomplete="off" required placeholder="например: sunset"></div>
-        <div class="field"><label for="addRu">Перевод</label><input id="addRu" autocomplete="off" required placeholder="закат"></div>
-        <div class="field"><label for="addEx">Пример (необязательно)</label><input id="addEx" autocomplete="off" placeholder="The sunset is beautiful today."></div>
-        <button class="btn primary" type="submit">Добавить в карточки</button>
-        <p class="err" id="addMsg" hidden></p>
-      </form>
-    </details>
-    <details class="panel" id="listPanel">
-      <summary>Все слова · ${all.length}</summary>
-      <div class="panel-body">${groupList(all)}</div>
-    </details>`;
-  el.querySelector("#start").onclick=startSession;
-  el.querySelectorAll("[data-dir]").forEach(b=>b.onclick=()=>{S.dir=b.dataset.dir;save();renderWords()});
-  el.querySelector("#setTopic").onchange=e=>{S.topic=e.target.value;save();renderWords();document.getElementById("setPanel").open=true};
-  el.querySelectorAll("[data-per]").forEach(b=>b.onclick=()=>{S.perDay=+b.dataset.per;save();renderWords();document.getElementById("setPanel").open=true});
-  el.querySelector("#addForm").onsubmit=e=>{
-    e.preventDefault();
-    const en=el.querySelector("#addEn").value.trim(),ru=el.querySelector("#addRu").value.trim(),ex=el.querySelector("#addEx").value.trim();
-    const msg=el.querySelector("#addMsg");
-    if(!en||!ru)return;
-    if(deck().some(c=>c.en.toLowerCase()===en.toLowerCase())){msg.hidden=false;msg.textContent="Это слово уже есть в карточках.";return}
-    S.custom.unshift({id:"c:"+Date.now().toString(36),en,ru,ipa:"",ex,exru:"",cat:"my"});save();renderWords();renderHeader();
-    document.getElementById("addPanel").open=true;
-    const m=document.getElementById("addMsg");m.hidden=false;m.className="ok-msg";m.textContent=`«${en}» добавлено. Чтобы учить сначала свои слова, выбери в настройках «Мои слова».`;
-  };
+    <div class="shead"><button class="x" data-act="endSes" aria-label="Закончить">${ic("close")}</button><div class="pbar"><i style="width:${pct}%"></i></div><span class="cnt">${SES.i+1}/${SES.queue.length}</span></div>
+    <div class="stage">
+      <div class="flipwrap in" id="fw"><div class="flip ${SES.shown?"flipped":""}" id="flip" data-act="reveal">
+        <div class="face front">${tags}<div class="mid">${front}</div><div class="hint">${ic("tap")}Вспомни перевод и коснись карточки</div></div>
+        <div class="face back">${tags}<div class="mid">${back}</div>${ex}</div>
+      </div></div>
+      <div id="ctl">${ctlHtml()}</div>
+    </div>`;
+  if(!ru&&!SES.shown&&SES.said!==SES.i){SES.said=SES.i;speak(c.en)}
 }
-function groupList(all){
-  const groups={};all.forEach(c=>{(groups[c.cat]=groups[c.cat]||[]).push(c)});
-  const order=["my",...WORD_CATS.map(x=>x[0])].filter(k=>groups[k]);
-  return order.map(k=>`<div class="label" style="margin-top:6px">${esc(CAT_NAMES[k]||k)} · ${groups[k].length}</div><div class="wordlist">${groups[k].map(c=>`<div class="wl"><span>${esc(c.en)}</span><span>${esc(c.ru)}</span>${boxes(S.cards[c.id]?S.cards[c.id].b:0)}</div>`).join("")}</div>`).join("");
+function ctlHtml(){
+  if(!SES.shown)return `<button class="btn grape block" data-act="reveal">Перевернуть</button>`;
+  const st=S.cards[SES.queue[SES.i].id];
+  return `<div class="grades"><button class="btn coral" data-act="grade" data-g="again">Не помню<small>ещё раз сегодня</small></button><button class="btn mango" data-act="grade" data-g="hard">Трудно<small>завтра</small></button><button class="btn leaf" data-act="grade" data-g="good">Помню<small>${fmtInt(Math.min(6,(st?st.b:0)+1))}</small></button></div>`;
 }
+function renderWords(){
+  if(SES)return renderSession();
+  const el=$("#tab-words"),all=deck(),due=countDue(),nl=Math.min(newLeft(),freshPool("all").length),can=due+nl,learned=learnedCount();
+  const cats=[...(S.custom.length?["my"]:[]),...WORD_CATS.map(x=>x[0])];
+  el.innerHTML=`
+    <div class="card study">
+      <div class="hero">${mascot(can?"think":"happy",84)}<div class="bubble"><b>${can?`${can} ${plural(can,"карточка","карточки","карточек")} на сегодня`:"На сегодня всё!"}</b><span>${can?`${due} повторить · ${nl} новых`:"Возвращайся завтра — или выбери тему ниже"}</span></div></div>
+      <button class="btn mango block" data-act="study" ${can?"":"disabled"}>${can?"Учить":"Всё повторено"}</button>
+    </div>
+    <div><div class="sec-h"><h2>Темы</h2><span class="sub">выучено ${learned} из ${all.length}</span></div>
+      <div class="grid2">${cats.map(k=>{const s=topicStats(k),col=CAT_COLOR[k];return `<button class="topic t-${col}" data-act="topic" data-k="${k}"><span class="tile">${ic(k)}</span><span class="nm">${esc(CAT_NAMES[k])}</span><span class="bar thin"><i style="width:${s.ws.length?(s.learned/s.ws.length*100).toFixed(1):0}%"></i></span><small>${s.learned} из ${s.ws.length}${s.due?` · ${s.due} повторить`:""}</small></button>`}).join("")}</div></div>
+    <button class="btn ghost block" data-act="addWord">${ic("plus")}Добавить своё слово</button>`;
+}
+function topicSheet(k){
+  const s=topicStats(k),col=CAT_COLOR[k];
+  return `<div class="sheet-h t-${col}"><span class="tile lg">${ic(k)}</span><div class="tx"><h2>${esc(CAT_NAMES[k])}</h2><span class="sub">Выучено ${s.learned} из ${s.ws.length}</span></div></div>
+    <button class="btn mango block" data-act="studyTopic" data-k="${k}" ${s.can?"":"disabled"}>${s.can?`Учить тему · ${s.can}`:s.fresh&&!newLeft()?"Новые слова на сегодня закончились":s.fresh?"Тема на сегодня пройдена":"Все слова темы начаты"}</button>
+    <div class="card"><div class="wl">${s.ws.map(c=>{const b=S.cards[c.id]?S.cards[c.id].b:0;return `<div class="w">${spk(c.en,true)}<div class="tx"><b>${esc(c.en)}</b><span>${esc(c.ru)}</span></div><span class="dots" aria-label="Уровень ${b} из 6">${[1,2,3,4,5,6].map(n=>`<i class="${n<=b?"on":""}"></i>`).join("")}</span></div>`}).join("")}</div></div>`;
+}
+const addWordSheet=(msg="")=>`<h2>Своё слово</h2><p class="sub">Оно появится среди новых карточек в теме «Мои слова».</p>
+  <form id="addForm" style="display:flex;flex-direction:column;gap:12px">
+    <div class="field"><label for="addEn">По-английски</label><input id="addEn" autocomplete="off" required placeholder="например: sunset"></div>
+    <div class="field"><label for="addRu">Перевод</label><input id="addRu" autocomplete="off" required placeholder="закат"></div>
+    <div class="field"><label for="addEx">Пример (необязательно)</label><input id="addEx" autocomplete="off" placeholder="The sunset is beautiful today."></div>
+    <button class="btn grape block" type="submit">Добавить</button>${msg}
+  </form>`;
 
 /* ---------------- GRAMMAR ---------------- */
 let LES=null;
 const lessonDone=i=>(S.grammar[i]||0)>=LESSONS[i].q.length-1;
+const starsOf=(sc,tot)=>sc==null?0:sc>=tot?3:sc>=tot-1?2:sc>=tot-3?1:0;
+const starRow=(n,cls="stars")=>`<span class="${cls}">${[0,1,2].map(i=>ic("starf",i<n?"on":"")).join("")}</span>`;
 function newBuild(item){
   const words=item.b.split(" ");let pool=words.map((w,i)=>({w,i}));
-  if(words.length>1){let tries=0;do{shuffle(pool);tries++}while(tries<10&&pool.every((p,k)=>p.i===k))}
+  if(words.length>1){let k=0;do{shuffle(pool);k++}while(k<10&&pool.every((p,j)=>p.i===j))}
   return {pool,picked:[]};
 }
-function startLesson(i){LES={i,qi:0,picked:null,score:0,bd:null};prepQ();renderGrammar();window.scrollTo({top:0})}
-function prepQ(){const L=LESSONS[LES.i];const it=L.q[LES.qi];LES.picked=null;LES.bd=(it&&!Array.isArray(it))?newBuild(it):null}
-function finishQ(correct){if(correct)LES.score++}
-function renderGrammar(){
-  const el=document.getElementById("tab-grammar");
-  if(LES){
-    const L=LESSONS[LES.i];const total=L.q.length;
-    let quiz;
-    if(LES.qi<total){
-      const it=L.q[LES.qi];
-      const head=`<div class="label">Задание ${LES.qi+1} из ${total}</div>`;
-      const nextBtn=`<button class="btn primary block" id="nextQ">${LES.qi+1<total?"Дальше":"Результат"}</button>`;
-      if(Array.isArray(it)){
-        const [q,opts,ans,why]=it;
-        quiz=`<div class="quiz">${head}<div class="q">${esc(q)}</div>
-          <div class="opts">${opts.map((o,k)=>{let cls="";if(LES.picked!=null){if(k===ans)cls="right";else if(k===LES.picked)cls="wrong"}return `<button class="opt ${cls}" data-o="${k}" ${LES.picked!=null?"disabled":""}>${esc(o)}</button>`}).join("")}</div>
-          ${LES.picked!=null?`<div class="qfb ${LES.picked===ans?"good":"bad"}">${LES.picked===ans?"Верно. ":"Не совсем. "}${esc(why)}</div>${nextBtn}`:""}</div>`;
-      } else {
-        const bd=LES.bd;const done=LES.picked!=null;
-        const words=it.b.split(" ");
-        quiz=`<div class="quiz">${head}<div class="q">Собери фразу: «${esc(it.ru)}»</div>
-          <div class="build-line" id="bline">${bd.picked.map((pi,k)=>`<button class="tok" data-un="${k}" ${done?"disabled style='visibility:visible'":""}>${esc(bd.pool[pi].w)}</button>`).join("")}</div>
-          ${done?"":`<div class="pool">${bd.pool.map((p,pi)=>`<button class="tok" data-pk="${pi}" ${bd.picked.includes(pi)?"disabled":""}>${esc(p.w)}</button>`).join("")}</div>`}
-          ${done?`<div class="qfb ${LES.picked?"good":"bad"}">${LES.picked?"Верно!":"Правильно так:"} <b>${esc(it.b)}</b> ${spkBtn(it.b)}</div>${nextBtn}`
-                :`<div class="row-inline"><button class="btn primary" id="checkB" ${bd.picked.length===words.length?"":"disabled"}>Проверить</button><button class="btn ghost" id="resetB" ${bd.picked.length?"":"disabled"}>Сбросить</button></div>`}
-        </div>`;
-      }
-    } else {
-      const best=S.grammar[LES.i]||0;
-      const full=LES.score===total;
-      quiz=`<div class="done-box"><h3>${LES.score} из ${total}</h3><p class="sub">${full?"Тема освоена.":LES.score>=total-1?"Почти идеально — тема засчитана.":LES.score>=total-3?"Неплохо. Перечитай правило и пройди ещё раз — закрепится.":"Перечитай правило и примеры вслух, потом попробуй снова."} Лучший результат: ${best} из ${total}.</p>
-        <div class="row-inline"><button class="btn ghost" id="retry">Пройти снова</button>${LES.i+1<LESSONS.length?`<button class="btn primary" id="nextL">Следующая тема</button>`:""}</div></div>`;
-    }
-    el.innerHTML=`
-      <button class="linkbtn" id="backL" style="align-self:flex-start">← Все темы</button>
-      <div><div class="label">Тема ${LES.i+1} из ${LESSONS.length}</div><h2>${esc(L.t)}</h2></div>
-      <div class="expl">${L.ex.map(p=>`<p>${esc(p)}</p>`).join("")}<div class="formula">${L.f}</div>
-        <div class="exs">${L.e.map(s=>{const [en,ru]=s.split("|");return `<div>${spkBtn(en)}<p>${esc(en)}<small>${esc(ru)}</small></p></div>`}).join("")}</div></div>
-      ${quiz}`;
-    el.querySelector("#backL").onclick=()=>{LES=null;renderGrammar();window.scrollTo({top:0})};
-    el.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{LES.picked=+b.dataset.o;finishQ(LES.picked===L.q[LES.qi][2]);renderGrammar()});
-    el.querySelectorAll("[data-pk]").forEach(b=>b.onclick=()=>{LES.bd.picked.push(+b.dataset.pk);renderGrammar()});
-    el.querySelectorAll("[data-un]").forEach(b=>b.onclick=()=>{LES.bd.picked.splice(+b.dataset.un,1);renderGrammar()});
-    const rb=el.querySelector("#resetB");if(rb)rb.onclick=()=>{LES.bd.picked=[];renderGrammar()};
-    const cb=el.querySelector("#checkB");if(cb)cb.onclick=()=>{
-      const it=L.q[LES.qi];const got=LES.bd.picked.map(pi=>LES.bd.pool[pi].w).join(" ");
-      const norm=s=>s.toLowerCase().replace(/[.,!?]/g,"").trim();
-      const ok=norm(got)===norm(it.b);LES.picked=ok;finishQ(ok);renderGrammar();speak(it.b)};
-    const nq=el.querySelector("#nextQ");if(nq)nq.onclick=()=>{LES.qi++;
-      if(LES.qi>=total){S.grammar[LES.i]=Math.max(S.grammar[LES.i]||0,LES.score);markDay();save();renderHeader()}
-      else prepQ();
-      renderGrammar();
-      const qq=document.querySelector("#tab-grammar .quiz, #tab-grammar .done-box");if(qq)qq.scrollIntoView({block:"nearest"})};
-    const rt=el.querySelector("#retry");if(rt)rt.onclick=()=>startLesson(LES.i);
-    const nl=el.querySelector("#nextL");if(nl)nl.onclick=()=>startLesson(LES.i+1);
-    return;
+function startLesson(i){LES={i,step:"theory",qi:0,picked:null,score:0,bd:null,xp:0,fin:false};if(TAB!=="grammar")go("grammar");else{renderGrammar();syncFocus();window.scrollTo({top:0})}}
+function prepQ(){const it=LESSONS[LES.i].q[LES.qi];LES.picked=null;LES.bd=(it&&!Array.isArray(it))?newBuild(it):null}
+function finishQ(ok){if(ok){LES.score++;LES.xp+=5;addXP(5)}sfx(ok?"ok":"bad")}
+const PRAISE=["Отлично!","Верно!","Так держать!","Идеально!","Супер!","Точно!"];
+function showFb(ok,body){
+  const fb=$("#fb");
+  fb.className="fb "+(ok?"good":"bad");
+  fb.innerHTML=`<div class="in"><h3>${ic(ok?"check":"close")}${ok?PRAISE[(LES.qi+LES.i)%PRAISE.length]:"Не совсем"}${ok?"<em>+5 XP</em>":""}</h3>${body}<button class="btn ${ok?"leaf":"coral"} block" data-act="nextQ">Дальше</button></div>`;
+  requestAnimationFrame(()=>fb.classList.add("show"));document.body.classList.add("fbopen");
+}
+function hideFb(){const fb=$("#fb");fb.classList.remove("show");document.body.classList.remove("fbopen")}
+function renderLesson(){
+  const el=$("#tab-grammar"),L=LESSONS[LES.i],total=L.q.length;
+  const pct=LES.step==="theory"?0:LES.step==="done"?100:LES.qi/total*100;
+  const head=`<div class="shead"><button class="x" data-act="endLesson" aria-label="Закрыть урок">${ic("close")}</button><div class="pbar"><i style="width:${pct}%"></i></div><span class="cnt">${LES.step==="q"?`${LES.qi+1}/${total}`:""}</span></div>`;
+  if(LES.step==="theory"){
+    el.innerHTML=head+`<div class="stage">
+      <div><span class="qkind">Тема ${LES.i+1} из ${LESSONS.length}</span><h1>${esc(L.t)}</h1></div>
+      <div class="card theory">${L.ex.map(p=>`<p>${esc(p)}</p>`).join("")}<div class="formula">${L.f}</div></div>
+      <div class="card"><div class="exs">${L.e.map(s=>{const [en,ru]=s.split("|");return `<div>${spk(en,true)}<p>${esc(en)}<small>${esc(ru)}</small></p></div>`}).join("")}</div></div>
+      <div class="hero">${mascot("think",80)}<div class="bubble"><b>Прочитала?</b><span>Теперь 7 заданий. Ошибаться можно — я никому не скажу.</span></div></div>
+      <button class="btn grape block" data-act="toQ">К заданиям ${ic("arrow")}</button></div>`;
+    hideFb();return;
   }
-  const done=LESSONS.filter((_,i)=>lessonDone(i)).length;
-  const nextI=LESSONS.findIndex((_,i)=>!lessonDone(i));
-  el.innerHTML=`
-    <div><h2>Грамматика</h2><p class="sub">${LESSONS.length} тем от самых основ до уровня A2 — проходи по порядку. В каждой: короткое правило, примеры с озвучкой и 7 заданий. Освоено: ${done} из ${LESSONS.length}.</p></div>
-    ${nextI>=0?`<button class="btn primary block" id="contL">${done?"Продолжить":"Начать"}: ${esc(LESSONS[nextI].t)}</button>`:""}
-    <div class="lessons">${LESSONS.map((L,i)=>{const sc=S.grammar[i];
-      return `<button class="lesson ${lessonDone(i)?"ok":""}" data-l="${i}"><span class="n">${i+1}</span><span class="t"><b>${esc(L.t)}</b><small>${esc(L.s)}</small></span><span class="sc">${sc!=null?`${sc}/${L.q.length}`:""}</span></button>`}).join("")}</div>`;
-  el.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>startLesson(+b.dataset.l));
-  const cl=el.querySelector("#contL");if(cl)cl.onclick=()=>startLesson(nextI);
+  if(LES.step==="done"){
+    const n=starsOf(LES.score,total),best=S.grammar[LES.i]||0;
+    if(!LES.fin){LES.fin=true;if(n>=2)confetti();sfx(n>=2?"win":"tap")}
+    const line=n===3?"Ни одной ошибки. Ты точно новичок?":n===2?"Почти идеально — тема засчитана.":n===1?"Неплохо! Перечитай правило и пройди ещё раз.":"Бывает. Прочитай правило вслух и попробуй снова.";
+    el.innerHTML=head+`<div class="result">${starRow(n,"bigstars")}${mascot(n>=2?"cheer":n===1?"happy":"sad",120,n>=2?"jump":"bob")}<h1>${LES.score} из ${total}</h1><p class="sub">${line}</p>
+      <div class="stats3"><div class="stat t-leaf"><b>${LES.score}</b><span>верно</span></div><div class="stat t-grape"><b>+${LES.xp}</b><span>опыта</span></div><div class="stat t-mango"><b>${best}/${total}</b><span>рекорд</span></div></div>
+      <div class="row"><button class="btn ghost" data-act="retryLesson">Ещё раз</button>${LES.i+1<LESSONS.length?`<button class="btn mango" data-act="nextLesson">Дальше</button>`:`<button class="btn mango" data-act="endLesson">Готово</button>`}</div></div>`;
+    hideFb();return;
+  }
+  const it=L.q[LES.qi];let body;
+  if(Array.isArray(it)){
+    const [q,opts,ans,why]=it;
+    body=`<span class="qkind">Выбери правильный ответ</span><div class="qtitle">${esc(q)}</div>
+      <div class="opts">${opts.map((o,k)=>{let cls="";if(LES.picked!=null){if(k===ans)cls="right";else if(k===LES.picked)cls="wrong"}return `<button class="opt ${cls}" data-act="opt" data-o="${k}" ${LES.picked!=null?"disabled":""}>${esc(o)}</button>`}).join("")}</div>`;
+    if(LES.picked!=null)showFb(LES.picked===ans,`${LES.picked===ans?"":`<p>Правильно: <span class="ans">${esc(opts[ans])}</span></p>`}<p>${esc(why)}</p>`);else hideFb();
+  } else {
+    const bd=LES.bd,done=LES.picked!=null,n=it.b.split(" ").length;
+    body=`<span class="qkind">Собери фразу</span><div class="qtitle">${esc(it.ru)}</div>
+      <div class="build">${bd.picked.map((pi,k)=>`<button class="tok" data-act="unpick" data-k="${k}" ${done?"disabled":""}>${esc(bd.pool[pi].w)}</button>`).join("")}</div>
+      <div class="pool">${bd.pool.map((p,pi)=>`<button class="tok ${bd.picked.includes(pi)?"ghost":""}" data-act="pick" data-k="${pi}" ${done||bd.picked.includes(pi)?"disabled":""}>${esc(p.w)}</button>`).join("")}</div>
+      ${done?"":`<button class="btn grape block" data-act="checkBuild" ${bd.picked.length===n?"":"disabled"}>Проверить</button>`}`;
+    if(done)showFb(LES.picked,`${LES.picked?"":`<p>Правильно так:</p>`}<div class="row" style="flex-wrap:nowrap">${spk(it.b,true)}<p class="ans" style="flex:1">${esc(it.b)}</p></div>`);else hideFb();
+  }
+  el.innerHTML=head+`<div class="stage">${body}</div>`;
+}
+function renderGrammar(){
+  if(LES)return renderLesson();
+  hideFb();
+  const el=$("#tab-grammar"),done=LESSONS.filter((_,i)=>lessonDone(i)).length,cur=LESSONS.findIndex((_,i)=>!lessonDone(i));
+  const DX=[0,52,78,52,0,-52,-78,-52];
+  el.innerHTML=`<div><h1>Уроки</h1><p class="sub">${done} из ${LESSONS.length} тем освоено · проходи по порядку</p></div>`+
+    UNITS.map(u=>`<div class="unit t-${u.col}"><div class="tx"><b>${esc(u.t)}</b><small>${esc(u.s)}</small></div><span class="pill" style="background:rgba(255,255,255,.25);color:inherit">${LESSONS.slice(u.from,u.to).filter((_,j)=>lessonDone(u.from+j)).length}/${u.to-u.from}</span></div>
+      <div class="path">${LESSONS.slice(u.from,u.to).map((L,j)=>{const i=u.from+j,sc=S.grammar[i],st=starsOf(sc,L.q.length),cls=lessonDone(i)?"done":i===cur?"cur":"";
+        return `<button class="node ${cls}" style="--dx:${DX[i%DX.length]}px" data-act="lesson" data-i="${i}"><span class="nb">${lessonDone(i)?ic("check"):i+1}</span><span class="nm">${esc(L.t)}</span>${sc!=null?starRow(st):""}</button>`}).join("")}</div>`).join("");
 }
 
 /* ---------------- PHRASES ---------------- */
 let PCAT=0;
 function renderPhrases(){
-  const el=document.getElementById("tab-phrases");
-  const cat=PHRASES[PCAT];
-  el.innerHTML=`
-    <div><h2>Фразы</h2><p class="sub">Готовые фразы на каждый день. Нажми на динамик, послушай и повтори вслух. Нужную фразу можно отправить в карточки.</p></div>
-    <div class="chips" role="group" aria-label="Темы">${PHRASES.map((p,i)=>`<button class="chip" data-pc="${i}" aria-pressed="${i===PCAT}">${esc(p.cat)}</button>`).join("")}</div>
-    <div class="plist">${cat.items.map(s=>{const [en,ru]=s.split("|");const added=deck().some(c=>c.en===en);
-      return `<div class="ph">${spkBtn(en)}<div class="ph-txt"><div class="ph-en">${esc(en)}</div><div class="ph-ru">${esc(ru)}</div></div><button class="addc" data-add="${esc(s)}" ${added?"disabled":""}>${added?"В карточках":"+ Карточка"}</button></div>`}).join("")}</div>`;
-  el.querySelectorAll("[data-pc]").forEach(b=>b.onclick=()=>{PCAT=+b.dataset.pc;renderPhrases()});
-  el.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{const [en,ru]=b.dataset.add.split("|");
-    if(!deck().some(c=>c.en===en)){S.custom.unshift({id:"p:"+en,en,ru,ipa:"",ex:"",exru:"",cat:"my"});save()}
-    b.disabled=true;b.textContent="В карточках";renderHeader();if(!SES)renderWords()});
+  const el=$("#tab-phrases"),cat=PHRASES[PCAT];
+  el.innerHTML=`<div><h1>Фразы</h1><p class="sub">Готовые фразы на каждый день. Слушай, повторяй вслух, нужные — в карточки.</p></div>
+    <div class="chips" role="group" aria-label="Темы">${PHRASES.map((p,i)=>`<button class="chipbtn t-${PH_COL[i]}" data-act="pcat" data-i="${i}" aria-pressed="${i===PCAT}">${ic(PH_IC[i])}${esc(p.cat)}</button>`).join("")}</div>
+    <div class="plist">${cat.items.map(s=>{const [en,ru]=s.split("|"),added=deck().some(c=>c.en===en);
+      return `<div class="ph">${spk(en,true)}<div class="tx"><b>${esc(en)}</b><span>${esc(ru)}</span></div><button class="add" data-act="addPhrase" data-p="${esc(s)}" ${added?"disabled":""} aria-label="${added?"Уже в карточках":"Добавить в карточки"}">${ic(added?"check":"plus")}</button></div>`}).join("")}</div>`;
 }
 
 /* ---------------- DIALOGS ---------------- */
-let DLG=null, DOPT={ru:false,practice:false,shown:{}}, PLAYING=-1;
+let DLG=null,DOPT={ru:false,practice:false,shown:{}},PLAYING=-1;
 function renderDialogs(){
-  const el=document.getElementById("tab-dialogs");
+  const el=$("#tab-dialogs");
   if(CH||CHPICK){renderChat();return}
+  const dI=today()%DIALOGS.length;
   if(DLG===null){
-    el.innerHTML=`
-      <div><h2>Диалоги</h2><p class="sub">Короткие сценки из жизни. Слушай целиком, потом включай «Тренировку»: твои реплики спрячутся, и нужно вспомнить их самой.</p></div>
-      ${SAMPLE?`<button class="ai-card" id="openAI"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span><span><b>Разговор с ИИ</b><small>Свободный диалог по ролям с исправлением ошибок</small></span></button>`:""}
-      <div class="lessons">${DIALOGS.map((d,i)=>`<button class="lesson" data-d="${i}"><span class="n">${i+1}</span><span class="t"><b>${esc(d.t)}</b><small>${esc(d.d)}</small></span></button>`).join("")}</div>`;
-    el.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{DLG=+b.dataset.d;DOPT.shown={};PLAYING=-1;renderDialogs();window.scrollTo({top:0})});
-    const ai=el.querySelector("#openAI");if(ai)ai.onclick=()=>{CHPICK=true;renderDialogs();window.scrollTo({top:0})};
+    el.innerHTML=`<div><h1>Диалоги</h1><p class="sub">Сценки из жизни. Послушай целиком, потом включи «Тренировку» и вспомни свои реплики.</p></div>
+      ${SAMPLE?`<button class="aicard" data-act="chat">${mascot("wave",64)}<span class="tx"><b>Поболтать с ИИ</b><small>Любая ситуация, ошибки поправлю по-русски</small></span>${ic("arrow")}</button>`:""}
+      <div class="list">${DIALOGS.map((d,i)=>`<button class="task ${S.dlg[i]?"done":""}" data-act="dialog" data-i="${i}"><span class="tile t-${DLG_COL[i]}">${ic(DLG_IC[i])}</span><span class="tx">${i===dI?`<span class="dtag">Диалог дня</span>`:""}<b>${esc(d.t)}</b><small>${esc(d.d)}</small></span><span class="check">${ic("check")}</span></button>`).join("")}</div>`;
     return;
   }
   const D=DIALOGS[DLG];
-  el.innerHTML=`
-    <button class="linkbtn" id="backD" style="align-self:flex-start">← Все диалоги</button>
-    <div><div class="label">Диалог ${DLG+1}</div><h2>${esc(D.t)}</h2></div>
+  el.innerHTML=`<button class="backlink" data-act="dlgBack">${ic("back")}Все диалоги</button>
+    <div class="sheet-h"><span class="tile lg t-${DLG_COL[DLG]}">${ic(DLG_IC[DLG])}</span><div class="tx"><h1>${esc(D.t)}</h1><span class="sub">${esc(D.d)}</span></div></div>
     <div class="toolbar">
-      <button class="btn primary small" id="playAll">${SPK}Слушать весь</button>
-      <button class="btn ghost small" id="tgRu" aria-pressed="${DOPT.ru}">${DOPT.ru?"Скрыть перевод":"Перевод"}</button>
-      <button class="btn ghost small" id="tgPr" aria-pressed="${DOPT.practice}">${DOPT.practice?"Выйти из тренировки":"Тренировка"}</button>
+      <button class="btn sky small" data-act="playAll">${ic("spk")}Слушать</button>
+      <button class="btn ghost small" data-act="tgRu" aria-pressed="${DOPT.ru}">${ic("lang")}Перевод</button>
+      <button class="btn ghost small" data-act="tgPr" aria-pressed="${DOPT.practice}">${ic("bulb")}Тренировка</button>
     </div>
-    ${DOPT.practice?`<p class="sub">Твои реплики спрятаны. Прочитай перевод, скажи фразу вслух по-английски и нажми на неё, чтобы проверить.</p>`:""}
+    ${DOPT.practice?`<div class="hero">${mascot("think",64)}<div class="bubble" style="margin-bottom:10px"><b>Твои реплики спрятаны</b><span>Скажи фразу вслух по-английски, потом нажми на неё и проверь себя.</span></div></div>`:""}
     <div class="dl">${D.l.map(([who,en,ru],i)=>{
       const hide=DOPT.practice&&who==="me"&&!DOPT.shown[i];
-      const body= hide? `<span class="hidden-en">${esc(ru)}</span><span class="ru">Нажми, чтобы проверить</span>`
-                      : `${esc(en)}${(DOPT.ru||(DOPT.practice&&who==="me"))?`<span class="ru">${esc(ru)}</span>`:""}`;
-      return `<div class="line ${who} ${PLAYING===i?"playing":""}" data-li="${i}">${hide?"":spkBtn(en)}<button class="bub" data-reveal="${i}">${body}</button></div>`}).join("")}</div>
-    ${DLG+1<DIALOGS.length?`<button class="btn ghost block" id="nextD">Следующий диалог: ${esc(DIALOGS[DLG+1].t)}</button>`:""}`;
-  el.querySelector("#backD").onclick=()=>{playToken++;stopSpeech();DLG=null;renderDialogs();window.scrollTo({top:0})};
-  el.querySelector("#tgRu").onclick=()=>{DOPT.ru=!DOPT.ru;renderDialogs()};
-  el.querySelector("#tgPr").onclick=()=>{DOPT.practice=!DOPT.practice;DOPT.shown={};renderDialogs()};
-  el.querySelectorAll("[data-reveal]").forEach(b=>b.onclick=()=>{const i=+b.dataset.reveal;const [who,en]=D.l[i];
-    if(DOPT.practice&&who==="me"&&!DOPT.shown[i]){DOPT.shown[i]=true;markDay();save();renderHeader();renderDialogs()}
-    playToken++;speak(en)});
-  el.querySelector("#playAll").onclick=()=>{
-    const items=D.l.map(([who,en])=>({text:en,pitch:who==="me"?1.15:0.9}));
-    speakSeq(items,i=>{PLAYING=i;document.querySelectorAll("#tab-dialogs .line").forEach(n=>n.classList.toggle("playing",+n.dataset.li===i))},()=>{PLAYING=-1});
-    markDay();save();renderHeader();
-  };
-  const nd=el.querySelector("#nextD");if(nd)nd.onclick=()=>{playToken++;stopSpeech();DLG++;DOPT.shown={};renderDialogs();window.scrollTo({top:0})};
+      const body=hide?`${esc(ru)}<span class="ru">Нажми, чтобы проверить</span>`:`${esc(en)}${(DOPT.ru||(DOPT.practice&&who==="me"))?`<span class="ru">${esc(ru)}</span>`:""}`;
+      return `<div class="line ${who} ${PLAYING===i?"playing":""}" data-li="${i}"><span class="ava ${who==="me"?"":"t-"+DLG_COL[DLG]}">${who==="me"?"Я":ic(DLG_IC[DLG])}</span><button class="bub ${hide?"hid":""}" data-act="line" data-i="${i}">${body}</button></div>`}).join("")}</div>
+    ${DLG+1<DIALOGS.length?`<button class="btn ghost block" data-act="dialog" data-i="${DLG+1}">Следующий: ${esc(DIALOGS[DLG+1].t)} ${ic("arrow")}</button>`:""}`;
 }
+function openDialog(i){DLG=i;DOPT.shown={};DOPT.awarded=false;PLAYING=-1;if(TAB!=="dialogs")go("dialogs");else{renderDialogs();window.scrollTo({top:0})}}
 
-/* ---------------- AI CHAT (only inside Claude) ---------------- */
-let SAMPLE=null, CH=null, CHPICK=false, AUTO_SPEAK=true;
+/* ---------------- AI CHAT (when a backend or Claude is available) ---------------- */
+let SAMPLE=null,CH=null,CHPICK=false,AUTO_SPEAK=true;
 function rulesFor(sc){
   return `You are an English conversation partner for a Russian-speaking learner at a beginner level (A1-A2, knows basic English).
 Scenario: ${sc.role}
@@ -1350,42 +1680,40 @@ Reply with ONLY a JSON object, no other text:
 async function askTutor(){
   if(!SAMPLE)return;
   CH.busy=true;CH.err="";renderChat();
-  const input=[{role:"user",content:rulesFor(CH.sc)}];
-  const turns=CH.turns.slice(-20);
+  const input=[{role:"user",content:rulesFor(CH.sc)}],turns=CH.turns.slice(-20);
   if(turns.length===0)input.push({role:"user",content:"(Start the conversation now.)"});else input.push(...turns);
   try{
     const r=await SAMPLE.json(input,{cache:false,modelTier:"quick"});
     const reply=String(r&&r.reply||"").trim();
     if(!reply)throw {code:"invalid_json"};
     const lastMe=[...CH.view].reverse().find(m=>m.me);
-    if(lastMe&&!lastMe.checked){lastMe.checked=true;lastMe.corr=String(r.correction||"").trim();lastMe.better=String(r.better||"").trim()}
+    if(lastMe&&!lastMe.checked){
+      lastMe.checked=true;lastMe.corr=String(r.correction||"").trim();lastMe.better=String(r.better||"").trim();
+      if(S.chatDay!==today())S.chatDay=today();addXP(5);
+    }
     CH.view.push({me:false,text:reply,ru:String(r.reply_ru||"").trim(),showRu:false});
     CH.turns.push({role:"assistant",content:reply});
     CH.hint=String(r.hint||"").trim();CH.showHint=false;
-    markDay();save();renderHeader();
     if(AUTO_SPEAK)speak(reply);
   }catch(e){
     const c=e&&e.code;
     if(e&&e.ru){CH.err=e.ru;if(e.fatal)SAMPLE=null}
     else if(["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(c)){SAMPLE=null;CH.err="Разговор с ИИ недоступен: доступ к Claude для этой страницы не разрешён."}
-    else if(c==="rate_limited")CH.err="Слишком много сообщений подряд или закончился лимит. Подожди немного и отправь снова.";
-    else if(c==="session_expired")CH.err="Сессия истекла — войди в Claude заново.";
+    else if(c==="rate_limited")CH.err="Слишком много сообщений подряд. Подожди немного и отправь снова.";
+    else if(c==="session_expired")CH.err="Сессия истекла — войди заново.";
     else CH.err="Не получилось получить ответ. Нажми «Отправить» ещё раз.";
   }
   CH.busy=false;renderChat();
 }
 function renderChat(){
-  const el=document.getElementById("tab-dialogs");
+  const el=$("#tab-dialogs");
   if(!CH){
-    el.innerHTML=`<button class="linkbtn" id="backC" style="align-self:flex-start">← Диалоги</button>
-      <div><h2>Разговор с ИИ</h2><p class="sub">Выбери ситуацию — ИИ сыграет роль и будет поправлять ошибки по-русски. Пиши как получается, можно вперемешку с русским.</p></div>
-      <div class="scen">${SCENARIOS.map((s,i)=>`<button class="sc-card" data-sc="${i}"><b>${esc(s.t)}</b><small>${esc(s.d)}</small></button>`).join("")}</div>`;
-    el.querySelector("#backC").onclick=()=>{CHPICK=false;renderDialogs()};
-    el.querySelectorAll("[data-sc]").forEach(b=>b.onclick=()=>{if(!SAMPLE)return;CH={sc:SCENARIOS[+b.dataset.sc],turns:[],view:[],busy:false,hint:"",showHint:false,err:""};askTutor()});
+    el.innerHTML=`<button class="backlink" data-act="dlgBack">${ic("back")}Диалоги</button>
+      <div class="hero">${mascot("wave",88)}<div class="bubble"><b>Поболтаем?</b><span>Выбери ситуацию. Пиши как получается, можно вперемешку с русским — я поправлю.</span></div></div>
+      <div class="scen">${SCENARIOS.map((s,i)=>`<button class="topic t-${SC_COL[i]}" data-act="scen" data-i="${i}"><span class="tile">${ic(SC_IC[i])}</span><span class="nm">${esc(s.t)}</span><small>${esc(s.d)}</small></button>`).join("")}</div>`;
     return;
   }
-  const draft=(document.getElementById("msgIn")||{}).value||"";
-  const parts=[];
+  const draft=(document.getElementById("msgIn")||{}).value||"",parts=[];
   CH.view.forEach((m,i)=>{
     if(m.me){
       parts.push(`<div class="msg me">${esc(m.text)}</div>`);
@@ -1393,43 +1721,146 @@ function renderChat(){
         if(m.better||m.corr)parts.push(`<div class="corr"><b>Как лучше</b>${m.better?`<div class="better">${esc(m.better)}</div>`:""}${m.corr?`<div>${esc(m.corr)}</div>`:""}</div>`);
         else parts.push(`<div class="corr okc"><b>Без ошибок</b></div>`);
       }
-    } else parts.push(`<div class="msg ai">${esc(m.text)}${m.showRu&&m.ru?`<div class="ru">${esc(m.ru)}</div>`:""}<div class="msg-actions"><button data-say="${esc(m.text)}">${SPK}Слушать</button>${m.ru?`<button data-ru="${i}">${m.showRu?"Скрыть перевод":"Перевод"}</button>`:""}</div></div>`);
+    } else parts.push(`<div class="msg ai">${esc(m.text)}${m.showRu&&m.ru?`<div class="ru">${esc(m.ru)}</div>`:""}<div class="msg-actions"><button data-say="${esc(m.text)}">${ic("spk")}Слушать</button>${m.ru?`<button data-act="chatRu" data-i="${i}">${ic("lang")}${m.showRu?"Скрыть":"Перевод"}</button>`:""}</div></div>`);
   });
-  if(CH.busy)parts.push(`<div class="thinking">Печатает</div>`);
+  if(CH.busy)parts.push(`<div class="thinking">Манго печатает</div>`);
   el.innerHTML=`
-    <div class="row-inline" style="justify-content:space-between"><div><div class="label">Ситуация</div><h2 style="margin:0">${esc(CH.sc.t)}</h2></div><button class="btn ghost small" id="endChat">Сменить</button></div>
+    <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div class="sheet-h" style="flex:1;min-width:0">${mascot("happy",52,"")}<div class="tx"><span class="qkind">Разговор с ИИ</span><h2>${esc(CH.sc.t)}</h2></div></div><button class="btn ghost small" data-act="endChat">Сменить</button></div>
     <div class="chat" id="chatLog">${parts.join("")}</div>
     ${CH.err?`<p class="err">${esc(CH.err)}</p>`:""}
     <div class="composer">
-      ${CH.hint&&CH.showHint?`<div class="hintbox"><span>${esc(CH.hint)}</span><button class="btn small ghost" id="useHint">Вставить</button></div>`:""}
-      <div class="comp-row">
-        <textarea id="msgIn" rows="1" placeholder="Напиши по-английски…" ${CH.busy||!SAMPLE?"disabled":""}>${esc(draft)}</textarea>
-        <button class="btn primary" id="sendBtn" ${CH.busy||!SAMPLE?"disabled":""} aria-label="Отправить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
-      </div>
-      <div class="row-inline" style="justify-content:space-between">
-        ${CH.hint?`<button class="linkbtn" id="hintBtn">${CH.showHint?"Скрыть подсказку":"Подсказка: что ответить"}</button>`:"<span></span>"}
-        <label class="row-inline" style="gap:6px;font-size:14px;color:var(--muted)"><input type="checkbox" id="autoSp" ${AUTO_SPEAK?"checked":""}> Озвучивать ответы</label>
-      </div>
+      ${CH.hint&&CH.showHint?`<div class="hintbox"><span>${esc(CH.hint)}</span><button class="btn small ghost" data-act="useHint">Вставить</button></div>`:""}
+      <div class="comp-row"><textarea id="msgIn" rows="1" placeholder="Напиши по-английски…" ${CH.busy||!SAMPLE?"disabled":""}>${esc(draft)}</textarea>
+        <button class="btn grape" data-act="send" ${CH.busy||!SAMPLE?"disabled":""} aria-label="Отправить">${ic("arrow")}</button></div>
+      <div class="row" style="justify-content:space-between">${CH.hint?`<button class="link" data-act="hint">${CH.showHint?"Скрыть подсказку":"Подсказка: что ответить"}</button>`:"<span></span>"}
+        <label class="tgl"><input type="checkbox" id="autoSp" ${AUTO_SPEAK?"checked":""}> Озвучивать</label></div>
     </div>`;
-  el.querySelector("#endChat").onclick=()=>{CH=null;renderChat()};
-  el.querySelectorAll("[data-ru]").forEach(b=>b.onclick=()=>{const m=CH.view[+b.dataset.ru];m.showRu=!m.showRu;renderChat()});
-  const inp=el.querySelector("#msgIn");
-  const send=()=>{const v=inp.value.trim();if(!v||CH.busy)return;CH.view.push({me:true,text:v});CH.turns.push({role:"user",content:v});inp.value="";CH.showHint=false;askTutor()};
-  el.querySelector("#sendBtn").onclick=send;
-  inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
-  inp.addEventListener("input",()=>{inp.style.height="auto";inp.style.height=Math.min(inp.scrollHeight,140)+"px"});
-  const hb=el.querySelector("#hintBtn");if(hb)hb.onclick=()=>{CH.showHint=!CH.showHint;renderChat()};
-  const uh=el.querySelector("#useHint");if(uh)uh.onclick=()=>{const h=CH.hint;CH.showHint=false;renderChat();const i3=document.getElementById("msgIn");i3.value=h;i3.focus()};
-  el.querySelector("#autoSp").onchange=e=>{AUTO_SPEAK=e.target.checked};
-  const last=el.querySelector("#chatLog").lastElementChild;if(last&&TAB==="dialogs")last.scrollIntoView({block:"nearest"});
+  const last=$("#chatLog").lastElementChild;if(last&&TAB==="dialogs")last.scrollIntoView({block:"nearest"});
+}
+function sendChat(){
+  const inp=$("#msgIn");if(!inp||!CH||CH.busy)return;
+  const v=inp.value.trim();if(!v)return;
+  CH.view.push({me:true,text:v});CH.turns.push({role:"user",content:v});inp.value="";CH.showHint=false;askTutor();
 }
 
+/* ---------------- SETTINGS & ACHIEVEMENTS SHEETS ---------------- */
+function settingsSheet(){
+  const seg=(k,vals)=>`<div class="seg" role="group">${vals.map(([v,l])=>`<button data-act="set" data-k="${k}" data-v="${v}" aria-pressed="${String(S[k])===String(v)}">${l}</button>`).join("")}</div>`;
+  return `<h2>Настройки</h2>
+    <div class="field"><span class="flabel">Цель дня</span>${seg("goal",[[30,"30 XP"],[50,"50 XP"],[100,"100 XP"]])}</div>
+    <div class="field"><span class="flabel">Новых слов в день</span>${seg("perDay",[[5,"5"],[10,"10"],[15,"15"],[20,"20"]])}</div>
+    <div class="field"><span class="flabel">Карточки</span>${seg("dir",[["en","English → рус"],["ru","Рус → English"]])}</div>
+    <div class="field"><span class="flabel">Звуки успеха</span>${seg("sound",[["true","Вкл"],["false","Выкл"]])}</div>
+    <button class="btn ghost block" data-act="closeSheet">Готово</button>`;
+}
+const achSheet=()=>`<h2>Награды</h2><p class="sub">Получено ${Object.keys(S.ach).length} из ${ACH.length}</p>
+  <div class="card" style="display:flex;flex-direction:column;gap:14px">${ACH.map(a=>`<div class="achrow">${medal(a,!!S.ach[a.id])}<div class="tx"><b>${esc(a.t)}</b><span>${esc(a.d)}</span></div>${S.ach[a.id]?`<span class="pill t-leaf">${ic("check")}</span>`:""}</div>`).join("")}</div>`;
+
+/* ---------------- ACTIONS (one delegated click handler) ---------------- */
+const ACT={
+  go:el=>go(el.dataset.t),
+  settings:()=>openSheet(settingsSheet()),
+  closeSheet:()=>closeSheet(),
+  set:el=>{const k=el.dataset.k,v=el.dataset.v;S[k]=k==="dir"?v:k==="sound"?v==="true":+v;save();setSheet(settingsSheet());renderTop();renderTab(TAB);syncFocus()},
+  achs:()=>openSheet(achSheet()),
+  study:()=>startSession("all"),
+  topic:el=>openSheet(topicSheet(el.dataset.k)),
+  studyTopic:el=>startSession(el.dataset.k),
+  addWord:()=>openSheet(addWordSheet()),
+  reveal:()=>{
+    if(!SES||SES.shown)return;SES.shown=true;sfx("tap");
+    $("#flip").classList.add("flipped");$("#ctl").innerHTML=ctlHtml();
+    const c=SES.queue[SES.i];if(S.dir==="ru")speak(c.en);
+  },
+  grade:el=>{
+    if(!SES||SES.lock)return;SES.lock=true;
+    const g=el.dataset.g;floatXP(el,{good:10,hard:6,again:2}[g]);sfx(g==="again"?"bad":"ok");
+    const fw=$("#fw");
+    if(reduced()||!fw)return grade(g);
+    fw.classList.remove("in");fw.classList.add("out");setTimeout(()=>grade(g),190);
+  },
+  endSes:()=>{SES=null;renderWords();syncFocus();renderTop();window.scrollTo({top:0})},
+  lesson:el=>startLesson(+el.dataset.i),
+  toQ:()=>{LES.step="q";LES.qi=0;prepQ();renderLesson();window.scrollTo({top:0})},
+  opt:el=>{
+    if(!LES||LES.picked!=null)return;const it=LESSONS[LES.i].q[LES.qi];
+    LES.picked=+el.dataset.o;finishQ(LES.picked===it[2]);renderLesson();
+  },
+  pick:el=>{if(LES.picked!=null)return;LES.bd.picked.push(+el.dataset.k);renderLesson()},
+  unpick:el=>{if(LES.picked!=null)return;LES.bd.picked.splice(+el.dataset.k,1);renderLesson()},
+  checkBuild:()=>{
+    const it=LESSONS[LES.i].q[LES.qi],got=LES.bd.picked.map(pi=>LES.bd.pool[pi].w).join(" ");
+    const norm=s=>s.toLowerCase().replace(/[.,!?]/g,"").trim(),ok=norm(got)===norm(it.b);
+    LES.picked=ok;finishQ(ok);renderLesson();speak(it.b);
+  },
+  nextQ:()=>{
+    const L=LESSONS[LES.i];hideFb();LES.qi++;
+    if(LES.qi>=L.q.length){
+      LES.step="done";S.grammar[LES.i]=Math.max(S.grammar[LES.i]||0,LES.score);S.lessonDay=today();
+      const bonus=20+(LES.score===L.q.length?10:0);LES.xp+=bonus;addXP(bonus);
+    } else prepQ();
+    renderLesson();window.scrollTo({top:0});
+  },
+  retryLesson:()=>startLesson(LES.i),
+  nextLesson:()=>startLesson(LES.i+1),
+  endLesson:()=>{LES=null;hideFb();renderGrammar();syncFocus();window.scrollTo({top:0})},
+  pcat:el=>{PCAT=+el.dataset.i;renderPhrases()},
+  addPhrase:el=>{
+    const [en,ru]=el.dataset.p.split("|");
+    if(!deck().some(c=>c.en===en)){S.custom.unshift({id:"p:"+en,en,ru,ipa:"",ex:"",exru:"",cat:"my"});save()}
+    el.disabled=true;el.innerHTML=ic("check");sfx("tap");renderTabs();
+  },
+  dialog:el=>openDialog(+el.dataset.i),
+  dlgBack:()=>{playToken++;stopSpeech();DLG=null;CH=null;CHPICK=false;renderDialogs();window.scrollTo({top:0})},
+  tgRu:()=>{DOPT.ru=!DOPT.ru;renderDialogs()},
+  tgPr:()=>{DOPT.practice=!DOPT.practice;DOPT.shown={};renderDialogs()},
+  line:el=>{
+    const i=+el.dataset.i,D=DIALOGS[DLG],[who,en]=D.l[i];
+    if(DOPT.practice&&who==="me"&&!DOPT.shown[i]){
+      DOPT.shown[i]=true;
+      const allShown=D.l.every(([w],k)=>w!=="me"||DOPT.shown[k]);
+      if(allShown&&!DOPT.awarded){DOPT.awarded=true;S.dlg[DLG]=true;S.dialogDay=today();addXP(15);
+        setTimeout(()=>{confetti();sfx("win");queueToast(`<span class="medal on t-${DLG_COL[DLG]}">${ic(DLG_IC[DLG])}</span><div><b>Диалог пройден!</b><small>+15 XP</small></div>`)},250)}
+      renderDialogs();
+    }
+    playToken++;speak(en);
+  },
+  playAll:()=>{
+    const D=DIALOGS[DLG];
+    speakSeq(D.l.map(([who,en])=>({text:en,pitch:who==="me"?1.15:.9})),i=>{PLAYING=i;document.querySelectorAll("#tab-dialogs .line").forEach(n=>n.classList.toggle("playing",+n.dataset.li===i))},()=>{PLAYING=-1});
+  },
+  chat:()=>{CHPICK=true;CH=null;if(TAB!=="dialogs")go("dialogs");else{renderDialogs();window.scrollTo({top:0})}},
+  scen:el=>{if(!SAMPLE)return;CH={sc:SCENARIOS[+el.dataset.i],turns:[],view:[],busy:false,hint:"",showHint:false,err:""};askTutor()},
+  endChat:()=>{CH=null;renderChat()},
+  chatRu:el=>{const m=CH.view[+el.dataset.i];m.showRu=!m.showRu;renderChat()},
+  send:()=>sendChat(),
+  hint:()=>{CH.showHint=!CH.showHint;renderChat()},
+  useHint:()=>{const h=CH.hint;CH.showHint=false;renderChat();const i=$("#msgIn");if(i){i.value=h;i.focus()}},
+};
+document.addEventListener("click",e=>{
+  const s=e.target.closest("[data-say]");
+  if(s){e.preventDefault();e.stopPropagation();playToken++;speak(s.getAttribute("data-say"));return}
+  const a=e.target.closest("[data-act]");
+  if(a&&!a.disabled&&ACT[a.dataset.act]){e.preventDefault();ACT[a.dataset.act](a,e)}
+});
+document.addEventListener("submit",e=>{
+  if(e.target.id!=="addForm")return;e.preventDefault();
+  const en=$("#addEn").value.trim(),ru=$("#addRu").value.trim(),ex=$("#addEx").value.trim();
+  if(!en||!ru)return;
+  if(deck().some(c=>c.en.toLowerCase()===en.toLowerCase())){setSheet(addWordSheet(`<p class="err">Это слово уже есть в карточках.</p>`));return}
+  S.custom.unshift({id:"c:"+Date.now().toString(36),en,ru,ipa:"",ex,exru:"",cat:"my"});save();sfx("ok");
+  setSheet(addWordSheet(`<p class="okmsg">«${esc(en)}» добавлено. Добавить ещё?</p>`));renderTabs();if(TAB==="words")renderWords();
+});
+document.addEventListener("keydown",e=>{if(e.target&&e.target.id==="msgIn"&&e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat()}});
+document.addEventListener("input",e=>{if(e.target&&e.target.id==="msgIn"){const t=e.target;t.style.height="auto";t.style.height=Math.min(t.scrollHeight,140)+"px"}});
+document.addEventListener("change",e=>{if(e.target&&e.target.id==="autoSp")AUTO_SPEAK=e.target.checked});
+
 /* ---------------- BOOT ---------------- */
-function renderAll(){renderHeader();if(!SES)renderWords();if(!LES)renderGrammar();renderPhrases();if(!CH)renderDialogs()}
+function renderAll(){renderTop();renderTab(TAB);syncFocus()}
 renderAll();
 
 if(!IS_APP&&window.claude&&window.claude.use){
-  claude.use("sample").then(s=>{SAMPLE=s||null;if(!CH&&!CHPICK&&DLG===null)renderDialogs()}).catch(()=>{});
+  claude.use("sample").then(s=>{SAMPLE=s||null;if(TAB==="today")renderToday();if(!CH&&!CHPICK&&DLG===null&&TAB==="dialogs")renderDialogs()}).catch(()=>{});
   (async()=>{
     try{
       const [user,db]=await Promise.all([claude.use("user"),claude.use("db")]);
@@ -1472,15 +1903,14 @@ if(!IS_APP&&window.claude&&window.claude.use){
   }
 
   /* ---------- back button ---------- */
-  function nested(){ return TAB !== "words" || !!SES || !!LES || DLG !== null || !!CH || !!CHPICK; }
+  function nested(){ return TAB !== "today" || !!SES || !!LES || DLG !== null || !!CH || !!CHPICK || !!SHEET; }
   function syncBack(){
     if(!inTG || !ver("6.1")) return;
     try { nested() ? tg.BackButton.show() : tg.BackButton.hide(); } catch(e) {}
   }
   if(inTG && ver("6.1")){
     tg.BackButton.onClick(() => { window.__back(); syncBack(); });
-    new MutationObserver(syncBack).observe(document.querySelector(".app"), {childList:true, subtree:true});
-    document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", syncBack));
+    new MutationObserver(syncBack).observe(document.body, {childList:true, subtree:true});
     syncBack();
   }
 
@@ -1579,9 +2009,7 @@ if(!IS_APP&&window.claude&&window.claude.use){
   fetch("/api/tts?probe=1").then(r => { SERVER_TTS = r.ok; }).catch(() => {}).finally(() => {
     setTimeout(() => { if(!SERVER_TTS && !webVoiceOK()) document.documentElement.classList.add("no-audio"); }, 1500);
   });
-  const st = document.createElement("style");
-  st.textContent = ".no-audio .speak,.no-audio #playAll,.no-audio .msg-actions [data-say]{display:none!important}";
-  document.head.appendChild(st);
+    
 
   /* ---------- AI conversation through our server ---------- */
   if(inTG){
@@ -1602,7 +2030,8 @@ if(!IS_APP&&window.claude&&window.claude.use){
         if(code === "busy") throw { ru: "Claude сейчас перегружен. Отправь ещё раз через несколько секунд." };
         throw { ru: "Не получилось получить ответ. Нажми «Отправить» ещё раз." };
       }};
-      if(!CH && !CHPICK && DLG === null) renderDialogs();
+      if(TAB === "today") renderToday();
+      if(TAB === "dialogs" && !CH && !CHPICK && DLG === null) renderDialogs();
     }).catch(() => {});
   }
 })();

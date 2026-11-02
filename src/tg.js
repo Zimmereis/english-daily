@@ -21,15 +21,14 @@
   }
 
   /* ---------- back button ---------- */
-  function nested(){ return TAB !== "words" || !!SES || !!LES || DLG !== null || !!CH || !!CHPICK; }
+  function nested(){ return TAB !== "today" || !!SES || !!LES || DLG !== null || !!CH || !!CHPICK || !!SHEET; }
   function syncBack(){
     if(!inTG || !ver("6.1")) return;
     try { nested() ? tg.BackButton.show() : tg.BackButton.hide(); } catch(e) {}
   }
   if(inTG && ver("6.1")){
     tg.BackButton.onClick(() => { window.__back(); syncBack(); });
-    new MutationObserver(syncBack).observe(document.querySelector(".app"), {childList:true, subtree:true});
-    document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", syncBack));
+    new MutationObserver(syncBack).observe(document.body, {childList:true, subtree:true});
     syncBack();
   }
 
@@ -128,9 +127,7 @@
   fetch("/api/tts?probe=1").then(r => { SERVER_TTS = r.ok; }).catch(() => {}).finally(() => {
     setTimeout(() => { if(!SERVER_TTS && !webVoiceOK()) document.documentElement.classList.add("no-audio"); }, 1500);
   });
-  const st = document.createElement("style");
-  st.textContent = ".no-audio .speak,.no-audio #playAll,.no-audio .msg-actions [data-say]{display:none!important}";
-  document.head.appendChild(st);
+    
 
   /* ---------- AI conversation through our server ---------- */
   if(inTG){
@@ -151,7 +148,8 @@
         if(code === "busy") throw { ru: "Claude сейчас перегружен. Отправь ещё раз через несколько секунд." };
         throw { ru: "Не получилось получить ответ. Нажми «Отправить» ещё раз." };
       }};
-      if(!CH && !CHPICK && DLG === null) renderDialogs();
+      if(TAB === "today") renderToday();
+      if(TAB === "dialogs" && !CH && !CHPICK && DLG === null) renderDialogs();
     }).catch(() => {});
   }
 })();
