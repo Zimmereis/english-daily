@@ -1,14 +1,5 @@
-import { checkInitData, isAllowed, rateLimited } from "./_lib.js";
-
-/* Same order as SCENARIOS in the app (the app sends the index). */
-const ROLES = [
-  "You are a friendly waiter at a small cafe in a Thai tourist town. The learner is a customer. Start by greeting them and offering the menu.",
-  "You are a shop assistant in a clothes shop. The learner is a customer. Start by greeting them and asking if they need help.",
-  "You are a friendly local on the street. The learner is lost and will ask you for directions. Start by asking if they need help.",
-  "You are a taxi driver. The learner is your passenger. Start by asking where they want to go.",
-  "You are a friendly traveller the learner just met at a cafe. Start by saying hello and introducing yourself.",
-  "You are a friendly English conversation partner. Start by asking the learner how their day is going.",
-];
+import { checkInitData, isAllowed, rateLimited, json } from "../../lib/tg.js";
+import { ROLES } from "../../lib/texts.js";
 
 const system = (role) => `You are an English conversation partner for a Russian-speaking learner at a beginner level (A1-A2, knows basic English).
 Scenario: ${role}
@@ -31,8 +22,7 @@ function cleanTurns(turns) {
       else out.push({ role: t.role, content });
     }
   }
-  if (out[out.length - 1].role !== "user") return null; // the learner must speak last
-  return out;
+  return out[out.length - 1].role === "user" ? out : null; // the learner must speak last
 }
 
 function parseJson(text) {
@@ -42,53 +32,52 @@ function parseJson(text) {
   return null;
 }
 
-export default async function handler(req, res) {
-  const enabled = !!(process.env.ANTHROPIC_API_KEY && process.env.BOT_TOKEN);
-  if (req.method === "GET") return res.status(200).json({ enabled });
-  if (req.method !== "POST") return res.status(405).json({ error: "method" });
-  if (!enabled) return res.status(503).json({ error: "disabled" });
+const enabled = (env) => !!(env.ANTHROPIC_API_KEY && env.BOT_TOKEN);
 
-  const body = typeof req.body === "string" ? parseJson(req.body) || {} : req.body || {};
-  const user = checkInitData(body.initData, process.env.BOT_TOKEN);
-  if (!user) return res.status(401).json({ error: "not_telegram" });
-  if (!isAllowed(user.id)) return res.status(403).json({ error: "not_allowed", userId: user.id });
-  if (rateLimited("chat:" + user.id, 20, 60_000)) return res.status(429).json({ error: "rate_limited" });
+export const onRequestGet = ({ env }) => json({ enabled: enabled(env) });
+
+export async function onRequestPost({ request, env }) {
+  if (!enabled(env)) return json({ error: "disabled" }, 503);
+  const body = await request.json().catch(() => ({}));
+  const user = await checkInitData(body.initData, env.BOT_TOKEN);
+  if (!user) return json({ error: "not_telegram" }, 401);
+  if (!isAllowed(env, user.id)) return json({ error: "not_allowed", userId: user.id }, 403);
+  if (rateLimited("chat:" + user.id, 20, 60_000)) return json({ error: "rate_limited" }, 429);
 
   const role = ROLES[Number(body.scenario)];
-  if (!role) return res.status(400).json({ error: "bad_scenario" });
+  if (!role) return json({ error: "bad_scenario" }, 400);
   const messages = cleanTurns(body.turns);
-  if (!messages) return res.status(400).json({ error: "bad_turns" });
+  if (!messages) return json({ error: "bad_turns" }, 400);
 
   let r;
   try {
     r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
+        "x-api-key": env.ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.CLAUDE_MODEL || "claude-haiku-5-5",
+        model: env.CLAUDE_MODEL || "claude-haiku-5-5",
         max_tokens: 700,
         system: system(role),
         messages,
       }),
     });
   } catch {
-    return res.status(502).json({ error: "upstream" });
+    return json({ error: "upstream" }, 502);
   }
   if (!r.ok) {
     const detail = await r.text().catch(() => "");
     console.error("Anthropic API error", r.status, detail.slice(0, 500));
-    return res.status(r.status === 429 || r.status === 529 ? 503 : 502).json({ error: r.status === 429 || r.status === 529 ? "busy" : "upstream" });
+    const busy = r.status === 429 || r.status === 529;
+    return json({ error: busy ? "busy" : "upstream" }, busy ? 503 : 502);
   }
   const data = await r.json();
   const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
   const out = parseJson(text);
-  if (!out || !out.reply) return res.status(502).json({ error: "bad_reply" });
+  if (!out || !out.reply) return json({ error: "bad_reply" }, 502);
   const s = (v) => String(v || "").trim();
-  return res.status(200).json({
-    reply: s(out.reply), reply_ru: s(out.reply_ru), correction: s(out.correction), better: s(out.better), hint: s(out.hint),
-  });
+  return json({ reply: s(out.reply), reply_ru: s(out.reply_ru), correction: s(out.correction), better: s(out.better), hint: s(out.hint) });
 }
