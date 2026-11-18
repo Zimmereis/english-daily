@@ -160,7 +160,7 @@
   let VOICE_ON = false, voiceAudio = null;
   if(inTG) fetch("/api/voice").then(r => r.ok ? r.json() : null).then(d => { VOICE_ON = !!(d && d.enabled); }).catch(() => {});
   window.mangoSay = function(text, mood){
-    const fallback = () => new Promise(res => { speak(text); setTimeout(res, Math.min(6000, 400 + String(text).length * 60)); });
+    const fallback = () => new Promise(res => { speakMixed(text); setTimeout(res, Math.min(6000, 400 + String(text).length * 60)); });
     if(!VOICE_ON || !AIQ || !AIQ.unlimited) return fallback();
     stopSpeech(); if(voiceAudio){ try { voiceAudio.pause(); } catch(e) {} }
     return post("/api/voice", { text, mood }).then(r => r.ok ? r.blob() : Promise.reject())

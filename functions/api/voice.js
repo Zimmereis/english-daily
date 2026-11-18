@@ -40,7 +40,7 @@ export async function onRequestPost({ request, env }) {
       headers: { "xi-api-key": env.ELEVENLABS_API_KEY, "content-type": "application/json", accept: "audio/mpeg" },
       body: JSON.stringify({
         text,
-        model_id: env.ELEVENLABS_MODEL || "eleven_flash_v2_5",
+        model_id: env.ELEVENLABS_MODEL || "eleven_v3",
         voice_settings: { stability: st.stability, similarity_boost: 0.8, style: st.style, use_speaker_boost: true },
       }),
     });

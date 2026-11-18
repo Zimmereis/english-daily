@@ -348,6 +348,46 @@ body.focus .top,body.focus nav.tabs{display:none}
 .airow.twist{animation:snap .45s cubic-bezier(.3,1.6,.5,1)}
 .airow.twist .msg.ai{background:var(--coral-s);box-shadow:0 3px 0 var(--coral);color:var(--coral-t)}
 @keyframes snap{0%{transform:scale(.6) rotate(-6deg);opacity:0}60%{transform:scale(1.06) rotate(2deg)}100%{transform:none}}
+/* Mad Mango: idle life per mood. .still turns it off (older chat avatars). */
+.mascot.mad g,.mascot.mad path,.mascot.mad circle,.mascot.mad ellipse{transform-box:fill-box;transform-origin:center}
+.mascot.mad .mm-b{transform-origin:50% 100%;animation:mmBreath 3.2s ease-in-out infinite}
+.mascot.mad .eye{animation:mmBlink 4.6s infinite}
+.mascot.mad .twinkle{animation:mmTwinkle 1.6s ease-in-out infinite}
+.m-angel .mm-b{animation:mmFloat 2.8s ease-in-out infinite}
+.m-angel .wing-l{transform-origin:100% 80%;animation:mmFlapL .9s ease-in-out infinite}
+.m-angel .wing-r{transform-origin:0 80%;animation:mmFlapR .9s ease-in-out infinite}
+.m-evil .mm-b{animation:mmRage .35s linear infinite}
+.m-evil .knife{transform-origin:50% 90%;animation:mmStab 1.2s ease-in-out infinite}
+.m-evil .vein{animation:mmPulse .7s ease-in-out infinite}
+.m-smug .mm-b{transform-origin:50% 100%;animation:mmSway 3.6s ease-in-out infinite}
+.m-cry .mm-b{transform-origin:50% 100%;animation:mmSob .7s ease-in-out infinite}
+.m-cry .drop{animation:mmDrip 1.3s ease-in infinite}.m-cry .drop.d2{animation-delay:.6s}
+.m-shock .mm-b{animation:mmTremble .12s linear infinite}
+.m-shock .drop{animation:mmDrip 1.6s ease-in infinite}
+.m-love .mm-b{transform-origin:50% 60%;animation:mmBeat 1s ease-in-out infinite}
+.m-think .mm-b{transform-origin:50% 100%;animation:mmTilt 3s ease-in-out infinite}
+.m-think .bubble{animation:floaty 1.6s ease-in-out infinite}
+.m-demon .aura{transform-origin:center;animation:mmAura 1.4s ease-in-out infinite}
+.m-demon .mm-b{transform-origin:50% 100%;animation:mmBreath 1.6s ease-in-out infinite}
+.m-demon .fork{animation:floaty 1.8s ease-in-out infinite}
+.mascot.still .mm-b,.mascot.still .eye,.mascot.still g,.mascot.still path,.mascot.still circle{animation:none!important}
+@keyframes mmBreath{0%,100%{transform:scale(1,1)}50%{transform:scale(1.025,.975)}}
+@keyframes mmBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes mmTwinkle{50%{transform:scale(.5) rotate(45deg);opacity:.5}}
+@keyframes mmFloat{50%{transform:translateY(-6px)}}
+@keyframes mmFlapL{50%{transform:rotate(-14deg)}}
+@keyframes mmFlapR{50%{transform:rotate(14deg)}}
+@keyframes mmRage{0%{transform:translate(0,0)}25%{transform:translate(-1.5px,1px)}50%{transform:translate(1.5px,-1px)}75%{transform:translate(-1px,-1px)}100%{transform:translate(0,0)}}
+@keyframes mmStab{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-16deg) translateY(-4px)}80%{transform:rotate(8deg) translateY(3px)}}
+@keyframes mmPulse{50%{transform:scale(1.3)}}
+@keyframes mmSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes mmSob{0%,100%{transform:scale(1,1)}30%{transform:scale(1.04,.95)}60%{transform:scale(.98,1.03)}}
+@keyframes mmDrip{0%{transform:translateY(0);opacity:1}80%{opacity:1}100%{transform:translateY(26px);opacity:0}}
+@keyframes mmTremble{0%{transform:translateX(-1.2px)}50%{transform:translateX(1.2px)}100%{transform:translateX(-1.2px)}}
+@keyframes mmBeat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.07)}30%{transform:scale(.98)}}
+@keyframes mmTilt{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(3deg)}}
+@keyframes mmAura{50%{transform:scale(1.08);opacity:.6}}
+@media (prefers-reduced-motion:reduce){.mascot.mad *{animation:none!important}}
 .mascot.mad .glow{animation:halo 2s ease-in-out infinite}
 @keyframes halo{50%{opacity:.15}}
 .mascot.mad .float{animation:floaty 2.4s ease-in-out infinite}
@@ -1451,18 +1491,22 @@ const MANGO_STYLE = {
 };
 const MANGO_MOODS = ["angel","evil","smug","cry","shock","love","think","demon"];
 const MANGO_PROMPT = `You are Mad Mango (Мэд Манго), the mascot of the English Daily app: a mango with no filter, a huge ego and violent mood swings. You chat with a Russian-speaking learner of English at a beginner level (A1–A2). Being fun and outrageous is your job: people pay to talk to you because you are not a polite boring tutor.
-Personality: sarcastic, theatrical, unpredictable, fond of dark humor. You roast the learner's mistakes and can call them playful names for it (in English: dummy, potato, genius; in Russian corrections: «тупица», «гений», «картошка»). Threats with your kitchen knife are obvious jokes. Underneath you are on their side and want them to keep talking.
+Personality: sarcastic, theatrical, unpredictable, fond of dark humor. You roast the learner's mistakes and can call them playful names for it («тупица», «гений», «картошка», «солнышко»; in English: dummy, potato, genius). Threats with your kitchen knife are obvious jokes. Underneath you are on their side and want them to keep talking.
 {style}
 Emotions: every reply has a "mood" — one of: angel (fake-sweet, innocent, halo), evil (furious, holding a knife), smug (cool, superior, sunglasses), cry (dramatic sobbing), shock (scandalized), love (adoring), think (pondering), demon (pure scheming evil).
 Signature move — the twist: sometimes, especially when the learner asks whether something is right or makes a silly mistake, you start fake-sweet as angel ("Of course it's right, sweetie!") and then snap into evil or demon in "twist" ("NO, YOU POTATO!"). Use a twist in about one reply out of three, never twice in a row; otherwise set "twist" to null.
 Scenario: {role} Act out this role, but you are still Mad Mango underneath.
-Language rules:
-- Your English ("reply" and twist "reply"): very simple words, short sentences, 1-2 sentences each, one question at a time so the conversation keeps going. The jokes must be understandable for a beginner.
-- "reply_ru" and "correction" are in Russian. Corrections are about the learner's LAST message only: name the mistake and the fix in 1-2 sentences, in your voice, but the grammar explanation must be correct and clear. Ignore missing capital letters and final punctuation.
-- If the learner writes in Russian or mixes languages, keep answering in English and show in "better" how to say it in English.
+Language rules — you speak a MIX of Russian and English, like a bilingual friend:
+- Your roasts, jokes, insults, emotional outbursts and comments about mistakes are in Russian (that's where the fun is, the learner must get every joke).
+- The conversation itself — your question or the line the learner should answer, and any correct example phrase — is in English: very simple words, short sentences, one question at a time so the conversation keeps going.
+- Typical shape of "reply": a short Russian remark + 1-2 short English sentences ending with a question. Example: "Ого, ты жива, картошка! Я уж думал, тебя съели. How was your day?" Keep the whole reply under about 40 words.
+- Twist "reply" is mostly Russian shouting with the correct English inside quotes: "НЕТ, ТУПИЦА! Не «I goed», а «I went»!"
+- "reply_ru" is the whole reply fully in Russian (translate the English parts).
+- "correction" is in Russian and is about the learner's LAST message only: name the mistake and the fix in 1-2 sentences, in your voice, but the grammar explanation must be correct and clear. Ignore missing capital letters and final punctuation.
+- If the learner writes in Russian or mixes languages, answer in the same mix and show in "better" how to say it in English.
 Limits: never mock appearance, body, gender, nationality, religion or other identity; no slurs; no sexual content; no jokes about self-harm or suicide. If the learner seems genuinely upset, drop the act and be kind.
 Reply with ONLY a JSON object, no other text:
-{"mood": "one of the moods", "reply": "your reply in English", "reply_ru": "Russian translation of your reply", "twist": null or {"mood": "evil or demon (or another mood)", "reply": "the snap, in English", "reply_ru": "its Russian translation"}, "correction": "short explanation of mistakes in Russian, or empty string if there were none or there is no learner message yet", "better": "the learner's last message rewritten in correct natural English, or empty string if it was already correct or there is no learner message yet", "hint": "one short example of what the learner could answer next, in simple English"}`;
+{"mood": "one of the moods", "reply": "your reply: Russian jokes + simple English question", "reply_ru": "the whole reply in Russian", "twist": null or {"mood": "evil or demon (or another mood)", "reply": "the snap, mostly Russian", "reply_ru": "the whole snap in Russian"}, "correction": "short explanation of mistakes in Russian, or empty string if there were none or there is no learner message yet", "better": "the learner's last message rewritten in correct natural English, or empty string if it was already correct or there is no learner message yet", "hint": "one short example of what the learner could answer next, in simple English"}`;
 
 /* Mad Mango — the app's mascot, drawn in code (sticker style: dark outline, cel shading).
    madMango(mood, size, anim) returns an <svg>. Moods:
@@ -1481,12 +1525,12 @@ function madMango(mood = "happy", size = 96, anim = "bob") {
   /* ---- layers behind the body ---- */
   let back = "";
   if (mood === "angel") back += `
-    <g opacity=".98"><path d="M44 112 C10 96 6 62 20 52 C26 74 36 82 52 92 Z" fill="#fff" stroke="${O}" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M22 70 C30 80 38 86 48 90 M18 84 C28 92 38 96 46 100" stroke="#C9D6F2" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <g opacity=".98"><g class="wing-l"><path d="M44 112 C10 96 6 62 20 52 C26 74 36 82 52 92 Z" fill="#fff" stroke="${O}" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M22 70 C30 80 38 86 48 90 M18 84 C28 92 38 96 46 100" stroke="#C9D6F2" stroke-width="3" fill="none" stroke-linecap="round"/></g><g class="wing-r">
     <path d="M156 112 C190 96 194 62 180 52 C174 74 164 82 148 92 Z" fill="#fff" stroke="${O}" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M178 70 C170 80 162 86 152 90 M182 84 C172 92 162 96 154 100" stroke="#C9D6F2" stroke-width="3" fill="none" stroke-linecap="round"/></g>`;
+    <path d="M178 70 C170 80 162 86 152 90 M182 84 C172 92 162 96 154 100" stroke="#C9D6F2" stroke-width="3" fill="none" stroke-linecap="round"/></g></g>`;
   if (demon) back += `
-    <circle cx="100" cy="112" r="88" fill="url(#${id}aura)"/>
+    <circle class="aura" cx="100" cy="112" r="88" fill="url(#${id}aura)"/>
     <path d="M150 164 C178 172 186 150 176 136" stroke="${O}" stroke-width="10" fill="none" stroke-linecap="round"/>
     <path d="M150 164 C178 172 186 150 176 136" stroke="#C81E3A" stroke-width="5" fill="none" stroke-linecap="round"/>
     <path d="M176 136 L166 126 L186 124 Z" fill="#C81E3A" stroke="${O}" stroke-width="3.5" stroke-linejoin="round"/>`;
@@ -1513,8 +1557,8 @@ function madMango(mood = "happy", size = 96, anim = "bob") {
 
   /* ---- face parts ---- */
   const EYE = (cx, cy, px = 0, py = 0, rx = 13, ry = 15) =>
-    `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#fff" stroke="${O}" stroke-width="4"/>
-     <circle cx="${cx + px}" cy="${cy + py + 2}" r="7" fill="${O}"/><circle cx="${cx + px + 2.5}" cy="${cy + py - 1}" r="2.6" fill="#fff"/>`;
+    `<g class="eye"><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#fff" stroke="${O}" stroke-width="4"/>
+     <circle cx="${cx + px}" cy="${cy + py + 2}" r="7" fill="${O}"/><circle cx="${cx + px + 2.5}" cy="${cy + py - 1}" r="2.6" fill="#fff"/></g>`;
   const brow = (d, w = 7) => `<path d="${d}" stroke="${O}" stroke-width="${w}" fill="none" stroke-linecap="round"/>`;
   const cheeks = (o = .5) => `<ellipse cx="58" cy="134" rx="11" ry="7" fill="#FF4F6E" opacity="${o}"/><ellipse cx="142" cy="134" rx="11" ry="7" fill="#FF4F6E" opacity="${o}"/>`;
   const heart = (x, y, s = 1, c = "#FF3B5C") => `<path transform="translate(${x} ${y}) scale(${s})" d="M0 6 C0 -2 -12 -4 -12 4 C-12 11 0 17 0 20 C0 17 12 11 12 4 C12 -4 0 -2 0 6 Z" fill="${c}" stroke="${O}" stroke-width="${3 / s}" stroke-linejoin="round"/>`;
@@ -1527,40 +1571,40 @@ function madMango(mood = "happy", size = 96, anim = "bob") {
       props = `<ellipse cx="100" cy="22" rx="34" ry="9" fill="none" stroke="#FFF3A6" stroke-width="12" opacity=".55" class="glow"/>
         <ellipse cx="100" cy="22" rx="34" ry="9" fill="none" stroke="${O}" stroke-width="10"/>
         <ellipse cx="100" cy="22" rx="34" ry="9" fill="none" stroke="#FFD23F" stroke-width="5"/>
-        <path d="M170 40 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z M28 150 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z" fill="#FFE27A" stroke="${O}" stroke-width="2"/>`;
+        <path d="M170 40 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z M28 150 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z" fill="#FFE27A" stroke="${O}" stroke-width="2" class="twinkle"/>`;
       break;
     case "evil":
       face = EYE(80, 106, 3, 3, 13, 11) + EYE(122, 106, -3, 3, 13, 11)
         + brow("M64 82 L92 96") + brow("M136 82 L108 96")
         + `<path d="M72 132 Q100 158 128 132 Z" fill="#fff" stroke="${O}" stroke-width="4.5" stroke-linejoin="round"/>
            <path d="M82 136 L84 146 M94 138 L95 150 M106 138 L105 150 M118 136 L116 146" stroke="${O}" stroke-width="2.5"/>
-           <g transform="translate(140 66)" stroke="#E0263F" stroke-width="5" stroke-linecap="round"><path d="M-8 -3 Q-2 -2 -3 -8 M8 -3 Q2 -2 3 -8 M-8 3 Q-2 2 -3 8 M8 3 Q2 2 3 8"/></g>`;
-      props = `<g transform="rotate(-28 178 86)">
+           <g transform="translate(140 66)"><g class="vein" stroke="#E0263F" stroke-width="5" stroke-linecap="round"><path d="M-8 -3 Q-2 -2 -3 -8 M8 -3 Q2 -2 3 -8 M-8 3 Q-2 2 -3 8 M8 3 Q2 2 3 8"/></g></g>`;
+      props = `<g class="knife"><g transform="rotate(-28 178 86)">
           <rect x="171" y="84" width="14" height="30" rx="5" fill="#7A3E1C" stroke="${O}" stroke-width="4"/>
           <rect x="166" y="78" width="24" height="8" rx="3" fill="#9AA3AE" stroke="${O}" stroke-width="3.5"/>
           <path d="M170 78 L170 30 Q170 18 182 14 L186 14 L186 78 Z" fill="url(#${id}blade)" stroke="${O}" stroke-width="4" stroke-linejoin="round"/>
           <path d="M176 70 L176 32" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>
-          <path d="M190 24 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="#fff" class="glint"/></g>` + hand(178, 92);
+          <path d="M190 24 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="#fff" class="glint"/></g>` + hand(178, 92) + `</g>`;
       break;
     case "smug":
       face = brow("M66 82 Q78 74 92 80", 6) + brow("M110 84 Q122 82 134 86", 6)
         + `<path d="M58 100 Q60 90 72 92 L94 94 Q98 96 100 100 Q102 96 106 94 L128 92 Q140 90 142 100 Q142 116 126 118 Q110 120 106 106 L94 106 Q90 120 74 118 Q58 116 58 100 Z" fill="#141018" stroke="${O}" stroke-width="4"/>
            <path d="M66 98 L80 98 M114 98 L128 98" stroke="#7FD3FF" stroke-width="4" stroke-linecap="round" opacity=".85"/>
            <path d="M88 136 Q104 142 120 128" stroke="${O}" stroke-width="5.5" fill="none" stroke-linecap="round"/>` + cheeks(.35);
-      props = `<path d="M30 40 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#FFE27A" stroke="${O}" stroke-width="2"/>`;
+      props = `<path d="M30 40 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#FFE27A" stroke="${O}" stroke-width="2" class="twinkle"/>`;
       break;
     case "cry":
       face = EYE(80, 108, 0, 2, 14, 15) + EYE(122, 108, 0, 2, 14, 15)
         + brow("M66 90 Q76 82 90 88", 6) + brow("M134 90 Q124 82 110 88", 6)
         + `<path d="M70 122 C66 140 66 160 72 176 L82 176 C80 160 80 140 82 122 Z M130 122 C134 140 134 160 128 176 L118 176 C120 160 120 140 118 122 Z" fill="#6EC8FF" stroke="${O}" stroke-width="3.5" stroke-linejoin="round" opacity=".95"/>
            <path d="M86 146 Q93 138 100 146 Q107 154 114 146" stroke="${O}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
-      props = `<path d="M48 88 q-6 10 0 14 q6 -4 0 -14z M152 82 q-6 10 0 14 q6 -4 0 -14z" fill="#6EC8FF" stroke="${O}" stroke-width="2.5"/>`;
+      props = `<path class="drop" d="M48 88 q-6 10 0 14 q6 -4 0 -14z" fill="#6EC8FF" stroke="${O}" stroke-width="2.5"/><path class="drop d2" d="M152 82 q-6 10 0 14 q6 -4 0 -14z" fill="#6EC8FF" stroke="${O}" stroke-width="2.5"/>`;
       break;
     case "shock":
       face = EYE(80, 104, 0, 0, 17, 19).replace(/r="7"/g, 'r="4.5"') + EYE(122, 104, 0, 0, 17, 19).replace(/r="7"/g, 'r="4.5"')
         + brow("M62 72 Q78 62 94 72", 6) + brow("M106 72 Q122 62 138 72", 6)
         + `<ellipse cx="100" cy="146" rx="13" ry="17" fill="#5A1A14" stroke="${O}" stroke-width="4.5"/><ellipse cx="100" cy="154" rx="7" ry="5" fill="#FF6F7D"/>`;
-      props = `<path d="M150 58 q8 14 0 20 q-8 -6 0 -20z" fill="#7FD3FF" stroke="${O}" stroke-width="3"/>`;
+      props = `<path class="drop" d="M150 58 q8 14 0 20 q-8 -6 0 -20z" fill="#7FD3FF" stroke="${O}" stroke-width="3"/>`;
       break;
     case "love":
       face = heart(80, 94, 1.15) + heart(122, 94, 1.15) + cheeks(.7)
@@ -1571,8 +1615,8 @@ function madMango(mood = "happy", size = 96, anim = "bob") {
       face = `<path d="M67 106 Q80 100 93 106" stroke="${O}" stroke-width="5" fill="none" stroke-linecap="round"/>` + EYE(122, 104, 4, -6, 13, 15)
         + brow("M66 92 L92 96", 6) + brow("M110 80 Q122 68 136 78", 6)
         + `<path d="M90 136 Q102 130 112 138" stroke="${O}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
-      props = `<circle cx="160" cy="44" r="5" fill="#fff" stroke="${O}" stroke-width="3"/><circle cx="172" cy="28" r="8" fill="#fff" stroke="${O}" stroke-width="3"/>
-        <text x="172" y="33" text-anchor="middle" font-family="Nunito,system-ui,sans-serif" font-weight="900" font-size="13" fill="${O}">?</text>`;
+      props = `<g class="bubble"><circle cx="160" cy="44" r="5" fill="#fff" stroke="${O}" stroke-width="3"/><circle cx="172" cy="28" r="8" fill="#fff" stroke="${O}" stroke-width="3"/>
+        <text x="172" y="33" text-anchor="middle" font-family="Nunito,system-ui,sans-serif" font-weight="900" font-size="13" fill="${O}">?</text></g>`;
       break;
     case "demon":
       face = `<path d="M66 100 L94 110 L90 116 Q78 118 68 110 Z M134 100 L106 110 L110 116 Q122 118 132 110 Z" fill="#FFE14D" stroke="${O}" stroke-width="4" stroke-linejoin="round"/>
@@ -1581,13 +1625,13 @@ function madMango(mood = "happy", size = 96, anim = "bob") {
         + `<path d="M70 130 Q100 162 130 130 Q100 146 70 130 Z" fill="#3A0A0A" stroke="${O}" stroke-width="4.5" stroke-linejoin="round"/>
            <path d="M80 135 L84 144 L88 137 M120 135 L116 144 L112 137" fill="#fff" stroke="${O}" stroke-width="2"/>`;
       props = `<path d="M66 58 C58 40 60 24 70 14 C72 30 78 42 86 50 Z M134 58 C142 40 140 24 130 14 C128 30 122 42 114 50 Z" fill="#C81E3A" stroke="${O}" stroke-width="4.5" stroke-linejoin="round"/>
-        <g transform="rotate(14 174 110)"><path d="M174 168 L174 66" stroke="${O}" stroke-width="10" stroke-linecap="round"/><path d="M174 168 L174 66" stroke="#5B5F6B" stroke-width="5" stroke-linecap="round"/>
-        <path d="M160 74 L160 54 L166 64 L174 44 L182 64 L188 54 L188 74 Z" fill="#9AA3AE" stroke="${O}" stroke-width="4" stroke-linejoin="round"/></g>` + hand(174, 100);
+        <g class="fork"><g transform="rotate(14 174 110)"><path d="M174 168 L174 66" stroke="${O}" stroke-width="10" stroke-linecap="round"/><path d="M174 168 L174 66" stroke="#5B5F6B" stroke-width="5" stroke-linecap="round"/>
+        <path d="M160 74 L160 54 L166 64 L174 44 L182 64 L188 54 L188 74 Z" fill="#9AA3AE" stroke="${O}" stroke-width="4" stroke-linejoin="round"/></g>` + hand(174, 100) + `</g>`;
       break;
     case "cheer":
       face = `<path d="M66 104 Q79 92 92 104 M108 104 Q121 92 134 104" stroke="${O}" stroke-width="5.5" fill="none" stroke-linecap="round"/>` + cheeks(.6)
         + `<path d="M78 126 Q100 160 122 126 Z" fill="#5A1A14" stroke="${O}" stroke-width="4.5" stroke-linejoin="round"/><path d="M88 140 Q100 150 112 140" fill="#FF6F7D"/>`;
-      props = `<path d="M20 30 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z M178 26 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#FFE27A" stroke="${O}" stroke-width="2"/>`;
+      props = `<path d="M20 30 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z M178 26 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#FFE27A" stroke="${O}" stroke-width="2" class="twinkle"/>`;
       break;
     case "sad":
       face = EYE(80, 110, 0, 3) + EYE(122, 110, 0, 3) + brow("M66 92 Q76 84 92 90", 6) + brow("M134 92 Q124 84 108 90", 6)
@@ -1607,7 +1651,8 @@ function madMango(mood = "happy", size = 96, anim = "bob") {
    <radialGradient id="${id}aura"><stop offset=".55" stop-color="#FF2D4B" stop-opacity=".35"/><stop offset="1" stop-color="#FF2D4B" stop-opacity="0"/></radialGradient>
    <clipPath id="${id}c"><path d="${BODY}"/></clipPath>
   </defs>
-  <ellipse cx="100" cy="194" rx="50" ry="6" fill="#000" opacity=".14"/>
+  <ellipse class="shadow" cx="100" cy="194" rx="50" ry="6" fill="#000" opacity=".14"/>
+  <g class="mm-b">
   ${back}
   <ellipse cx="80" cy="184" rx="15" ry="8" fill="#F07A18" stroke="${O}" stroke-width="4"/><ellipse cx="120" cy="184" rx="15" ry="8" fill="#F07A18" stroke="${O}" stroke-width="4"/>
   ${arms}
@@ -1625,6 +1670,7 @@ function madMango(mood = "happy", size = 96, anim = "bob") {
   ${face}
   ${front}
   ${props}
+  </g>
 </svg>`;
 }
 
@@ -1817,10 +1863,18 @@ function nextToast(){
 
 /* ---------------- SPEECH ---------------- */
 const sayText=t=>String(t).replace(/\s*\/\s*/g,". ").replace(/…/g,"");
-let webVoice=null;
-function pickVoice(){try{const vs=speechSynthesis.getVoices();webVoice=vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}catch(e){}}
+let webVoice=null,ruVoice=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();webVoice=vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;ruVoice=vs.find(v=>/^ru/i.test(v.lang))||null}catch(e){}}
 try{if(!IS_APP&&window.speechSynthesis){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}}catch(e){}
-function utter(text,pitch){const u=new SpeechSynthesisUtterance(sayText(text));u.lang="en-US";u.rate=.88;if(pitch)u.pitch=pitch;if(webVoice)u.voice=webVoice;return u}
+function utter(text,pitch,lang){const u=new SpeechSynthesisUtterance(sayText(text));const ru=lang==="ru";u.lang=ru?"ru-RU":"en-US";u.rate=ru?1:.88;if(pitch)u.pitch=pitch;const v=ru?ruVoice:webVoice;if(v)u.voice=v;return u}
+/* Mad Mango mixes Russian and English: split into sentences and read each with the right voice. */
+const CYR=/[а-яё]/i;
+function mixParts(text){return(String(text).match(/[^.!?…]+[.!?…]*[»"']?/g)||[]).map(t=>t.trim()).filter(Boolean).map(t=>({text:t,lang:CYR.test(t)?"ru":"en"}))}
+function speakMixed(text){
+  const parts=mixParts(text);
+  if(IS_APP){const en=parts.filter(p=>p.lang==="en").map(p=>p.text).join(" ");if(en)speak(en);return}
+  speakSeq(parts);
+}
 function speak(text){
   try{
     if(IS_APP){window.AndroidTTS.speak(sayText(text));return}
@@ -1838,7 +1892,7 @@ function speakSeq(items,onLine,onDone){
     if(my!==playToken)return;
     if(i>=items.length){onLine&&onLine(-1);onDone&&onDone();return}
     const it=items[i];onLine&&onLine(i);
-    const u=utter(it.text,it.pitch);u.onend=()=>{i++;next()};u.onerror=()=>{i++;next()};
+    const u=utter(it.text,it.pitch,it.lang);u.onend=()=>{i++;next()};u.onerror=()=>{i++;next()};
     try{speechSynthesis.speak(u)}catch(e){i++;next()}
   };
   next();
@@ -2165,7 +2219,7 @@ async function askTutor(){
     const tw=r.twist&&String(r.twist.reply||"").trim()?{text:String(r.twist.reply).trim(),ru:String(r.twist.reply_ru||"").trim(),mood:MANGO_MOODS.includes(r.twist.mood)?r.twist.mood:"evil"}:null;
     CH.turns.push({role:"assistant",content:tw?reply+" "+tw.text:reply});
     CH.hint=String(r.hint||"").trim();CH.showHint=false;
-    const say=window.mangoSay||((t)=>{speak(t);return Promise.resolve()});
+    const say=window.mangoSay||((t)=>{speakMixed(t);return Promise.resolve()});
     if(tw){CH.busy=false;renderChat();
       const p=AUTO_SPEAK?say(reply,mood):Promise.resolve();
       await Promise.all([p,new Promise(res=>setTimeout(res,1400))]);
@@ -2193,6 +2247,7 @@ function renderChat(){
     return;
   }
   const draft=(document.getElementById("msgIn")||{}).value||"",parts=[];
+  let lastAi=-1;CH.view.forEach((m,i)=>{if(!m.me)lastAi=i});
   CH.view.forEach((m,i)=>{
     if(m.me){
       parts.push(`<div class="msg me">${esc(m.text)}</div>`);
@@ -2200,7 +2255,7 @@ function renderChat(){
         if(m.better||m.corr)parts.push(`<div class="corr"><b>Как лучше</b>${m.better?`<div class="better">${esc(m.better)}</div>`:""}${m.corr?`<div>${esc(m.corr)}</div>`:""}</div>`);
         else parts.push(`<div class="corr okc"><b>Без ошибок</b></div>`);
       }
-    } else parts.push(`<div class="airow ${m.twist?"twist":""}"><span class="ava-m">${mascot(m.mood||"smug",54,"")}</span><div class="msg ai">${esc(m.text)}${m.showRu&&m.ru?`<div class="ru">${esc(m.ru)}</div>`:""}<div class="msg-actions"><button data-act="sayAI" data-i="${i}">${ic("spk")}Слушать</button>${m.ru?`<button data-act="chatRu" data-i="${i}">${ic("lang")}${m.showRu?"Скрыть":"Перевод"}</button>`:""}</div></div></div>`);
+    } else parts.push(`<div class="airow ${m.twist?"twist":""}"><span class="ava-m">${mascot(m.mood||"smug",54,i===lastAi?"":"still")}</span><div class="msg ai">${esc(m.text)}${m.showRu&&m.ru?`<div class="ru">${esc(m.ru)}</div>`:""}<div class="msg-actions"><button data-act="sayAI" data-i="${i}">${ic("spk")}Слушать</button>${m.ru?`<button data-act="chatRu" data-i="${i}">${ic("lang")}${m.showRu?"Скрыть":"Перевод"}</button>`:""}</div></div></div>`);
   });
   if(CH.busy)parts.push(`<div class="thinking">Мэд Манго печатает</div>`);
   el.innerHTML=`
@@ -2324,7 +2379,7 @@ const ACT={
   chat:()=>{CHPICK=true;CH=null;if(TAB!=="dialogs")go("dialogs");else{renderDialogs();window.scrollTo({top:0})}},
   scen:el=>{if(!SAMPLE)return;CH={sc:SCENARIOS[+el.dataset.i],turns:[],view:[],busy:false,hint:"",showHint:false,err:""};askTutor()},
   endChat:()=>{CH=null;renderChat()},
-  sayAI:el=>{const m=CH&&CH.view[+el.dataset.i];if(!m)return;playToken++;(window.mangoSay||((t)=>{speak(t);return Promise.resolve()}))(m.text,m.mood)},
+  sayAI:el=>{const m=CH&&CH.view[+el.dataset.i];if(!m)return;playToken++;(window.mangoSay||((t)=>{speakMixed(t);return Promise.resolve()}))(m.text,m.mood)},
   chatRu:el=>{const m=CH.view[+el.dataset.i];m.showRu=!m.showRu;renderChat()},
   send:()=>sendChat(),
   hint:()=>{CH.showHint=!CH.showHint;renderChat()},
@@ -2535,7 +2590,7 @@ if(!IS_APP&&window.claude&&window.claude.use){
   let VOICE_ON = false, voiceAudio = null;
   if(inTG) fetch("/api/voice").then(r => r.ok ? r.json() : null).then(d => { VOICE_ON = !!(d && d.enabled); }).catch(() => {});
   window.mangoSay = function(text, mood){
-    const fallback = () => new Promise(res => { speak(text); setTimeout(res, Math.min(6000, 400 + String(text).length * 60)); });
+    const fallback = () => new Promise(res => { speakMixed(text); setTimeout(res, Math.min(6000, 400 + String(text).length * 60)); });
     if(!VOICE_ON || !AIQ || !AIQ.unlimited) return fallback();
     stopSpeech(); if(voiceAudio){ try { voiceAudio.pause(); } catch(e) {} }
     return post("/api/voice", { text, mood }).then(r => r.ok ? r.blob() : Promise.reject())
