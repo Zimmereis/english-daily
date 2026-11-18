@@ -108,6 +108,7 @@
     });
   }
   function webVoiceOK(){
+    if(window.AndroidTTS) return true; // Android app shell speaks through the phone's own voice
     try { return !!window.speechSynthesis && speechSynthesis.getVoices().some(v => /^en/i.test(v.lang)); } catch(e) { return false; }
   }
   stopSpeech = function(){ if(audioEl){ try { audioEl.pause(); } catch(e) {} audioEl = null; } _stop(); };
@@ -152,4 +153,9 @@
       if(TAB === "dialogs" && !CH && !CHPICK && DLG === null) renderDialogs();
     }).catch(() => {});
   }
+
+  /* ---------- offline: cache the app after the first visit (network first, so updates arrive at once) ---------- */
+  try {
+    if("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(() => {});
+  } catch(e) {}
 })();

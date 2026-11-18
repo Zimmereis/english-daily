@@ -1,0 +1,19 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>English Daily</title>
+<style>:root{--bg:#FFF5E8;--ink:#2B1D3F;--muted:#7D6C8A;--grape:#7856F5;--grape-d:#5434D2}
+@media (prefers-color-scheme:dark){:root{--bg:#17112A;--ink:#FBF6FF;--muted:#B5A8CE;--grape:#8E72FF;--grape-d:#5B3CD6}}
+html,body{height:100%;margin:0}body{background:var(--bg);color:var(--ink);font:600 16px/1.45 ui-rounded,system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;text-align:center}
+main{max-width:340px;display:flex;flex-direction:column;align-items:center;gap:14px}h1{font-size:26px;font-weight:900;margin:0}p{margin:0;color:var(--muted)}
+button{margin-top:10px;border:0;border-radius:18px;background:var(--grape);color:#fff;font:900 17px system-ui,sans-serif;padding:16px 28px;box-shadow:0 5px 0 var(--grape-d);width:100%}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--grape-d)}
+.mascot.bob{animation:bob 3.4s ease-in-out infinite;transform-origin:50% 95%}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style></head>
+<body><main><svg class="mascot bob" width="150" height="150" viewBox="0 0 120 120" aria-hidden="true">
+   <defs><radialGradient id="mg2" cx="38%" cy="30%" r="80%"><stop offset="0" stop-color="#FFE36E"/><stop offset=".55" stop-color="#FFAE1F"/><stop offset="1" stop-color="#FF7A2F"/></radialGradient></defs>
+   <ellipse cx="60" cy="112" rx="30" ry="5" fill="#000" opacity=".12"/>
+   <path d="M21 78q-5 8-2 14M99 78q5 8 2 14" stroke="#EE8A16" stroke-width="7" fill="none" stroke-linecap="round"/>
+   <path d="M60 22c25 0 42 20 42 46 0 25-18 40-42 40S18 93 18 68c0-26 17-46 42-46z" fill="url(#mg2)"/>
+   <ellipse cx="43" cy="42" rx="10" ry="6" fill="#fff" opacity=".45" transform="rotate(-25 43 42)"/>
+   <path d="M60 25q-1-8 3-13" stroke="#7A4A1A" stroke-width="4" fill="none" stroke-linecap="round"/>
+   <path d="M62 14c8-9 21-8 26-4-4 10-17 13-26 4z" fill="#2DBE6C"/><path d="M64 14q11-1 21-4" stroke="#1C9A55" stroke-width="2" fill="none" stroke-linecap="round"/>
+   <ellipse cx="36" cy="74" rx="6.5" ry="4.2" fill="#FF6F7D" opacity=".55"/><ellipse cx="84" cy="74" rx="6.5" ry="4.2" fill="#FF6F7D" opacity=".55"/>
+   <ellipse cx="46" cy="63" rx="5.4" ry="7" fill="#3A2340"/><ellipse cx="74" cy="63" rx="5.4" ry="7" fill="#3A2340"/><circle cx="48" cy="60" r="2.2" fill="#fff"/><circle cx="76" cy="60" r="2.2" fill="#fff"/><path d="M37 52l12-4M83 52l-12-4" stroke="#3A2340" stroke-width="3.5" stroke-linecap="round"/><path d="M51 81q9-7 18 0" stroke="#3A2340" stroke-width="4" fill="none" stroke-linecap="round"/></svg><h1>Нет интернета</h1><p>Для первого запуска English Daily нужен интернет. Потом приложение будет открываться и без него.</p>
+<button onclick="try{AndroidTTS.retry()}catch(e){location.href='https://english-daily-7f3.pages.dev/'}">Попробовать снова</button></main></body></html>
