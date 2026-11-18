@@ -1,15 +1,8 @@
 import { checkInitData, isAllowed, rateLimited, json } from "../../lib/tg.js";
-import { ROLES } from "../../lib/texts.js";
+import { ROLES, MANGO_PROMPT, MANGO_STYLE } from "../../lib/texts.js";
 import { isVip, readAi, writeAi, quota, canChat, spend } from "../../lib/stars.js";
 
-const system = (role) => `You are an English conversation partner for a Russian-speaking learner at a beginner level (A1-A2, knows basic English).
-Scenario: ${role}
-Rules:
-- Use very simple English: short sentences, common everyday words, 1-2 sentences per reply. Ask one simple question at a time so the conversation keeps going. Stay in your role.
-- If the learner writes in Russian or mixes languages, keep the conversation going and show them in "better" how to say it in English.
-- Corrections are about the learner's LAST message only. Explain mistakes briefly and kindly in Russian (1-2 sentences). Ignore missing capital letters and final punctuation.
-Reply with ONLY a JSON object, no other text:
-{"reply": "your reply in English", "reply_ru": "Russian translation of your reply", "correction": "short explanation of mistakes in Russian, or empty string if there were none or there is no learner message yet", "better": "the learner's last message rewritten in correct natural English, or empty string if it was already correct or there is no learner message yet", "hint": "one short example of what the learner could answer next, in simple English"}`;
+const system = (role, spicy) => MANGO_PROMPT.replace("{style}", spicy ? MANGO_STYLE.spicy : MANGO_STYLE.mild).replace("{role}", role);
 
 function cleanTurns(turns) {
   const out = [{ role: "user", content: "(Start the conversation now.)" }];
@@ -72,8 +65,8 @@ export async function onRequestPost({ request, env }) {
       },
       body: JSON.stringify({
         model: env.CLAUDE_MODEL || "claude-haiku-5-5",
-        max_tokens: 700,
-        system: system(role),
+        max_tokens: 800,
+        system: system(role, body.spicy === true),
         messages,
       }),
     });

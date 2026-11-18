@@ -88,7 +88,7 @@
     const out = [];
     WORDS_RAW.trim().split("\n").forEach(l => { const p = l.split("|"); out.push(p[1]); if(p[4]) out.push(p[4]); });
     PHRASES.forEach(c => c.items.forEach(s => out.push(s.split("|")[0])));
-    LESSONS.forEach(L => { L.e.forEach(s => out.push(s.split("|")[0])); L.q.forEach(q => { if(!Array.isArray(q)) out.push(q.b); }); });
+    LESSONS.forEach(L => { L.e.forEach(s => out.push(s.split("|")[0])); L.q.forEach(q => { const f = exFull(q); if(f) out.push(f); }); });
     DIALOGS.forEach(d => d.l.forEach(x => out.push(x[1])));
     return out;
   }
@@ -135,7 +135,7 @@
     fetch("/api/chat").then(r => r.ok ? r.json() : null).then(info => {
       if(!info || !info.enabled) return;
       SAMPLE = { json: async function(){
-        const body = { initData: tg.initData, scenario: SCENARIOS.indexOf(CH.sc), turns: CH.turns.slice(-20) };
+        const body = { initData: tg.initData, scenario: SCENARIOS.indexOf(CH.sc), turns: CH.turns.slice(-20), spicy: !!S.spicy };
         let r, data = null;
         try {
           r = await fetch("/api/chat", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify(body) });

@@ -266,6 +266,16 @@ body.focus .top,body.focus nav.tabs{display:none}
 .tok{padding:10px 14px;border-radius:14px;background:var(--surface);border:2px solid var(--line);box-shadow:0 3px 0 var(--line);font-weight:800;font-size:17px}
 .tok:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
 .tok.ghost{visibility:hidden}
+.tin{width:100%;border:2px solid var(--line);background:var(--surface);border-radius:18px;padding:16px 18px;font-size:20px;font-weight:800;box-shadow:0 4px 0 var(--line)}
+.tin:focus{outline:none;border-color:var(--grape)}
+.tin.right{border-color:var(--leaf);background:var(--leaf-s);color:var(--leaf-t)}
+.tin.wrong{border-color:var(--coral);background:var(--coral-s);color:var(--coral-t)}
+.gap{color:var(--grape-t);letter-spacing:.05em}
+.hintw{color:var(--muted);font-weight:700;font-size:.8em}
+.tok.right{background:var(--leaf-s);border-color:var(--leaf);color:var(--leaf-t)}
+.tok.wrong{background:var(--coral-s);border-color:var(--coral);color:var(--coral-t)}
+.node.rev .nb{border-radius:24px}
+
 .fb{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));border-radius:26px 26px 0 0;transform:translateY(110%);transition:transform .3s cubic-bezier(.2,1.15,.3,1)}
 .fb.show{transform:none}
 .fb.good{background:var(--leaf-s);color:var(--leaf-t)}
@@ -1135,13 +1145,309 @@ const DIALOGS = [
 ];
 
 const SCENARIOS = [
- {t:"В кафе", d:"Заказ, вопросы про меню, счёт", role:"You are a friendly waiter at a small cafe in a Thai tourist town. The learner is a customer. Start by greeting them and offering the menu."},
+ {t:"В кафе", d:"Заказ, вопросы про меню, счёт", role:"You play a waiter at a small cafe in a Thai tourist town. The learner is a customer. Start by greeting them and offering the menu."},
  {t:"В магазине", d:"Цена, размер, скидка", role:"You are a shop assistant in a clothes shop. The learner is a customer. Start by greeting them and asking if they need help."},
  {t:"Спросить дорогу", d:"Где что находится и как дойти", role:"You are a friendly local on the street. The learner is lost and will ask you for directions. Start by asking if they need help."},
  {t:"Такси", d:"Куда ехать, цена, остановки", role:"You are a taxi driver. The learner is your passenger. Start by asking where they want to go."},
  {t:"Новый знакомый", d:"Познакомиться и поболтать", role:"You are a friendly traveller the learner just met at a cafe. Start by saying hello and introducing yourself."},
- {t:"О чём угодно", d:"Твой день, планы, любимое", role:"You are a friendly English conversation partner. Start by asking the learner how their day is going."}
+ {t:"С Манго", d:"Болтовня обо всём с дерзким фруктом", role:"No role-play: you are just Mango, chatting about anything — the learner's day, plans, films, life. Start by greeting the learner in your style and asking how their day is going."}
 ];
+
+/* ================= COURSE STRUCTURE (block 1 «Основы» + start of block 2) =================
+   Lessons are stored by id. Exercise kinds:
+   [question, options, answerIndex, why]           — choose
+   {b:"english sentence", ru:"russian"}           — build the sentence from words
+   {t:"type", q:"She ___ to work. (go)", a:["goes"], why} — type the missing form
+   {t:"fix", s:"She go to work", w:1, r:"goes", why}      — tap the wrong word (r:"" means the word is extra) */
+
+/* ids of the original 18 lessons, in their old order (used to move saved progress) */
+const OLD_IDS = ["be","beq","pron","art","plural","this","there","have","ps","psq","wh","prep","pc","can","was","past","future","comp"];
+LESSONS.forEach((L, i) => { L.id = OLD_IDS[i]; });
+
+const EXTRA = {
+ be:[{t:"type",q:"They ___ from Thailand. (be)",a:["are"],why:"They → are."},
+     {t:"type",q:"I ___ a designer. (be)",a:["am"],why:"I → am."},
+     {t:"fix",s:"My sister are a doctor",w:2,r:"is",why:"Сестра — это she, значит is."}],
+ beq:[{t:"type",q:"___ you hungry? (be)",a:["are"],why:"Вопрос с you: Are you…?"},
+     {t:"type",q:"It ___ cold today. (be + «не»)",a:["isn't","is not"],why:"It is not = it isn't."},
+     {t:"fix",s:"Is they at home?",w:0,r:"Are",why:"They → are, и в вопросе тоже."}],
+ pron:[{t:"type",q:"This is ___ bag. (я → мой)",a:["my"],why:"Мой — my."},
+     {t:"type",q:"Can you call ___? (она → её)",a:["her"],why:"После глагола — her."},
+     {t:"fix",s:"Him name is Tom",w:0,r:"His",why:"Чьё имя — his. Him — это «его» после глагола: call him."}],
+ plural:[{t:"type",q:"two ___ (child)",a:["children"],why:"child → children."},
+     {t:"type",q:"three ___ (box)",a:["boxes"],why:"После x добавляем -es."},
+     {t:"fix",s:"I have two sisteres",w:3,r:"sisters",why:"Обычное слово — просто -s."}],
+ this:[{t:"type",q:"___ are my keys. (эти, рядом)",a:["these"],why:"Много и рядом — these."},
+     {t:"type",q:"Look at ___ mountain! (та, далеко)",a:["that"],why:"Одна и далеко — that."},
+     {t:"fix",s:"How much are this shoes?",w:3,r:"these",why:"Обуви «много» и она рядом — these."}],
+ art:[{t:"type",q:"I want ___ ice cream. (a / an)",a:["an"],why:"ice начинается с гласного звука."},
+     {t:"type",q:"Close ___ door, please. (a / the)",a:["the"],why:"Понятно, какая дверь — the."},
+     {t:"fix",s:"She is a engineer",w:2,r:"an",why:"engineer начинается с гласного звука — an."}],
+ there:[{t:"type",q:"There ___ two beds in the room. (is / are)",a:["are"],why:"Две кровати — are."},
+     {t:"type",q:"___ there a bank near here? (is / are)",a:["is"],why:"Один банк — Is there…?"},
+     {t:"fix",s:"There is many cafes here",w:1,r:"are",why:"Кафе много — there are."}],
+ have:[{t:"type",q:"She ___ a cat. (have)",a:["has"],why:"She → has."},
+     {t:"type",q:"___ you have a pen? (do / does)",a:["do"],why:"С you — Do."},
+     {t:"fix",s:"He don't have a car",w:1,r:"doesn't",why:"He → doesn't."}],
+ ps:[{t:"type",q:"He ___ in a bank. (work)",a:["works"],why:"He → глагол с -s."},
+     {t:"type",q:"My mum ___ TV every evening. (watch)",a:["watches"],why:"После ch добавляем -es."},
+     {t:"fix",s:"She live in Phuket",w:1,r:"lives",why:"She → глагол с -s."}],
+ psq:[{t:"type",q:"___ he speak English? (do / does)",a:["does"],why:"С he — Does."},
+     {t:"type",q:"I ___ like coffee. (do + «не»)",a:["don't","do not"],why:"С I — don't."},
+     {t:"fix",s:"Does she works here?",w:2,r:"work",why:"После does — глагол без -s."}],
+ wh:[{t:"type",q:"___ old are you? (сколько лет)",a:["how"],why:"Возраст: How old…?"},
+     {t:"type",q:"___ is your birthday? (когда)",a:["when"],why:"Когда — when."},
+     {t:"fix",s:"Where you live?",w:1,r:"do you",why:"Нужен помощник do: Where do you live?"}],
+ prep:[{t:"type",q:"See you ___ Monday. (in / on / at)",a:["on"],why:"Дни недели — on."},
+     {t:"type",q:"I was born ___ 1995. (in / on / at)",a:["in"],why:"Год — in."},
+     {t:"fix",s:"The film starts in 8 o'clock",w:3,r:"at",why:"Точное время — at."}],
+ pc:[{t:"type",q:"She ___ now. (sleep)",a:["is sleeping","'s sleeping"],why:"Сейчас — is + -ing."},
+     {t:"type",q:"They ___ a film now. (watch)",a:["are watching","'re watching"],why:"They → are + -ing."},
+     {t:"fix",s:"I am work now",w:2,r:"working",why:"После am нужен глагол с -ing."}],
+ can:[{t:"type",q:"I ___ swim. (не умею)",a:["can't","cannot"],why:"Не могу, не умею — can't."},
+     {t:"type",q:"___ I sit here? (можно)",a:["can"],why:"Разрешение — Can I…?"},
+     {t:"fix",s:"She cans drive",w:1,r:"can",why:"can не меняется: без -s."}],
+ was:[{t:"type",q:"I ___ at home yesterday. (be)",a:["was"],why:"I → was."},
+     {t:"type",q:"___ you at the party? (be)",a:["were"],why:"You → were."},
+     {t:"fix",s:"They was very tired",w:1,r:"were",why:"They → were."}],
+ past:[{t:"type",q:"I ___ a new phone yesterday. (buy)",a:["bought"],why:"buy → bought."},
+     {t:"type",q:"We ___ to the beach last week. (go)",a:["went"],why:"go → went."},
+     {t:"fix",s:"Did you saw the film?",w:2,r:"see",why:"После did — начальная форма."}],
+ future:[{t:"type",q:"I ___ call you tomorrow. (обещаю)",a:["will","'ll"],why:"Обещание — will."},
+     {t:"type",q:"She ___ going to buy a car. (be)",a:["is","'s"],why:"She → is going to."},
+     {t:"fix",s:"I will helps you",w:2,r:"help",why:"После will — начальная форма."}],
+ comp:[{t:"type",q:"Bangkok is ___ than Phuket. (big)",a:["bigger"],why:"big → bigger."},
+     {t:"type",q:"It's the ___ day of my life! (good)",a:["best"],why:"good → the best."},
+     {t:"fix",s:"This hotel is cheapest than that one",w:3,r:"cheaper",why:"Сравниваем два — cheaper than."}],
+};
+LESSONS.forEach(L => { if(EXTRA[L.id]) L.q.push(...EXTRA[L.id]); });
+
+const NEW_LESSONS = [
+ {id:"poss",t:"Притяжательный 's",s:"Анин телефон, мамина машина",
+  ex:["Чтобы сказать «чей», к имени или человеку добавляем 's: Anna's phone — телефон Анны, my mum's car — машина моей мамы.",
+      "Если слово во множественном числе уже кончается на -s, ставим только апостроф: my parents' house — дом моих родителей. У особых слов без -s — обычный 's: children's, people's."],
+  f:"Anna's phone · my brother's car<br>my parents' house · the children's room",
+  e:["This is Anna's phone.|Это телефон Анны.","My brother's car is red.|Машина моего брата красная.","My parents' house is big.|Дом моих родителей большой.","What's your friend's name?|Как зовут твою подругу?"],
+  q:[["«Это машина Тома»",["This is Tom car.","This is Tom's car.","This is car Tom's."],1,"Чья — Tom's, и сразу за ним предмет."],
+     ["My ___ name is Olga.",["mother","mother's","mothers"],1,"Имя мамы — mother's name."],
+     ["The ___ toys are everywhere. (детей)",["children's","childrens'","childs'"],0,"children — особое слово: children's."],
+     ["This is my ___ house. (родителей)",["parents's","parents'","parent's"],1,"parents уже на -s — только апостроф."],
+     ["Whose bag is it? — It's ___.",["Kate's","Kate","of Kate"],0,"Чья? — Kate's."],
+     {t:"type",q:"This is ___ room. (my sister)",a:["my sister's"],why:"my sister + 's."},
+     {t:"type",q:"What is your ___ job? (father)",a:["father's"],why:"father + 's."},
+     {t:"fix",s:"It is my friends car",w:3,r:"friend's",why:"Машина друга — friend's car, нужен 's."},
+     {b:"This is my brother's bike.",ru:"Это байк моего брата."},
+     {b:"What is your mother's name?",ru:"Как зовут твою маму?"}]},
+ {id:"some",t:"some / any",s:"Немного, какие-нибудь",
+  ex:["some — «немного, несколько», в утверждениях: I have some money. There are some apples.",
+      "any — в вопросах и отрицаниях: Do you have any questions? I don't have any money.",
+      "В просьбах и предложениях — снова some, хоть это и вопрос: Can I have some water? Would you like some tea?"],
+  f:"I have some time. · I don't have any time.<br>Do you have any time? · Can I have some water?",
+  e:["There are some cafes near here.|Рядом есть несколько кафе.","I don't have any cash.|У меня совсем нет наличных.","Do you have any questions?|У вас есть вопросы?","Can I have some water, please?|Можно немного воды?"],
+  q:[["I need ___ help.",["some","any"],0,"Утверждение — some."],
+     ["We don't have ___ milk.",["some","any"],1,"Отрицание — any."],
+     ["Are there ___ shops near here?",["some","any"],1,"Вопрос — any."],
+     ["Would you like ___ coffee?",["some","any"],0,"Предложение — some, хоть это и вопрос."],
+     ["There aren't ___ taxis.",["some","any"],1,"Отрицание — any."],
+     {t:"type",q:"I bought ___ fruit at the market. (some / any)",a:["some"],why:"Утверждение — some."},
+     {t:"type",q:"Do you have ___ brothers? (some / any)",a:["any"],why:"Вопрос — any."},
+     {t:"fix",s:"I don't have some money",w:3,r:"any",why:"В отрицании — any."},
+     {b:"Can I have some water?",ru:"Можно немного воды?"},
+     {b:"I don't have any questions.",ru:"У меня нет вопросов."}]},
+ {id:"many",t:"much / many / a lot of",s:"Много чего?",
+  ex:["many — с тем, что можно посчитать: many people, many days. much — с тем, что не считается: much time, much money.",
+      "much и many чаще всего в вопросах и отрицаниях: How many…? How much…? I don't have much time.",
+      "В обычных утверждениях проще сказать a lot of — подходит ко всему: a lot of people, a lot of money."],
+  f:"How many people? · How much money?<br>I don't have much time. · a lot of friends",
+  e:["How many brothers do you have?|Сколько у тебя братьев?","How much is it?|Сколько это стоит?","I don't have much time.|У меня мало времени.","There are a lot of tourists here.|Здесь много туристов."],
+  q:[["How ___ people are there?",["much","many"],1,"Людей можно посчитать — many."],
+     ["How ___ water do you drink?",["much","many"],0,"Воду не посчитать — much."],
+     ["I don't have ___ friends here.",["much","many"],1,"Друзей считаем — many."],
+     ["She drinks ___ coffee.",["a lot of","many"],0,"Кофе не считается, а в утверждении удобнее a lot of."],
+     ["We don't have ___ time.",["much","many"],0,"Время не считается — much."],
+     {t:"type",q:"How ___ is this T-shirt? (цена)",a:["much"],why:"Цена — How much…?"},
+     {t:"type",q:"There are a ___ of cars on the road. (много)",a:["lot"],why:"a lot of cars."},
+     {t:"fix",s:"How much days are you here?",w:1,r:"many",why:"Дни можно посчитать — many."},
+     {b:"How many people live here?",ru:"Сколько людей здесь живёт?"},
+     {b:"I don't have much money.",ru:"У меня мало денег."}]},
+ {id:"imp",t:"Open! Don't… Let's…",s:"Просьбы, запреты, предложения",
+  ex:["Чтобы попросить или сказать, что сделать, просто начинаем с глагола: Open the window. Sit down. Добавь please — и это вежливая просьба.",
+      "«Не делай» — Don't + глагол: Don't worry. Don't touch it. Предложить что-то вместе — Let's + глагол: Let's go!"],
+  f:"Open the door, please. · Don't worry!<br>Let's eat. · Let's not go.",
+  e:["Turn left at the corner.|На углу поверните налево.","Please wait here.|Подождите здесь, пожалуйста.","Don't forget your passport.|Не забудь паспорт.","Let's take a taxi.|Давай возьмём такси."],
+  q:[["«Не переживай!»",["Not worry!","Don't worry!","No worry!"],1,"Не делай — Don't + глагол."],
+     ["«Давай пойдём на пляж»",["Let's go to the beach.","Let go to the beach.","We go to the beach!"],0,"Предложение — Let's + глагол."],
+     ["___ the window, please.",["Opening","Open","To open"],1,"Просьба начинается с глагола без to."],
+     ["___ touch it! It's hot!",["Don't","Not","No"],0,"Запрет — Don't."],
+     ["«Говорите медленнее, пожалуйста»",["Speak slowly, please.","You speak slowly please.","Speaking slowly, please."],0,"Просьба — просто глагол."],
+     {t:"type",q:"___ forget your keys! (не)",a:["don't","do not"],why:"Don't + глагол."},
+     {t:"type",q:"___ have lunch together. (давай)",a:["let's","let us"],why:"Let's + глагол."},
+     {t:"fix",s:"Not smoke here, please",w:0,r:"Don't",why:"Запрет — Don't smoke."},
+     {b:"Please call me later.",ru:"Пожалуйста, позвони мне позже."},
+     {b:"Don't be late.",ru:"Не опаздывай."}]},
+ {id:"freq",t:"always, usually, never",s:"Как часто",
+  ex:["Слова «как часто»: always — всегда, usually — обычно, often — часто, sometimes — иногда, never — никогда.",
+      "Ставим их перед глаголом: I usually get up at 8. Но после am / is / are: She is always late.",
+      "never — уже отрицание, второе «не» не нужно: I never eat meat (а не I don't never)."],
+  f:"always · usually · often · sometimes · never<br>I usually walk. · He is always busy.",
+  e:["I always drink coffee in the morning.|Утром я всегда пью кофе.","We sometimes cook at home.|Иногда мы готовим дома.","She is never late.|Она никогда не опаздывает.","Do you often go to the beach?|Ты часто ходишь на пляж?"],
+  q:[["Где правильно?",["I go usually to the gym.","I usually go to the gym.","Usually I to the gym go."],1,"Перед глаголом: I usually go."],
+     ["Где правильно?",["He always is tired.","He is always tired.","Always he tired."],1,"После is: is always."],
+     ["«Я никогда не пью пиво»",["I never drink beer.","I don't never drink beer.","I never don't drink beer."],0,"never уже значит «не»."],
+     ["How often do you cook? — ___, maybe once a week.",["Always","Sometimes","Never"],1,"Раз в неделю — sometimes."],
+     ["They ___ late. (часто)",["are often","often are","often"],0,"После are: are often."],
+     {t:"type",q:"I ___ sleep eight hours. (обычно)",a:["usually"],why:"usually — перед глаголом."},
+     {t:"type",q:"She is ___ happy. (всегда)",a:["always"],why:"После is."},
+     {t:"fix",s:"I don't never eat meat",w:1,r:"",why:"never уже отрицание — don't лишнее: I never eat meat."},
+     {b:"I usually get up at seven.",ru:"Обычно я встаю в семь."},
+     {b:"We never eat meat.",ru:"Мы никогда не едим мясо."}]},
+ {id:"likeing",t:"like / love / hate + -ing",s:"Что мне нравится делать",
+  ex:["После like, love, hate, enjoy действие обычно стоит с -ing: I like swimming. She loves cooking. I hate waiting.",
+      "Вопрос и отрицание — как в Present Simple: Do you like dancing? He doesn't like flying.",
+      "Не путай с would like — «хотела бы» прямо сейчас: I'd like a coffee. Это отдельный урок."],
+  f:"I like reading. · She loves cooking.<br>Do you like dancing? · I hate getting up early.",
+  e:["I love swimming in the sea.|Я обожаю плавать в море.","He doesn't like flying.|Он не любит летать.","Do you enjoy cooking?|Тебе нравится готовить?","I hate waiting.|Ненавижу ждать."],
+  q:[["I like ___.",["read","reading","reads"],1,"После like — -ing."],
+     ["She loves ___ photos.",["taking","take","takes"],0,"loves + -ing."],
+     ["Do you enjoy ___?",["dance","dancing","to dancing"],1,"enjoy + -ing."],
+     ["He ___ like running.",["don't","doesn't","isn't"],1,"He → doesn't."],
+     ["«Я ненавижу рано вставать»",["I hate get up early.","I hate getting up early.","I hating get up early."],1,"hate + -ing."],
+     {t:"type",q:"I love ___ in the sea. (swim)",a:["swimming"],why:"swim → swimming: m удваивается."},
+     {t:"type",q:"Do you like ___? (cook)",a:["cooking"],why:"like + -ing."},
+     {t:"fix",s:"She likes dance very much",w:2,r:"dancing",why:"likes + -ing."},
+     {b:"I like walking in the evening.",ru:"Я люблю гулять вечером."},
+     {b:"Do you like watching films?",ru:"Тебе нравится смотреть фильмы?"}]},
+ {id:"pspc",t:"Simple или Continuous?",s:"Обычно или прямо сейчас",
+  ex:["Present Simple — то, что бывает обычно, регулярно, всегда: I work from home. It rains a lot in October.",
+      "Present Continuous — то, что идёт сейчас или в эти дни: I'm working now. It's raining.",
+      "Подсказки: usually, every day, often → Simple. now, at the moment, today, Look! → Continuous.",
+      "Глаголы like, love, want, know, understand почти всегда в Simple: I want a coffee (а не I'm wanting)."],
+  f:"I usually walk, but today I'm taking a taxi.<br>She works in a hotel. · She's working now.",
+  e:["I usually work from home, but today I'm working in a cafe.|Обычно я работаю из дома, но сегодня — в кафе.","It's raining. Take an umbrella.|Идёт дождь. Возьми зонт.","She speaks three languages.|Она говорит на трёх языках.","What are you doing now?|Что ты сейчас делаешь?"],
+  q:[["Look! The baby ___.",["sleeps","is sleeping"],1,"Look! — прямо сейчас."],
+     ["My brother ___ in a bank.",["works","is working"],0,"Где работает вообще — Simple."],
+     ["I ___ what you mean.",["understand","am understanding"],0,"understand не бывает с -ing."],
+     ["Shh! I ___ to music.",["listen","am listening"],1,"Прямо сейчас — Continuous."],
+     ["We ___ to the gym every day.",["go","are going"],0,"every day — Simple."],
+     {t:"type",q:"She usually ___ tea. (drink)",a:["drinks"],why:"usually — Simple, she → -s."},
+     {t:"type",q:"Right now I ___ dinner. (cook)",a:["am cooking","'m cooking"],why:"Right now — am + -ing."},
+     {t:"fix",s:"Look! It rains",w:2,r:"is raining",why:"Look! — значит прямо сейчас: It is raining."},
+     {b:"What are you doing now?",ru:"Что ты сейчас делаешь?"},
+     {b:"I usually walk to work.",ru:"Обычно я хожу на работу пешком."}]},
+ {id:"wouldlike",t:"would like / want",s:"Вежливо «хочу»",
+  ex:["want — «хочу», прямо и просто. Среди друзей нормально, но официанту или продавцу вежливее сказать I'd like (= I would like).",
+      "I'd like + предмет: I'd like a coffee. I'd like + to + действие: I'd like to book a table.",
+      "Предложить: Would you like some tea? — Yes, please. / No, thank you."],
+  f:"I'd like a coffee, please. · I'd like to pay.<br>Would you like…? — Yes, please.",
+  e:["I'd like the chicken, please.|Мне курицу, пожалуйста.","I'd like to book a table.|Я хочу забронировать столик.","Would you like some water?|Хотите воды?","I want to go home.|Я хочу домой."],
+  q:[["Вежливо официанту: «Мне кофе»",["I want coffee.","I'd like a coffee, please.","Give coffee."],1,"Вежливо — I'd like."],
+     ["I'd like ___ a room for two nights.",["book","to book","booking"],1,"I'd like + to + глагол."],
+     ["___ you like some tea? (предлагаем)",["Do","Would","Are"],1,"Предложение — Would you like…?"],
+     ["Would you like some cake? — ___",["Yes, I like.","Yes, please.","Yes, I would like."],1,"Короткий вежливый ответ — Yes, please."],
+     ["«Я хотела бы заплатить картой»",["I'd like to pay by card.","I like to pay by card.","I'd like pay by card."],0,"I'd like to + глагол. А I like — это «мне нравится»."],
+     {t:"type",q:"___ you like a drink? (предложи)",a:["would"],why:"Would you like…?"},
+     {t:"type",q:"I'd like ___ see the menu.",a:["to"],why:"I'd like to + глагол."},
+     {t:"fix",s:"I would like book a table",w:3,r:"to book",why:"После would like — to + глагол."},
+     {b:"I'd like to pay, please.",ru:"Я хотела бы заплатить."},
+     {b:"Would you like some coffee?",ru:"Хотите кофе?"}]},
+ {id:"r1",review:true,t:"Повторение: я и мир",s:"Темы 1–6 вперемешку",
+  ex:["Нового правила нет — только практика. to be, местоимения, множественное число, this / that и артикли вперемешку, как в настоящей речи."],
+  f:"I am · you are · she is<br>my / me · cat → cats · this / these · a / an / the",
+  e:["We are from Russia.|Мы из России.","Is this your bag?|Это твоя сумка?","These are my friends.|Это мои друзья.","She is an artist.|Она художница."],
+  q:[["___ your sister at home?",["Is","Are","Am"],0,"Сестра — she → Is."],
+     ["Those ___ my shoes.",["is","are"],1,"Those — много → are."],
+     ["I have three ___.",["child","childs","children"],2,"child → children."],
+     ["Can you help ___?",["we","us","our"],1,"После глагола — us."],
+     ["It's ___ old house.",["a","an"],1,"old начинается с гласного звука — an."],
+     {t:"type",q:"They ___ not hungry. (be)",a:["are"],why:"They → are."},
+     {t:"type",q:"___ is my phone. (это, рядом)",a:["this"],why:"Один предмет рядом — this."},
+     {t:"fix",s:"Her are my friends",w:0,r:"They",why:"Кто? Они — They are my friends."},
+     {b:"Is this your phone?",ru:"Это твой телефон?"},
+     {b:"We are not tired.",ru:"Мы не устали."}]},
+ {id:"r2",review:true,t:"Повторение: что у меня есть",s:"Темы 8–13 вперемешку",
+  ex:["Нового правила нет — только практика. there is / are, have / has, 's, some / any, much / many и просьбы вперемешку."],
+  f:"there is / there are · have / has<br>Anna's · some / any · much / many · Don't…",
+  e:["There is a pharmacy near here.|Рядом есть аптека.","She has two brothers.|У неё два брата.","Do you have any water?|У тебя есть вода?","Don't forget my brother's birthday.|Не забудь про день рождения моего брата."],
+  q:[["There ___ a lot of people here.",["is","are"],1,"Людей много — are."],
+     ["My friend ___ a dog.",["have","has"],1,"Друг — he или she → has."],
+     ["Is there ___ milk?",["some","any"],1,"Вопрос — any."],
+     ["How ___ money do you need?",["much","many"],0,"Деньги не считаем — much."],
+     ["___ worry, it's OK.",["Don't","Not"],0,"Don't + глагол."],
+     {t:"type",q:"This is ___ car. (my dad)",a:["my dad's"],why:"my dad + 's."},
+     {t:"type",q:"___ there any cafes here? (is / are)",a:["are"],why:"Кафе много — Are there…?"},
+     {t:"fix",s:"She have many friends",w:1,r:"has",why:"She → has."},
+     {b:"There are some shops near here.",ru:"Рядом есть несколько магазинов."},
+     {b:"Let's buy some fruit.",ru:"Давай купим фруктов."}]},
+ {id:"r3",review:true,t:"Повторение: мой день",s:"Темы 15–20 вперемешку",
+  ex:["Нового правила нет — только практика. Present Simple, вопросы, always / never, like + -ing и in / on / at вперемешку."],
+  f:"she works · Do you…? · He doesn't…<br>always / usually / never · like + -ing · in / on / at",
+  e:["She usually works at home.|Обычно она работает дома.","What do you do on Sundays?|Что ты делаешь по воскресеньям?","I love cooking in the evening.|Я люблю готовить вечером.","He never drinks coffee at night.|Он никогда не пьёт кофе вечером."],
+  q:[["___ she live near the beach?",["Do","Does"],1,"she → Does."],
+     ["I ___ eat fish.",["never","don't never"],0,"never — уже «не»."],
+     ["We meet ___ Fridays.",["in","on","at"],1,"Дни — on."],
+     ["He likes ___ films.",["watch","watching"],1,"likes + -ing."],
+     ["___ do you live? — In Phuket.",["Where","When","Who"],0,"Где — where."],
+     {t:"type",q:"My dad ___ to work by bike. (go)",a:["goes"],why:"go → goes."},
+     {t:"type",q:"___ do you get up? — At seven. (когда)",a:["when","what time"],why:"Когда — when (или what time)."},
+     {t:"fix",s:"She don't like cooking",w:1,r:"doesn't",why:"She → doesn't."},
+     {b:"What time do you usually get up?",ru:"Во сколько ты обычно встаёшь?"},
+     {b:"I love walking on the beach.",ru:"Я люблю гулять по пляжу."}]},
+ {id:"r4",review:true,t:"Повторение: сейчас и умею",s:"Темы 22–25 вперемешку",
+  ex:["Нового правила нет — только практика. Present Continuous, «обычно или сейчас», can и would like вперемешку."],
+  f:"I'm working now · I work every day<br>can / can't · I'd like…",
+  e:["I can't talk now, I'm driving.|Не могу говорить, я за рулём.","Can you help me?|Можешь помочь?","I'd like a table for two.|Мне столик на двоих.","She usually walks, but today she's taking a taxi.|Обычно она ходит пешком, но сегодня едет на такси."],
+  q:[["Be quiet! The baby ___.",["sleeps","is sleeping"],1,"Сейчас — is sleeping."],
+     ["She ___ speak Thai. (может)",["can","cans","can to"],0,"can не меняется."],
+     ["I ___ a coffee, please.",["'d like","like"],0,"Заказ — I'd like."],
+     ["He ___ in a hotel. It's his job.",["works","is working"],0,"Его работа вообще — Simple."],
+     ["What ___ you doing?",["do","are"],1,"Continuous — are + -ing."],
+     {t:"type",q:"Sorry, I ___ hear you. (не могу)",a:["can't","cannot"],why:"Не могу — can't."},
+     {t:"type",q:"Look! They ___. (dance)",a:["are dancing","'re dancing"],why:"Look! — are + -ing."},
+     {t:"fix",s:"I can to swim",w:2,r:"",why:"После can — без to: I can swim."},
+     {b:"Can I pay by card?",ru:"Можно оплатить картой?"},
+     {b:"I'd like to book a room.",ru:"Я хотела бы забронировать номер."}]},
+];
+
+const UNITS = [
+ {t:"Я и мир",s:"Быть, местоимения, этот и тот",col:"grape",ids:["be","beq","pron","plural","this","art","r1"]},
+ {t:"Что у меня есть",s:"Есть, чьё, сколько, просьбы",col:"sky",ids:["there","have","poss","some","many","imp","r2"]},
+ {t:"Мой день",s:"Привычки, вопросы, как часто",col:"coral",ids:["ps","psq","freq","likeing","wh","prep","r3"]},
+ {t:"Сейчас и умею",s:"Прямо сейчас, могу, хочу",col:"leaf",ids:["pc","pspc","can","wouldlike","r4"]},
+ {t:"Прошлое и будущее",s:"Начало блока 2 — скоро здесь будет больше",col:"mango",ids:["was","past","future","comp"]},
+];
+{
+  const byId = Object.fromEntries([...LESSONS, ...NEW_LESSONS].map(L => [L.id, L]));
+  LESSONS.splice(0, LESSONS.length, ...UNITS.flatMap(u => u.ids.map(id => byId[id])));
+}
+
+/* The full English sentence of an exercise, for audio and for showing the answer. */
+function exFull(q){
+  if(Array.isArray(q)) return null;
+  if(q.b) return q.b;
+  let s = "";
+  if(q.t === "type") s = q.q.replace("___", q.a[0]).replace(/\s*\([^)]*\)\s*$/, "");
+  else if(q.t === "fix") s = q.s.split(" ").map((w, k) => k === q.w ? q.r : w).filter(Boolean).join(" ");
+  s = s.trim();
+  if(s && q.t === "fix" && !/[.!?]$/.test(s)) s += ".";
+  return s ? s[0].toUpperCase() + s.slice(1) : null;
+}
+
+/* ================= MANGO, THE AI CHAT PERSONA ================= */
+const MANGO_STYLE = {
+  mild: "Keep it PG-13: sass, sarcasm and dark jokes are welcome, but no swearing.",
+  spicy: "18+ mode is on: you swear casually and creatively in English and in Russian (including Russian mat) when it makes the joke land. Swear about situations and about yourself, never at the learner as a person.",
+};
+const MANGO_PROMPT = `You are Mango (Манго), the mascot of the English Daily app: a talking mango with a big ego and a sharp tongue. You chat with a Russian-speaking learner of English at a beginner level (A1–A2).
+Personality: sarcastic, witty, dramatic, fond of dark humor and affectionate roasting. You tease mistakes, but you are on the learner's side and you want them to keep talking. Never boring, never preachy, no lectures.
+{style}
+Scenario: {role} Act out this role, but you are still Mango underneath — a cheeky mango playing the part.
+Language rules:
+- Your English replies: very simple words, short sentences, 1-2 sentences, one question at a time to keep the conversation going. The humor must be understandable for a beginner.
+- "reply_ru" and "correction" are in Russian. Corrections are about the learner's LAST message only: name the mistake and the fix in 1-2 sentences, in your sarcastic voice, but the grammar explanation must be correct and clear. Ignore missing capital letters and final punctuation.
+- If the learner writes in Russian or mixes languages, keep answering in English and show in "better" how to say it in English.
+Limits: never mock the learner's appearance, body, gender, nationality, religion or other identity; no slurs; no sexual content; no jokes about self-harm or suicide. If the learner seems genuinely upset, drop the act and be kind.
+Reply with ONLY a JSON object, no other text:
+{"reply": "your reply in English", "reply_ru": "Russian translation of your reply", "correction": "short explanation of mistakes in Russian, or empty string if there were none or there is no learner message yet", "better": "the learner's last message rewritten in correct natural English, or empty string if it was already correct or there is no learner message yet", "hint": "one short example of what the learner could answer next, in simple English"}`;
 
 
 /* ---------------- ICONS & MASCOT ---------------- */
@@ -1235,7 +1541,6 @@ const CAT_COLOR={x:"mango",q:"grape",p:"coral",n:"sky",d:"grape",k:"coral",f:"ma
 const PH_IC=["x","q","p","f","s","c","h","b"], PH_COL=["mango","grape","coral","mango","coral","sky","leaf","leaf"];
 const DLG_IC=["p","f","s","s","c","c","h","b","w","c","f"], DLG_COL=["coral","mango","leaf","coral","sky","sky","grape","leaf","sky","grape","mango"];
 const SC_IC=["f","s","c","c","p","a"], SC_COL=["mango","coral","sky","grape","leaf","grape"];
-const UNITS=[{t:"Основы",s:"Быть, иметь, говорить о себе",from:0,to:6,col:"grape"},{t:"Каждый день",s:"Привычки, вопросы, место и время",from:6,to:12,col:"sky"},{t:"Прошлое и будущее",s:"Что было, что будет, сравнения",from:12,to:18,col:"coral"}];
 const ACH=[
  {id:"first",t:"Первый шаг",d:"Пройди первую карточку",ic:"x",c:"mango"},
  {id:"w10",t:"10 слов",d:"Выучи 10 слов",ic:"words",c:"sky"},
@@ -1246,7 +1551,7 @@ const ACH=[
  {id:"s30",t:"Месяц огня",d:"30 дней подряд",ic:"fire",c:"grape"},
  {id:"l1",t:"Первый урок",d:"Пройди урок грамматики",ic:"book",c:"leaf"},
  {id:"perfect",t:"Без ошибок",d:"Пройди урок на 3 звезды",ic:"starf",c:"mango"},
- {id:"lall",t:"Грамматика A2",d:"Освой все 18 тем",ic:"trophy",c:"grape"},
+ {id:"lall",t:"Грамматика A2",d:"Освой все темы курса",ic:"trophy",c:"grape"},
  {id:"d1",t:"Первый диалог",d:"Потренируй диалог",ic:"chat",c:"sky"},
  {id:"ai",t:"Болтушка",d:"Поговори с ИИ",ic:"spark",c:"leaf"},
  {id:"goal",t:"Цель дня",d:"Набери дневную цель XP",ic:"target",c:"coral"},
@@ -1254,14 +1559,20 @@ const ACH=[
 const INT=[0,1,3,7,14,30,60];
 const KEY="english-daily-v1";
 const today=()=>{const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000)};
-const blank=()=>({v:3,cards:{},custom:[],grammar:{},newDay:0,newCount:0,days:[],dir:"en",perDay:10,topic:"all",
-  xp:0,xpDay:0,xpToday:0,goal:50,remind:19,goalHit:0,ach:{},sound:true,cardsDay:0,cardsToday:0,lessonDay:0,dialogDay:0,chatDay:0,dlg:{},updatedAt:0});
+const blank=()=>({v:4,cards:{},custom:[],grammar:{},newDay:0,newCount:0,days:[],dir:"en",perDay:10,topic:"all",
+  xp:0,xpDay:0,xpToday:0,goal:50,remind:19,spicy:false,goalHit:0,ach:{},sound:true,cardsDay:0,cardsToday:0,lessonDay:0,dialogDay:0,chatDay:0,dlg:{},updatedAt:0});
 function normalize(s){
   const b=blank();s=Object.assign(b,s||{});
   for(const k of ["cards","grammar","ach","dlg"])if(typeof s[k]!=="object"||!s[k]||Array.isArray(s[k]))s[k]={};
   for(const k of ["custom","days"])if(!Array.isArray(s[k]))s[k]=[];
   if(s.v<2)s.grammar={};
-  s.v=3;
+  if(s.v<4){ /* lessons are now saved by id; old 7-task scores become 10-task scores */
+    const g={};
+    Object.entries(s.grammar).forEach(([k,v])=>{const id=/^\d+$/.test(k)?OLD_IDS[+k]:k;if(id&&typeof v==="number")g[id]=Math.min(10,Math.round(v/7*10))});
+    s.grammar=g;
+  }
+  s.v=4;
+  s.spicy=s.spicy===true;
   if(![5,10,15,20].includes(s.perDay))s.perDay=10;
   if(![30,50,100].includes(s.goal))s.goal=50;
   if(![-1,9,13,19,21].includes(s.remind))s.remind=19;
@@ -1314,7 +1625,7 @@ const learnedCount=()=>deck().filter(c=>S.cards[c.id]&&S.cards[c.id].b>=3).lengt
 function checkAch(){
   const st=streak().n,learned=learnedCount();
   const cond={first:Object.keys(S.cards).length>0,w10:learned>=10,w50:learned>=50,w150:learned>=150,s3:st>=3,s7:st>=7,s30:st>=30,
-    l1:Object.keys(S.grammar).length>0,perfect:LESSONS.some((L,i)=>(S.grammar[i]||0)>=L.q.length),
+    l1:Object.keys(S.grammar).length>0,perfect:LESSONS.some(L=>(S.grammar[L.id]||0)>=L.q.length),
     lall:LESSONS.every((_,i)=>lessonDone(i)),d1:Object.keys(S.dlg).length>0,ai:!!S.chatDay,goal:!!S.goalHit};
   ACH.forEach(a=>{if(cond[a.id]&&!S.ach[a.id]){S.ach[a.id]=today();setTimeout(()=>{sfx("win");queueToast(`${medal(a,true)}<div><b>Новая награда!</b><small>${esc(a.t)}</small></div>`)},500)}});
 }
@@ -1436,10 +1747,10 @@ function renderToday(){
   const nextL=LESSONS.findIndex((_,i)=>!lessonDone(i)),dI=t%DIALOGS.length;
   const tasks=[
     {act:"study",ic:"words",col:"sky",t:"Карточки дня",s:left?`Осталось ${left} ${plural(left,"карточка","карточки","карточек")}`:doneC?`Пройдено ${doneC} — на сегодня всё`:"Новые карточки будут завтра",done:!left&&doneC>0},
-    {act:"lesson",ic:"book",col:"grape",t:nextL>=0?`Урок: ${LESSONS[nextL].t}`:"Повторить любой урок",s:S.lessonDay===t?"Сегодня урок пройден":"7 заданий · до +30 XP",done:S.lessonDay===t,i:nextL>=0?nextL:0},
+    {act:"lesson",ic:"book",col:"grape",t:nextL>=0?`Урок: ${LESSONS[nextL].t}`:"Повторить любой урок",s:S.lessonDay===t?"Сегодня урок пройден":`${nextL>=0?LESSONS[nextL].q.length:10} заданий · до +${nextL>=0?LESSONS[nextL].q.length*5+30:80} XP`,done:S.lessonDay===t,i:nextL>=0?nextL:0},
     {act:"dialog",ic:DLG_IC[dI],col:"coral",t:`Диалог: ${DIALOGS[dI].t}`,s:S.dialogDay===t?"Потренировано":"Вспомни свои реплики · +15 XP",done:S.dialogDay===t,i:dI},
   ];
-  if(SAMPLE)tasks.push({act:"chat",ic:"spark",col:"leaf",t:"Поболтать с ИИ",s:S.chatDay===t?"Сегодня уже поговорили":"Ошибки поправит по-русски",done:S.chatDay===t});
+  if(SAMPLE)tasks.push({act:"chat",ic:"spark",col:"leaf",t:"Поболтать с Манго",s:S.chatDay===t?"Сегодня уже поговорили":"Дерзкий ИИ, ошибки поправит по-русски",done:S.chatDay===t});
   const doneN=tasks.filter(x=>x.done).length,all=doneN===tasks.length;
   const h=new Date().getHours(),greet=h<5?"Доброй ночи!":h<12?"Доброе утро!":h<18?"Привет!":"Добрый вечер!";
   const mood=all?"cheer":xt===0?"wave":"happy";
@@ -1562,8 +1873,9 @@ const addWordSheet=(msg="")=>`<h2>Своё слово</h2><p class="sub">Оно 
 
 /* ---------------- GRAMMAR ---------------- */
 let LES=null;
-const lessonDone=i=>(S.grammar[i]||0)>=LESSONS[i].q.length-1;
-const starsOf=(sc,tot)=>sc==null?0:sc>=tot?3:sc>=tot-1?2:sc>=tot-3?1:0;
+const passOf=tot=>Math.ceil(tot*.8);
+const lessonDone=i=>(S.grammar[LESSONS[i].id]||0)>=passOf(LESSONS[i].q.length);
+const starsOf=(sc,tot)=>sc==null?0:sc>=tot?3:sc>=passOf(tot)?2:sc>=Math.ceil(tot*.6)?1:0;
 const starRow=(n,cls="stars")=>`<span class="${cls}">${[0,1,2].map(i=>ic("starf",i<n?"on":"")).join("")}</span>`;
 function newBuild(item){
   const words=item.b.split(" ");let pool=words.map((w,i)=>({w,i}));
@@ -1571,7 +1883,7 @@ function newBuild(item){
   return {pool,picked:[]};
 }
 function startLesson(i){LES={i,step:"theory",qi:0,picked:null,score:0,bd:null,xp:0,fin:false};if(TAB!=="grammar")go("grammar");else{renderGrammar();syncFocus();window.scrollTo({top:0})}}
-function prepQ(){const it=LESSONS[LES.i].q[LES.qi];LES.picked=null;LES.bd=(it&&!Array.isArray(it))?newBuild(it):null}
+function prepQ(){const it=LESSONS[LES.i].q[LES.qi];LES.picked=null;LES.typed="";LES.fixk=null;LES.bd=(it&&it.b)?newBuild(it):null}
 function finishQ(ok){if(ok){LES.score++;LES.xp+=5;addXP(5)}sfx(ok?"ok":"bad")}
 const PRAISE=["Отлично!","Верно!","Так держать!","Идеально!","Супер!","Точно!"];
 function showFb(ok,body){
@@ -1587,15 +1899,15 @@ function renderLesson(){
   const head=`<div class="shead"><button class="x" data-act="endLesson" aria-label="Закрыть урок">${ic("close")}</button><div class="pbar"><i style="width:${pct}%"></i></div><span class="cnt">${LES.step==="q"?`${LES.qi+1}/${total}`:""}</span></div>`;
   if(LES.step==="theory"){
     el.innerHTML=head+`<div class="stage">
-      <div><span class="qkind">Тема ${LES.i+1} из ${LESSONS.length}</span><h1>${esc(L.t)}</h1></div>
+      <div><span class="qkind">${L.review?"Повторение":"Тема"} ${LES.i+1} из ${LESSONS.length}</span><h1>${esc(L.t)}</h1></div>
       <div class="card theory">${L.ex.map(p=>`<p>${esc(p)}</p>`).join("")}<div class="formula">${L.f}</div></div>
       <div class="card"><div class="exs">${L.e.map(s=>{const [en,ru]=s.split("|");return `<div>${spk(en,true)}<p>${esc(en)}<small>${esc(ru)}</small></p></div>`}).join("")}</div></div>
-      <div class="hero">${mascot("think",80)}<div class="bubble"><b>Прочитала?</b><span>Теперь 7 заданий. Ошибаться можно — я никому не скажу.</span></div></div>
+      <div class="hero">${mascot("think",80)}<div class="bubble"><b>${L.review?"Проверим, что осталось в голове":"Прочитала?"}</b><span>Теперь ${total} заданий. Ошибаться можно — я никому не скажу. Почти никому.</span></div></div>
       <button class="btn grape block" data-act="toQ">К заданиям ${ic("arrow")}</button></div>`;
     hideFb();return;
   }
   if(LES.step==="done"){
-    const n=starsOf(LES.score,total),best=S.grammar[LES.i]||0;
+    const n=starsOf(LES.score,total),best=S.grammar[L.id]||0;
     if(!LES.fin){LES.fin=true;if(n>=2)confetti();sfx(n>=2?"win":"tap")}
     const line=n===3?"Ни одной ошибки. Ты точно новичок?":n===2?"Почти идеально — тема засчитана.":n===1?"Неплохо! Перечитай правило и пройди ещё раз.":"Бывает. Прочитай правило вслух и попробуй снова.";
     el.innerHTML=head+`<div class="result">${starRow(n,"bigstars")}${mascot(n>=2?"cheer":n===1?"happy":"sad",120,n>=2?"jump":"bob")}<h1>${LES.score} из ${total}</h1><p class="sub">${line}</p>
@@ -1609,6 +1921,18 @@ function renderLesson(){
     body=`<span class="qkind">Выбери правильный ответ</span><div class="qtitle">${esc(q)}</div>
       <div class="opts">${opts.map((o,k)=>{let cls="";if(LES.picked!=null){if(k===ans)cls="right";else if(k===LES.picked)cls="wrong"}return `<button class="opt ${cls}" data-act="opt" data-o="${k}" ${LES.picked!=null?"disabled":""}>${esc(o)}</button>`}).join("")}</div>`;
     if(LES.picked!=null)showFb(LES.picked===ans,`${LES.picked===ans?"":`<p>Правильно: <span class="ans">${esc(opts[ans])}</span></p>`}<p>${esc(why)}</p>`);else hideFb();
+  } else if(it.t==="type"){
+    const done=LES.picked!=null,full=exFull(it);
+    const q=esc(it.q).replace("___",'<span class="gap">___</span>').replace(/\s*(\([^)]*\))\s*$/,' <span class="hintw">$1</span>');
+    body=`<span class="qkind">Впиши слово</span><div class="qtitle">${q}</div>
+      <input class="tin ${done?(LES.picked?"right":"wrong"):""}" id="tin" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="Ответ" value="${esc(LES.typed)}" ${done?"disabled":""}>
+      ${done?"":`<button class="btn grape block" data-act="checkType">Проверить</button>`}`;
+    if(done)showFb(LES.picked,`${LES.picked?"":`<p>Правильно: <span class="ans">${esc(it.a[0])}</span></p>`}<p>${esc(it.why)}</p><div class="row" style="flex-wrap:nowrap">${spk(full,true)}<p class="ans" style="flex:1">${esc(full)}</p></div>`);else hideFb();
+  } else if(it.t==="fix"){
+    const done=LES.picked!=null,full=exFull(it);
+    body=`<span class="qkind">Найди ошибку</span><div class="qtitle" style="font-size:19px">Нажми на слово, которое здесь не так</div>
+      <div class="pool" style="justify-content:flex-start">${it.s.split(" ").map((w,k)=>{let cls="";if(done){if(k===it.w)cls="right";else if(k===LES.fixk)cls="wrong"}return `<button class="tok ${cls}" data-act="fixPick" data-k="${k}" ${done?"disabled":""}>${esc(w)}</button>`}).join("")}</div>`;
+    if(done)showFb(LES.picked,`${LES.picked?"":`<p>Ошибка в слове <span class="ans">${esc(it.s.split(" ")[it.w])}</span></p>`}<p>${esc(it.why)}</p><div class="row" style="flex-wrap:nowrap">${spk(full,true)}<p class="ans" style="flex:1">${esc(full)}</p></div>`);else hideFb();
   } else {
     const bd=LES.bd,done=LES.picked!=null,n=it.b.split(" ").length;
     body=`<span class="qkind">Собери фразу</span><div class="qtitle">${esc(it.ru)}</div>
@@ -1618,16 +1942,17 @@ function renderLesson(){
     if(done)showFb(LES.picked,`${LES.picked?"":`<p>Правильно так:</p>`}<div class="row" style="flex-wrap:nowrap">${spk(it.b,true)}<p class="ans" style="flex:1">${esc(it.b)}</p></div>`);else hideFb();
   }
   el.innerHTML=head+`<div class="stage">${body}</div>`;
+  const tin=$("#tin");if(tin&&LES.picked==null)setTimeout(()=>{try{tin.focus()}catch(e){}},60);
 }
 function renderGrammar(){
   if(LES)return renderLesson();
   hideFb();
   const el=$("#tab-grammar"),done=LESSONS.filter((_,i)=>lessonDone(i)).length,cur=LESSONS.findIndex((_,i)=>!lessonDone(i));
-  const DX=[0,52,78,52,0,-52,-78,-52];
-  el.innerHTML=`<div><h1>Уроки</h1><p class="sub">${done} из ${LESSONS.length} тем освоено · проходи по порядку</p></div>`+
-    UNITS.map(u=>`<div class="unit t-${u.col}"><div class="tx"><b>${esc(u.t)}</b><small>${esc(u.s)}</small></div><span class="pill" style="background:rgba(255,255,255,.25);color:inherit">${LESSONS.slice(u.from,u.to).filter((_,j)=>lessonDone(u.from+j)).length}/${u.to-u.from}</span></div>
-      <div class="path">${LESSONS.slice(u.from,u.to).map((L,j)=>{const i=u.from+j,sc=S.grammar[i],st=starsOf(sc,L.q.length),cls=lessonDone(i)?"done":i===cur?"cur":"";
-        return `<button class="node ${cls}" style="--dx:${DX[i%DX.length]}px" data-act="lesson" data-i="${i}"><span class="nb">${lessonDone(i)?ic("check"):i+1}</span><span class="nm">${esc(L.t)}</span>${sc!=null?starRow(st):""}</button>`}).join("")}</div>`).join("");
+  const DX=[0,52,78,52,0,-52,-78,-52],idx=id=>LESSONS.findIndex(L=>L.id===id);
+  el.innerHTML=`<div><h1>Уроки</h1><p class="sub">${done} из ${LESSONS.length} тем освоено · проходи по порядку, в конце каждого раздела — повторение</p></div>`+
+    UNITS.map(u=>{const is=u.ids.map(idx);return `<div class="unit t-${u.col}"><div class="tx"><b>${esc(u.t)}</b><small>${esc(u.s)}</small></div><span class="pill" style="background:rgba(255,255,255,.25);color:inherit">${is.filter(i=>lessonDone(i)).length}/${is.length}</span></div>
+      <div class="path">${is.map(i=>{const L=LESSONS[i],sc=S.grammar[L.id],st=starsOf(sc,L.q.length),cls=(lessonDone(i)?"done":i===cur?"cur":"")+(L.review?" rev":"");
+        return `<button class="node ${cls}" style="--dx:${DX[i%DX.length]}px" data-act="lesson" data-i="${i}"><span class="nb">${lessonDone(i)?ic("check"):L.review?ic("target"):i+1}</span><span class="nm">${esc(L.t)}</span>${sc!=null?starRow(st):""}</button>`}).join("")}</div>`}).join("");
 }
 
 /* ---------------- PHRASES ---------------- */
@@ -1648,7 +1973,7 @@ function renderDialogs(){
   const dI=today()%DIALOGS.length;
   if(DLG===null){
     el.innerHTML=`<div><h1>Диалоги</h1><p class="sub">Сценки из жизни. Послушай целиком, потом включи «Тренировку» и вспомни свои реплики.</p></div>
-      ${SAMPLE?`<button class="aicard" data-act="chat">${mascot("wave",64)}<span class="tx"><b>Поболтать с ИИ</b><small>Любая ситуация, ошибки поправлю по-русски</small></span>${ic("arrow")}</button>`:""}
+      ${SAMPLE?`<button class="aicard" data-act="chat">${mascot("wave",64)}<span class="tx"><b>Поболтать с Манго</b><small>Дерзкий ИИ-собеседник. Ошибки поправлю по-русски — с комментариями</small></span>${ic("arrow")}</button>`:""}
       <div class="list">${DIALOGS.map((d,i)=>`<button class="task ${S.dlg[i]?"done":""}" data-act="dialog" data-i="${i}"><span class="tile t-${DLG_COL[i]}">${ic(DLG_IC[i])}</span><span class="tx">${i===dI?`<span class="dtag">Диалог дня</span>`:""}<b>${esc(d.t)}</b><small>${esc(d.d)}</small></span><span class="check">${ic("check")}</span></button>`).join("")}</div>`;
     return;
   }
@@ -1672,14 +1997,7 @@ function openDialog(i){DLG=i;DOPT.shown={};DOPT.awarded=false;PLAYING=-1;if(TAB!
 /* ---------------- AI CHAT (when a backend or Claude is available) ---------------- */
 let SAMPLE=null,CH=null,CHPICK=false,AUTO_SPEAK=true;
 function rulesFor(sc){
-  return `You are an English conversation partner for a Russian-speaking learner at a beginner level (A1-A2, knows basic English).
-Scenario: ${sc.role}
-Rules:
-- Use very simple English: short sentences, common everyday words, 1-2 sentences per reply. Ask one simple question at a time so the conversation keeps going. Stay in your role.
-- If the learner writes in Russian or mixes languages, keep the conversation going and show them in "better" how to say it in English.
-- Corrections are about the learner's LAST message only. Explain mistakes briefly and kindly in Russian (1-2 sentences). Ignore missing capital letters and final punctuation.
-Reply with ONLY a JSON object, no other text:
-{"reply": "your reply in English", "reply_ru": "Russian translation of your reply", "correction": "short explanation of mistakes in Russian, or empty string if there were none or there is no learner message yet", "better": "the learner's last message rewritten in correct natural English, or empty string if it was already correct or there is no learner message yet", "hint": "one short example of what the learner could answer next, in simple English"}`;
+  return MANGO_PROMPT.replace("{style}",S.spicy?MANGO_STYLE.spicy:MANGO_STYLE.mild).replace("{role}",sc.role);
 }
 async function askTutor(){
   if(!SAMPLE)return;
@@ -1713,7 +2031,7 @@ function renderChat(){
   const el=$("#tab-dialogs");
   if(!CH){
     el.innerHTML=`<button class="backlink" data-act="dlgBack">${ic("back")}Диалоги</button>
-      <div class="hero">${mascot("wave",88)}<div class="bubble"><b>Поболтаем?</b><span>Выбери ситуацию. Пиши как получается, можно вперемешку с русским — я поправлю.</span></div></div>
+      <div class="hero">${mascot("wave",88)}<div class="bubble"><b>Поболтаем?</b><span>Выбери ситуацию — я сыграю любую роль. Плохо, но с душой. Пиши как получается, можно вперемешку с русским — поправлю и прокомментирую.</span></div></div>
       ${window.aiQuotaPill?`<div class="row">${window.aiQuotaPill()}</div>`:""}
       <div class="scen">${SCENARIOS.map((s,i)=>`<button class="topic t-${SC_COL[i]}" data-act="scen" data-i="${i}"><span class="tile">${ic(SC_IC[i])}</span><span class="nm">${esc(s.t)}</span><small>${esc(s.d)}</small></button>`).join("")}</div>`;
     return;
@@ -1757,6 +2075,7 @@ function settingsSheet(){
     <div class="field"><span class="flabel">Новых слов в день</span>${seg("perDay",[[5,"5"],[10,"10"],[15,"15"],[20,"20"]])}</div>
     <div class="field"><span class="flabel">Карточки</span>${seg("dir",[["en","English → рус"],["ru","Рус → English"]])}</div>
     <div class="field"><span class="flabel">Звуки успеха</span>${seg("sound",[["true","Вкл"],["false","Выкл"]])}</div>
+    ${SAMPLE?`<div class="field"><span class="flabel">Манго в разговоре с ИИ</span>${seg("spicy",[["false","Дерзкий"],["true","Без цензуры 18+"]])}<span class="sub" style="font-size:13px">«Без цензуры» — с матом, на русском и английском. Только для взрослых.</span></div>`:""}
     ${window.REMIND_OK?`<div class="field"><span class="flabel">Напоминание от Манго в Telegram</span>${seg("remind",[[-1,"Выкл"],[9,"9:00"],[13,"13:00"],[19,"19:00"],[21,"21:00"]])}<span class="sub" style="font-size:13px">Приходит, только если в этот день ты ещё не занималась. С юмором, местами чёрным. Если не приходит — нажми /start в чате с ботом.</span></div>`:""}
     <button class="btn ghost block" data-act="closeSheet">Готово</button>`;
 }
@@ -1768,7 +2087,7 @@ const ACT={
   go:el=>go(el.dataset.t),
   settings:()=>openSheet(settingsSheet()),
   closeSheet:()=>closeSheet(),
-  set:el=>{const k=el.dataset.k,v=el.dataset.v;S[k]=k==="dir"?v:k==="sound"?v==="true":+v;save();setSheet(settingsSheet());renderTop();renderTab(TAB);syncFocus()},
+  set:el=>{const k=el.dataset.k,v=el.dataset.v;S[k]=k==="dir"?v:(k==="sound"||k==="spicy")?v==="true":+v;save();setSheet(settingsSheet());renderTop();renderTab(TAB);syncFocus()},
   achs:()=>openSheet(achSheet()),
   study:()=>startSession("all"),
   topic:el=>openSheet(topicSheet(el.dataset.k)),
@@ -1793,6 +2112,16 @@ const ACT={
     if(!LES||LES.picked!=null)return;const it=LESSONS[LES.i].q[LES.qi];
     LES.picked=+el.dataset.o;finishQ(LES.picked===it[2]);renderLesson();
   },
+  checkType:()=>{
+    const it=LESSONS[LES.i].q[LES.qi],inp=$("#tin");if(!inp||LES.picked!=null)return;
+    const norm=s=>String(s).toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g," ").replace(/[.!?,]+$/,"").trim();
+    LES.typed=inp.value;if(!norm(LES.typed))return;
+    const ok=it.a.some(a=>norm(a)===norm(LES.typed));LES.picked=ok;finishQ(ok);renderLesson();speak(exFull(it));
+  },
+  fixPick:el=>{
+    const it=LESSONS[LES.i].q[LES.qi];if(LES.picked!=null)return;
+    LES.fixk=+el.dataset.k;const ok=LES.fixk===it.w;LES.picked=ok;finishQ(ok);renderLesson();speak(exFull(it));
+  },
   pick:el=>{if(LES.picked!=null)return;LES.bd.picked.push(+el.dataset.k);renderLesson()},
   unpick:el=>{if(LES.picked!=null)return;LES.bd.picked.splice(+el.dataset.k,1);renderLesson()},
   checkBuild:()=>{
@@ -1803,7 +2132,7 @@ const ACT={
   nextQ:()=>{
     const L=LESSONS[LES.i];hideFb();LES.qi++;
     if(LES.qi>=L.q.length){
-      LES.step="done";S.grammar[LES.i]=Math.max(S.grammar[LES.i]||0,LES.score);S.lessonDay=today();
+      LES.step="done";S.grammar[L.id]=Math.max(S.grammar[L.id]||0,LES.score);S.lessonDay=today();
       const bonus=20+(LES.score===L.q.length?10:0);LES.xp+=bonus;addXP(bonus);
     } else prepQ();
     renderLesson();window.scrollTo({top:0});
@@ -1858,7 +2187,7 @@ document.addEventListener("submit",e=>{
   S.custom.unshift({id:"c:"+Date.now().toString(36),en,ru,ipa:"",ex,exru:"",cat:"my"});save();sfx("ok");
   setSheet(addWordSheet(`<p class="okmsg">«${esc(en)}» добавлено. Добавить ещё?</p>`));renderTabs();if(TAB==="words")renderWords();
 });
-document.addEventListener("keydown",e=>{if(e.target&&e.target.id==="msgIn"&&e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat()}});
+document.addEventListener("keydown",e=>{if(e.target&&e.target.id==="msgIn"&&e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat()}if(e.target&&e.target.id==="tin"&&e.key==="Enter"){e.preventDefault();ACT.checkType()}});
 document.addEventListener("input",e=>{if(e.target&&e.target.id==="msgIn"){const t=e.target;t.style.height="auto";t.style.height=Math.min(t.scrollHeight,140)+"px"}});
 document.addEventListener("change",e=>{if(e.target&&e.target.id==="autoSp")AUTO_SPEAK=e.target.checked});
 
@@ -1977,7 +2306,7 @@ if(!IS_APP&&window.claude&&window.claude.use){
     const out = [];
     WORDS_RAW.trim().split("\n").forEach(l => { const p = l.split("|"); out.push(p[1]); if(p[4]) out.push(p[4]); });
     PHRASES.forEach(c => c.items.forEach(s => out.push(s.split("|")[0])));
-    LESSONS.forEach(L => { L.e.forEach(s => out.push(s.split("|")[0])); L.q.forEach(q => { if(!Array.isArray(q)) out.push(q.b); }); });
+    LESSONS.forEach(L => { L.e.forEach(s => out.push(s.split("|")[0])); L.q.forEach(q => { const f = exFull(q); if(f) out.push(f); }); });
     DIALOGS.forEach(d => d.l.forEach(x => out.push(x[1])));
     return out;
   }
@@ -2024,7 +2353,7 @@ if(!IS_APP&&window.claude&&window.claude.use){
     fetch("/api/chat").then(r => r.ok ? r.json() : null).then(info => {
       if(!info || !info.enabled) return;
       SAMPLE = { json: async function(){
-        const body = { initData: tg.initData, scenario: SCENARIOS.indexOf(CH.sc), turns: CH.turns.slice(-20) };
+        const body = { initData: tg.initData, scenario: SCENARIOS.indexOf(CH.sc), turns: CH.turns.slice(-20), spicy: !!S.spicy };
         let r, data = null;
         try {
           r = await fetch("/api/chat", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify(body) });
