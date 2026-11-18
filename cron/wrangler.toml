@@ -1,0 +1,7 @@
+# Tiny worker that wakes the reminder check every hour. It holds no secrets.
+name = "english-daily-cron"
+main = "index.js"
+compatibility_date = "2026-10-01"
+
+[triggers]
+crons = ["2 * * * *"]

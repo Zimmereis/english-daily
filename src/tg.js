@@ -154,6 +154,36 @@
     }).catch(() => {});
   }
 
+  /* ---------- reminders: tell the bot when you studied (Telegram only) ---------- */
+  if(inTG){
+    window.REMIND_OK = true;
+    const SEEN_KEY = "ed-seen", WA_KEY = "ed-write-asked";
+    let seenTimer = null;
+    const lastDay = () => S.days.length ? Math.max(...S.days) : null;
+    function seen(){
+      const body = { day: lastDay(), tz: new Date().getTimezoneOffset(), hour: S.remind, streak: streak().n, xp: S.xp };
+      const sig = JSON.stringify(body);
+      let prev = null; try { prev = localStorage.getItem(SEEN_KEY); } catch(e) {}
+      if(prev === sig) return;
+      fetch("/api/seen", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ ...body, initData: tg.initData }) })
+        .then(r => { if(r.ok) try { localStorage.setItem(SEEN_KEY, sig); } catch(e) {} }).catch(() => {});
+    }
+    /* The bot may write first only after /start or this one-time permission. */
+    function askWrite(force){
+      if(!ver("6.9") || S.remind < 0) return;
+      let asked = null; try { asked = localStorage.getItem(WA_KEY); } catch(e) {}
+      if(asked && !force) return;
+      try { localStorage.setItem(WA_KEY, "1"); } catch(e) {}
+      try { tg.requestWriteAccess(() => {}); } catch(e) {}
+    }
+    const _saveR = save;
+    save = function(){ _saveR(); clearTimeout(seenTimer); seenTimer = setTimeout(seen, 2500); };
+    const _set = ACT.set;
+    ACT.set = function(el){ _set(el); if(el.dataset.k === "remind" && S.remind >= 0) askWrite(true); };
+    setTimeout(seen, 3000);
+    setTimeout(() => askWrite(false), 6000);
+  }
+
   /* ---------- offline: cache the app after the first visit (network first, so updates arrive at once) ---------- */
   try {
     if("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(() => {});
