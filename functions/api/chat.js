@@ -1,5 +1,6 @@
 import { checkInitData, isAllowed, rateLimited, json } from "../../lib/tg.js";
 import { ROLES } from "../../lib/texts.js";
+import { isVip, readAi, writeAi, quota, canChat, spend } from "../../lib/stars.js";
 
 const system = (role) => `You are an English conversation partner for a Russian-speaking learner at a beginner level (A1-A2, knows basic English).
 Scenario: ${role}
@@ -34,14 +35,25 @@ function parseJson(text) {
 
 const enabled = (env) => !!(env.ANTHROPIC_API_KEY && env.BOT_TOKEN);
 
-export const onRequestGet = ({ env }) => json({ enabled: enabled(env) });
+export const onRequestGet = ({ env }) => json({ enabled: enabled(env), paid: !!env.REMIND });
 
 export async function onRequestPost({ request, env }) {
   if (!enabled(env)) return json({ error: "disabled" }, 503);
   const body = await request.json().catch(() => ({}));
   const user = await checkInitData(body.initData, env.BOT_TOKEN);
   if (!user) return json({ error: "not_telegram" }, 401);
-  if (!isAllowed(env, user.id)) return json({ error: "not_allowed", userId: user.id }, 403);
+  // ALLOWED_USERS chat free without limits. Everyone else: free messages per day, then Telegram Stars.
+  // Without the KV store there is no billing, so only ALLOWED_USERS (or everyone, if it's empty) may chat.
+  const vip = isVip(env, user.id), kv = env.REMIND;
+  let ai = null;
+  if (!vip) {
+    if (!kv) { if (!isAllowed(env, user.id)) return json({ error: "not_allowed", userId: user.id }, 403); }
+    else {
+      ai = await readAi(kv, user.id);
+      const q = quota(ai);
+      if (!canChat(q)) return json({ error: "payment_required", quota: q }, 402);
+    }
+  }
   if (rateLimited("chat:" + user.id, 20, 60_000)) return json({ error: "rate_limited" }, 429);
 
   const role = ROLES[Number(body.scenario)];
@@ -79,5 +91,7 @@ export async function onRequestPost({ request, env }) {
   const out = parseJson(text);
   if (!out || !out.reply) return json({ error: "bad_reply" }, 502);
   const s = (v) => String(v || "").trim();
-  return json({ reply: s(out.reply), reply_ru: s(out.reply_ru), correction: s(out.correction), better: s(out.better), hint: s(out.hint) });
+  let q = vip ? quota({}, Date.now(), true) : null;
+  if (ai) { spend(ai); await writeAi(kv, user.id, ai); q = quota(ai); }
+  return json({ reply: s(out.reply), reply_ru: s(out.reply_ru), correction: s(out.correction), better: s(out.better), hint: s(out.hint), quota: q });
 }

@@ -141,9 +141,10 @@
           r = await fetch("/api/chat", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify(body) });
           data = await r.json().catch(() => null);
         } catch(e) { throw { ru: "Нет связи с сервером. Проверь интернет и отправь ещё раз." }; }
-        if(r.ok && data && data.reply) return data;
+        if(r.ok && data && data.reply){ if(data.quota) setQuota(data.quota); return data; }
         const code = data && data.error;
-        if(code === "not_allowed") throw { fatal: true, ru: "Разговор с ИИ закрыт для этого аккаунта. Твой Telegram ID: " + data.userId + " — добавь его в ALLOWED_USERS в настройках Vercel." };
+        if(code === "payment_required"){ if(data.quota) setQuota(data.quota); throw { pay: true, ru: "Бесплатные сообщения на сегодня закончились. Завтра будут новые — или возьми пакет." }; }
+        if(code === "not_allowed") throw { fatal: true, ru: "Разговор с ИИ закрыт для этого аккаунта. Твой Telegram ID: " + data.userId + " — его нужно добавить в ALLOWED_USERS в настройках Cloudflare." };
         if(code === "not_telegram") throw { fatal: true, ru: "Не удалось подтвердить вход через Telegram. Закрой и снова открой приложение." };
         if(code === "rate_limited") throw { ru: "Слишком много сообщений подряд. Подожди минуту." };
         if(code === "busy") throw { ru: "Claude сейчас перегружен. Отправь ещё раз через несколько секунд." };
@@ -151,7 +152,65 @@
       }};
       if(TAB === "today") renderToday();
       if(TAB === "dialogs" && !CH && !CHPICK && DLG === null) renderDialogs();
+      if(info.paid) refreshQuota();
     }).catch(() => {});
+  }
+
+  /* ---------- AI messages left + buying more with Telegram Stars ---------- */
+  let AIQ = null, PRODUCTS_LIST = [];
+  const post = (url, body) => fetch(url, { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ initData: tg.initData, ...body }) });
+  function setQuota(q){ AIQ = q; const pill = document.getElementById("aiq"); if(pill) pill.outerHTML = window.aiQuotaPill(); }
+  function refreshQuota(){
+    return post("/api/quota", {}).then(r => r.ok ? r.json() : null).then(d => {
+      if(!d || !d.paid) return;
+      window.AI_PAID = true; PRODUCTS_LIST = d.products || []; setQuota(d.quota);
+      if(TAB === "dialogs" && CHPICK && !CH) renderDialogs();
+    }).catch(() => {});
+  }
+  window.aiQuotaPill = function(){
+    if(!AIQ || !window.AI_PAID) return "";
+    const txt = AIQ.unlimited ? (AIQ.vip ? "Безлимит" : "Безлимит до " + new Date(AIQ.subUntil).toLocaleDateString("ru-RU", { day:"numeric", month:"short" }))
+      : `${AIQ.freeLeft} бесплатно сегодня${AIQ.credits ? ` · ${AIQ.credits} купленных` : ""}`;
+    return `<button class="pill t-mango" id="aiq" data-act="paywall">${ic("starf")}${esc(txt)}</button>`;
+  };
+  function paywallHtml(out){
+    const items = PRODUCTS_LIST.map(p => `<button class="task" data-act="buy" data-p="${esc(p.id)}"><span class="tile t-${p.subscription ? "grape" : "mango"}">${ic(p.subscription ? "spark" : "chat")}</span><span class="tx"><b>${esc(p.title)}</b><small>${p.subscription ? "Продлевается каждые 30 дней, отмена в настройках Telegram" : "Не сгорают"}</small></span><span class="price">${ic("starf")}${p.stars}</span></button>`).join("");
+    const now = AIQ && AIQ.unlimited ? `<p class="okmsg">Сейчас у тебя безлимит${AIQ.subUntil ? " до " + new Date(AIQ.subUntil).toLocaleDateString("ru-RU") : ""}.</p>` : "";
+    return `<div class="hero">${mascot(out ? "sad" : "happy", 88)}<div class="bubble" style="margin-bottom:14px"><b>${out ? "На сегодня всё бесплатное" : "Разговор с ИИ"}</b><span>${out
+        ? "Я бы болтал бесплатно, но ИИ ест электричество. Я — нет, я фрукт. Завтра будет ещё 10 бесплатных — или возьми пакет прямо сейчас."
+        : "Каждый день 10 сообщений бесплатно. Хочешь больше — пакет или месячный безлимит за звёзды Telegram."}</span></div></div>
+      ${now}<div class="plan">${items || `<p class="sub">Загружаю цены…</p>`}</div>
+      <p class="sub" style="font-size:13px">Оплата звёздами Telegram. Условия — /terms, помощь с оплатой — /paysupport в чате с ботом.</p>`;
+  }
+  window.openPaywall = function(out){ openSheet(paywallHtml(out)); if(!PRODUCTS_LIST.length) refreshQuota().then(() => setSheet(paywallHtml(out))); };
+  ACT.paywall = () => window.openPaywall(false);
+  ACT.buy = async (el) => {
+    if(!ver("6.1")) { queueToast(`<span class="medal on t-coral">${ic("close")}</span><div><b>Обнови Telegram</b><small>Эта версия не умеет платить звёздами</small></div>`); return; }
+    el.disabled = true;
+    try {
+      const d = await post("/api/buy", { product: el.dataset.p }).then(r => r.json());
+      if(!d.link) throw 0;
+      tg.openInvoice(d.link, (status) => {
+        el.disabled = false;
+        if(status === "paid"){
+          closeSheet(); confetti(); sfx("win");
+          queueToast(`<span class="medal on t-mango">${ic("starf")}</span><div><b>Спасибо!</b><small>Сообщения уже начисляются</small></div>`);
+          let n = 0; const before = JSON.stringify(AIQ);
+          const t = setInterval(async () => { n++; await refreshQuota(); if(JSON.stringify(AIQ) !== before || n >= 8){ clearInterval(t); resumeChat(); } }, 1500);
+        } else if(status === "failed") {
+          queueToast(`<span class="medal on t-coral">${ic("close")}</span><div><b>Оплата не прошла</b><small>Звёзды не списаны, попробуй ещё раз</small></div>`);
+        }
+      });
+    } catch(e) {
+      el.disabled = false;
+      queueToast(`<span class="medal on t-coral">${ic("close")}</span><div><b>Не получилось открыть оплату</b><small>Попробуй через минуту</small></div>`);
+    }
+  };
+  /* After paying, answer the message that hit the limit. */
+  function resumeChat(){
+    if(!CH || CH.busy) return;
+    const last = CH.view[CH.view.length - 1];
+    if(last && last.me && !last.checked && AIQ && (AIQ.unlimited || AIQ.freeLeft > 0 || AIQ.credits > 0)){ CH.err = ""; askTutor(); }
   }
 
   /* ---------- reminders: tell the bot when you studied (Telegram only) ---------- */

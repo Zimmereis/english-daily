@@ -339,6 +339,9 @@ textarea,.field input,.field select{width:100%;border:2px solid var(--line);back
 .comp-row .btn{min-height:52px;padding:0 16px}
 .hintbox{background:var(--surface);border:2px dashed var(--grape);border-radius:16px;padding:10px 12px;font-weight:800;display:flex;gap:10px;align-items:center;justify-content:space-between}
 .err{color:var(--coral-t);font-weight:800;font-size:14px}
+.price{display:inline-flex;align-items:center;gap:4px;font-weight:900;font-size:18px;color:var(--mango-t);white-space:nowrap;flex:none}
+.price .ic{width:19px;height:19px}
+button.pill{cursor:pointer;white-space:nowrap}
 .okmsg{color:var(--leaf-t);font-weight:800;font-size:14px}
 .tgl{display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:800;font-size:14px}
 
@@ -957,7 +960,7 @@ async function askTutor(){
     if(AUTO_SPEAK)speak(reply);
   }catch(e){
     const c=e&&e.code;
-    if(e&&e.ru){CH.err=e.ru;if(e.fatal)SAMPLE=null}
+    if(e&&e.ru){CH.err=e.ru;if(e.fatal)SAMPLE=null;if(e.pay&&window.openPaywall)setTimeout(()=>window.openPaywall(true),350)}
     else if(["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(c)){SAMPLE=null;CH.err="Разговор с ИИ недоступен: доступ к Claude для этой страницы не разрешён."}
     else if(c==="rate_limited")CH.err="Слишком много сообщений подряд. Подожди немного и отправь снова.";
     else if(c==="session_expired")CH.err="Сессия истекла — войди заново.";
@@ -970,6 +973,7 @@ function renderChat(){
   if(!CH){
     el.innerHTML=`<button class="backlink" data-act="dlgBack">${ic("back")}Диалоги</button>
       <div class="hero">${mascot("wave",88)}<div class="bubble"><b>Поболтаем?</b><span>Выбери ситуацию. Пиши как получается, можно вперемешку с русским — я поправлю.</span></div></div>
+      ${window.aiQuotaPill?`<div class="row">${window.aiQuotaPill()}</div>`:""}
       <div class="scen">${SCENARIOS.map((s,i)=>`<button class="topic t-${SC_COL[i]}" data-act="scen" data-i="${i}"><span class="tile">${ic(SC_IC[i])}</span><span class="nm">${esc(s.t)}</span><small>${esc(s.d)}</small></button>`).join("")}</div>`;
     return;
   }
@@ -986,6 +990,7 @@ function renderChat(){
   if(CH.busy)parts.push(`<div class="thinking">Манго печатает</div>`);
   el.innerHTML=`
     <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div class="sheet-h" style="flex:1;min-width:0">${mascot("happy",52,"")}<div class="tx"><span class="qkind">Разговор с ИИ</span><h2>${esc(CH.sc.t)}</h2></div></div><button class="btn ghost small" data-act="endChat">Сменить</button></div>
+    ${window.aiQuotaPill&&window.aiQuotaPill()?`<div class="row">${window.aiQuotaPill()}</div>`:""}
     <div class="chat" id="chatLog">${parts.join("")}</div>
     ${CH.err?`<p class="err">${esc(CH.err)}</p>`:""}
     <div class="composer">
