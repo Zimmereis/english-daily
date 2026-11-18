@@ -72,7 +72,10 @@ public class MainActivity extends Activity {
             /* Called for the main page only: no connection on the very first launch. */
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                if (failingUrl != null && failingUrl.startsWith(APP_URL)) view.loadUrl(OFFLINE_URL);
+                if (failingUrl != null && failingUrl.startsWith(APP_URL)) {
+                    String why = errorCode + " " + (description == null ? "" : description);
+                    view.loadUrl(OFFLINE_URL + "#" + Uri.encode(why));
+                }
             }
         });
         setContentView(web);
