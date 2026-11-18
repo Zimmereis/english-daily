@@ -349,15 +349,16 @@ body.focus .top,body.focus nav.tabs{display:none}
 .airow.twist .msg.ai{background:var(--coral-s);box-shadow:0 3px 0 var(--coral);color:var(--coral-t)}
 @keyframes snap{0%{transform:scale(.6) rotate(-6deg);opacity:0}60%{transform:scale(1.06) rotate(2deg)}100%{transform:none}}
 /* Mad Mango: idle life per mood. .still turns it off (older chat avatars). */
-.mascot.mad g,.mascot.mad path,.mascot.mad circle,.mascot.mad ellipse{transform-box:fill-box;transform-origin:center}
+.mascot.mad :is(.eye,.wing-l,.wing-r,.vein,.drop,.bubble,.aura,.fork,.twinkle){transform-box:fill-box;transform-origin:center}
+.mascot.mad .knife{transform-box:view-box;transform-origin:178px 92px}
 .mascot.mad .mm-b{transform-origin:50% 100%;animation:mmBreath 3.2s ease-in-out infinite}
 .mascot.mad .eye{animation:mmBlink 4.6s infinite}
 .mascot.mad .twinkle{animation:mmTwinkle 1.6s ease-in-out infinite}
 .m-angel .mm-b{animation:mmFloat 2.8s ease-in-out infinite}
-.m-angel .wing-l{transform-origin:100% 80%;animation:mmFlapL .9s ease-in-out infinite}
+.m-angel .wing-l{transform-origin:90% 80%;animation:mmFlapL .9s ease-in-out infinite}
 .m-angel .wing-r{transform-origin:0 80%;animation:mmFlapR .9s ease-in-out infinite}
 .m-evil .mm-b{animation:mmRage .35s linear infinite}
-.m-evil .knife{transform-origin:50% 90%;animation:mmStab 1.2s ease-in-out infinite}
+.m-evil .knife{animation:mmStab 1.2s ease-in-out infinite}
 .m-evil .vein{animation:mmPulse .7s ease-in-out infinite}
 .m-smug .mm-b{transform-origin:50% 100%;animation:mmSway 3.6s ease-in-out infinite}
 .m-cry .mm-b{transform-origin:50% 100%;animation:mmSob .7s ease-in-out infinite}
@@ -378,7 +379,7 @@ body.focus .top,body.focus nav.tabs{display:none}
 @keyframes mmFlapL{50%{transform:rotate(-14deg)}}
 @keyframes mmFlapR{50%{transform:rotate(14deg)}}
 @keyframes mmRage{0%{transform:translate(0,0)}25%{transform:translate(-1.5px,1px)}50%{transform:translate(1.5px,-1px)}75%{transform:translate(-1px,-1px)}100%{transform:translate(0,0)}}
-@keyframes mmStab{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-16deg) translateY(-4px)}80%{transform:rotate(8deg) translateY(3px)}}
+@keyframes mmStab{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-10deg)}80%{transform:rotate(5deg)}}
 @keyframes mmPulse{50%{transform:scale(1.3)}}
 @keyframes mmSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
 @keyframes mmSob{0%,100%{transform:scale(1,1)}30%{transform:scale(1.04,.95)}60%{transform:scale(.98,1.03)}}
