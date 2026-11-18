@@ -159,16 +159,21 @@
   /* ---------- Mad Mango's own voice (ElevenLabs) for subscribers; device voice for everyone else ---------- */
   let VOICE_ON = false, voiceAudio = null;
   if(inTG) fetch("/api/voice").then(r => r.ok ? r.json() : null).then(d => { VOICE_ON = !!(d && d.enabled); }).catch(() => {});
-  window.mangoSay = function(text, mood){
+  /* mangoPrep starts fetching right away (the audio streams, so it plays as ElevenLabs speaks);
+     .play() resolves when the line has been said. Used to prepare the twist while the first line plays. */
+  window.mangoPrep = function(text, mood){
     const fallback = () => new Promise(res => { speakMixed(text); setTimeout(res, Math.min(6000, 400 + String(text).length * 60)); });
-    if(!VOICE_ON || !AIQ || !AIQ.unlimited) return fallback();
-    stopSpeech(); if(voiceAudio){ try { voiceAudio.pause(); } catch(e) {} }
-    return post("/api/voice", { text, mood }).then(r => r.ok ? r.blob() : Promise.reject())
-      .then(blob => new Promise(res => {
-        const a = new Audio(URL.createObjectURL(blob)); voiceAudio = a;
-        a.onended = res; a.onerror = res; const p = a.play(); if(p && p.catch) p.catch(res);
-      })).catch(fallback);
+    if(!VOICE_ON || !AIQ || !AIQ.unlimited) return { play: fallback };
+    const audio = post("/api/voice", { text, mood }).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
+      const a = new Audio(d.url); a.preload = "auto"; try { a.load(); } catch(e) {} return a;
+    });
+    audio.catch(() => {});
+    return { play: () => audio.then(a => new Promise(res => {
+      stopSpeech(); if(voiceAudio && voiceAudio !== a){ try { voiceAudio.pause(); } catch(e) {} }
+      voiceAudio = a; a.onended = res; a.onerror = res; const p = a.play(); if(p && p.catch) p.catch(res);
+    })).catch(fallback) };
   };
+  window.mangoSay = (text, mood) => window.mangoPrep(text, mood).play();
 
   /* ---------- AI messages left + buying more with Telegram Stars ---------- */
   let AIQ = null, PRODUCTS_LIST = [];
