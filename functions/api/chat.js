@@ -26,6 +26,26 @@ function parseJson(text) {
   return null;
 }
 
+/* Claude must answer through this tool, so the reply is always valid JSON — no broken quotes. */
+const MOOD_ENUM = { type: "string", enum: MANGO_MOODS };
+const REPLY_TOOL = {
+  name: "mango_reply",
+  description: "Send Mad Mango's reply to the learner.",
+  input_schema: {
+    type: "object",
+    properties: {
+      mood: MOOD_ENUM,
+      reply: { type: "string" },
+      reply_ru: { type: "string" },
+      twist: { anyOf: [{ type: "null" }, { type: "object", properties: { mood: MOOD_ENUM, reply: { type: "string" }, reply_ru: { type: "string" } }, required: ["mood", "reply", "reply_ru"] }] },
+      correction: { type: "string" },
+      better: { type: "string" },
+      hint: { type: "string" },
+    },
+    required: ["mood", "reply", "reply_ru", "twist", "correction", "better", "hint"],
+  },
+};
+
 const enabled = (env) => !!(env.ANTHROPIC_API_KEY && env.BOT_TOKEN);
 
 export const onRequestGet = ({ env }) => json({ enabled: enabled(env), paid: !!env.REMIND });
@@ -65,8 +85,10 @@ export async function onRequestPost({ request, env }) {
       },
       body: JSON.stringify({
         model: env.CLAUDE_MODEL || "claude-haiku-5-5",
-        max_tokens: 800,
+        max_tokens: 1000,
         system: system(role, body.spicy === true),
+        tools: [REPLY_TOOL],
+        tool_choice: { type: "tool", name: "mango_reply" },
         messages,
       }),
     });
@@ -80,9 +102,15 @@ export async function onRequestPost({ request, env }) {
     return json({ error: busy ? "busy" : "upstream" }, busy ? 503 : 502);
   }
   const data = await r.json();
-  const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
-  const out = parseJson(text);
-  if (!out || !out.reply) return json({ error: "bad_reply" }, 502);
+  const blocks = data.content || [];
+  const tool = blocks.find((b) => b.type === "tool_use");
+  let out = tool && tool.input;
+  if (typeof out === "string") out = parseJson(out);
+  if (!out || !out.reply) out = parseJson(blocks.filter((b) => b.type === "text").map((b) => b.text).join(""));
+  if (!out || !out.reply) {
+    console.error("Mango bad reply", data.stop_reason, JSON.stringify(blocks).slice(0, 800));
+    return json({ error: "bad_reply", stop: data.stop_reason || "" }, 502);
+  }
   const s = (v) => String(v || "").trim();
   let q = vip ? quota({}, Date.now(), true) : null;
   if (ai) { spend(ai); await writeAi(kv, user.id, ai); q = quota(ai); }

@@ -989,7 +989,7 @@ function openDialog(i){DLG=i;DOPT.shown={};DOPT.awarded=false;PLAYING=-1;if(TAB!
 /* ---------------- AI CHAT (when a backend or Claude is available) ---------------- */
 let SAMPLE=null,CH=null,CHPICK=false,AUTO_SPEAK=true;
 function rulesFor(sc){
-  return MANGO_PROMPT.replace("{style}",S.spicy?MANGO_STYLE.spicy:MANGO_STYLE.mild).replace("{role}",sc.role);
+  return MANGO_PROMPT.replace("{style}",S.spicy?MANGO_STYLE.spicy:MANGO_STYLE.mild).replace("{role}",sc.role)+"\nThere is no tool here: reply with ONLY a JSON object with exactly these fields, no other text.";
 }
 async function askTutor(){
   if(!SAMPLE)return;

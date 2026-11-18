@@ -1506,8 +1506,7 @@ Language rules — you speak a MIX of Russian and English, like a bilingual frie
 - "correction" is in Russian and is about the learner's LAST message only: name the mistake and the fix in 1-2 sentences, in your voice, but the grammar explanation must be correct and clear. Ignore missing capital letters and final punctuation.
 - If the learner writes in Russian or mixes languages, answer in the same mix and show in "better" how to say it in English.
 Limits: never mock appearance, body, gender, nationality, religion or other identity; no slurs; no sexual content; no jokes about self-harm or suicide. If the learner seems genuinely upset, drop the act and be kind.
-Reply with ONLY a JSON object, no other text:
-{"mood": "one of the moods", "reply": "your reply: Russian jokes + simple English question", "reply_ru": "the whole reply in Russian", "twist": null or {"mood": "evil or demon (or another mood)", "reply": "the snap, mostly Russian", "reply_ru": "the whole snap in Russian"}, "correction": "short explanation of mistakes in Russian, or empty string if there were none or there is no learner message yet", "better": "the learner's last message rewritten in correct natural English, or empty string if it was already correct or there is no learner message yet", "hint": "one short example of what the learner could answer next, in simple English"}`;
+Always answer by calling the mango_reply tool. Fields: "mood" — one of the moods; "reply" — Russian jokes + simple English question; "reply_ru" — the whole reply in Russian; "twist" — null, or {"mood", "reply" (the snap, mostly Russian), "reply_ru"}; "correction" — short explanation of mistakes in Russian, or empty string if there were none or there is no learner message yet; "better" — the learner's last message rewritten in correct natural English, or empty string if it was already correct or there is no learner message yet; "hint" — one short example of what the learner could answer next, in simple English.`;
 
 /* Mad Mango — the app's mascot, drawn in code (sticker style: dark outline, cel shading).
    madMango(mood, size, anim) returns an <svg>. Moods:
@@ -2199,7 +2198,7 @@ function openDialog(i){DLG=i;DOPT.shown={};DOPT.awarded=false;PLAYING=-1;if(TAB!
 /* ---------------- AI CHAT (when a backend or Claude is available) ---------------- */
 let SAMPLE=null,CH=null,CHPICK=false,AUTO_SPEAK=true;
 function rulesFor(sc){
-  return MANGO_PROMPT.replace("{style}",S.spicy?MANGO_STYLE.spicy:MANGO_STYLE.mild).replace("{role}",sc.role);
+  return MANGO_PROMPT.replace("{style}",S.spicy?MANGO_STYLE.spicy:MANGO_STYLE.mild).replace("{role}",sc.role)+"\nThere is no tool here: reply with ONLY a JSON object with exactly these fields, no other text.";
 }
 async function askTutor(){
   if(!SAMPLE)return;
@@ -2579,7 +2578,7 @@ if(!IS_APP&&window.claude&&window.claude.use){
         if(code === "not_telegram") throw { fatal: true, ru: "Не удалось подтвердить вход через Telegram. Закрой и снова открой приложение." };
         if(code === "rate_limited") throw { ru: "Слишком много сообщений подряд. Подожди минуту." };
         if(code === "busy") throw { ru: "Claude сейчас перегружен. Отправь ещё раз через несколько секунд." };
-        throw { ru: "Не получилось получить ответ. Нажми «Отправить» ещё раз." };
+        throw { ru: "Не получилось получить ответ (" + (code || ("HTTP " + (r && r.status))) + (data && data.stop ? ", " + data.stop : "") + "). Нажми «Отправить» ещё раз." };
       }};
       if(TAB === "today") renderToday();
       if(TAB === "dialogs" && !CH && !CHPICK && DLG === null) renderDialogs();

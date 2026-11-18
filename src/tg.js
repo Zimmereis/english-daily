@@ -148,7 +148,7 @@
         if(code === "not_telegram") throw { fatal: true, ru: "Не удалось подтвердить вход через Telegram. Закрой и снова открой приложение." };
         if(code === "rate_limited") throw { ru: "Слишком много сообщений подряд. Подожди минуту." };
         if(code === "busy") throw { ru: "Claude сейчас перегружен. Отправь ещё раз через несколько секунд." };
-        throw { ru: "Не получилось получить ответ. Нажми «Отправить» ещё раз." };
+        throw { ru: "Не получилось получить ответ (" + (code || ("HTTP " + (r && r.status))) + (data && data.stop ? ", " + data.stop : "") + "). Нажми «Отправить» ещё раз." };
       }};
       if(TAB === "today") renderToday();
       if(TAB === "dialogs" && !CH && !CHPICK && DLG === null) renderDialogs();
