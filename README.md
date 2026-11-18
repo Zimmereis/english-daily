@@ -89,3 +89,13 @@ APK — это оболочка: само приложение она откры
 - Бот обязан отвечать на /terms и /paysupport — это требование Telegram для оплаты звёздами, они уже есть.
 - Звёзды выводятся через Fragment (fragment.com) в TON: минимум 1000 звёзд, каждой не меньше 21 дня.
 - После обновления кода с оплатой ещё раз открой `/api/setup`: бот начнёт получать подтверждения платежей.
+
+## Мэд Манго и озвучка
+
+Персонаж — `src/mango.js` (SVG, эмоции: angel, evil, smug, cry, shock, love, think, demon + happy/wave/cheer/sad для экранов приложения). Характер и правила — `MANGO_PROMPT` в `src/content.js`. ИИ отвечает с полем `mood`, иногда с `twist` — «ангел», а через секунду срыв в злого.
+
+Голос через ElevenLabs (только для ALLOWED_USERS и подписчиков с безлимитом — каждая реплика стоит кредитов):
+- `ELEVENLABS_API_KEY` — Secret;
+- `ELEVENLABS_VOICE_ID` — ID голоса из Voice Library / Voice Design;
+- `ELEVENLABS_MODEL` — необязательно, по умолчанию `eleven_flash_v2_5`.
+Без них используется обычная озвучка браузера.

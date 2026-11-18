@@ -1,5 +1,5 @@
 import { checkInitData, isAllowed, rateLimited, json } from "../../lib/tg.js";
-import { ROLES, MANGO_PROMPT, MANGO_STYLE } from "../../lib/texts.js";
+import { ROLES, MANGO_PROMPT, MANGO_STYLE, MANGO_MOODS } from "../../lib/texts.js";
 import { isVip, readAi, writeAi, quota, canChat, spend } from "../../lib/stars.js";
 
 const system = (role, spicy) => MANGO_PROMPT.replace("{style}", spicy ? MANGO_STYLE.spicy : MANGO_STYLE.mild).replace("{role}", role);
@@ -86,5 +86,7 @@ export async function onRequestPost({ request, env }) {
   const s = (v) => String(v || "").trim();
   let q = vip ? quota({}, Date.now(), true) : null;
   if (ai) { spend(ai); await writeAi(kv, user.id, ai); q = quota(ai); }
-  return json({ reply: s(out.reply), reply_ru: s(out.reply_ru), correction: s(out.correction), better: s(out.better), hint: s(out.hint), quota: q });
+  const mood = (m) => (MANGO_MOODS.includes(m) ? m : "smug");
+  const twist = out.twist && s(out.twist.reply) ? { mood: mood(out.twist.mood), reply: s(out.twist.reply), reply_ru: s(out.twist.reply_ru) } : null;
+  return json({ mood: mood(out.mood), reply: s(out.reply), reply_ru: s(out.reply_ru), twist, correction: s(out.correction), better: s(out.better), hint: s(out.hint), quota: q });
 }

@@ -334,6 +334,17 @@ body.focus .top,body.focus nav.tabs{display:none}
 .msg-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .msg-actions button{background:var(--sunk);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:5px}
 .msg-actions .ic{width:15px;height:15px}
+.airow{display:flex;gap:6px;align-items:flex-end;align-self:flex-start;max-width:94%}
+.airow .msg{max-width:none;min-width:0}
+.ava-m{flex:none;width:54px;height:54px;margin-bottom:-4px}
+.ava-m .mascot{display:block}
+.airow.twist{animation:snap .45s cubic-bezier(.3,1.6,.5,1)}
+.airow.twist .msg.ai{background:var(--coral-s);box-shadow:0 3px 0 var(--coral);color:var(--coral-t)}
+@keyframes snap{0%{transform:scale(.6) rotate(-6deg);opacity:0}60%{transform:scale(1.06) rotate(2deg)}100%{transform:none}}
+.mascot.mad .glow{animation:halo 2s ease-in-out infinite}
+@keyframes halo{50%{opacity:.15}}
+.mascot.mad .float{animation:floaty 2.4s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-5px)}}
 .corr{align-self:flex-end;max-width:88%;background:var(--mango-s);border-radius:16px;padding:10px 12px;font-size:14px;display:flex;flex-direction:column;gap:3px;font-weight:700}
 .corr b{color:var(--mango-t);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:900}
 .corr .better{font-weight:900;font-size:15.5px}
@@ -342,6 +353,7 @@ body.focus .top,body.focus nav.tabs{display:none}
 .thinking{align-self:flex-start;color:var(--muted);font-weight:800;padding:6px 4px}
 .thinking::after{content:"";animation:dots 1.2s steps(4) infinite}
 @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+#chatLog>*{scroll-margin-bottom:calc(200px + env(safe-area-inset-bottom,0px))}
 .composer{position:sticky;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--bg);padding-top:8px;display:flex;flex-direction:column;gap:8px}
 .comp-row{display:flex;gap:8px;align-items:flex-end}
 textarea,.field input,.field select{width:100%;border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:12px 14px;font-size:16px;font-weight:700}
@@ -459,40 +471,8 @@ function ic(n,cls=""){
     ? `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${p}</svg>`
     : `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 }
-let mascotN=0;
-/* Манго — the app's mascot. moods: happy, wave, cheer, think, sad */
-function mascot(mood="happy",size=96,anim="bob"){
-  const id="mg"+(++mascotN), INK="#3A2340", ARM="#EE8A16";
-  const eyesOpen=(dx=0,dy=0)=>`<ellipse cx="${46+dx}" cy="${61+dy}" rx="5.4" ry="7" fill="${INK}"/><ellipse cx="${74+dx}" cy="${61+dy}" rx="5.4" ry="7" fill="${INK}"/><circle cx="${48+dx}" cy="${58+dy}" r="2.2" fill="#fff"/><circle cx="${76+dx}" cy="${58+dy}" r="2.2" fill="#fff"/>`;
-  const eyes={
-    cheer:`<path d="M39 62q7-9 14 0M67 62q7-9 14 0" stroke="${INK}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`,
-    think:eyesOpen(3,-3),
-    sad:eyesOpen(0,2)+`<path d="M37 52l12-4M83 52l-12-4" stroke="${INK}" stroke-width="3.5" stroke-linecap="round"/>`,
-  }[mood]||eyesOpen();
-  const mouth={
-    cheer:`<path d="M49 72q11 16 22 0z" fill="${INK}"/><path d="M54 79q6 5 12 0" fill="#FF7183"/>`,
-    think:`<ellipse cx="66" cy="78" rx="3.5" ry="3" fill="${INK}"/>`,
-    sad:`<path d="M51 81q9-7 18 0" stroke="${INK}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
-  }[mood]||`<path d="M50 74q10 10 20 0" stroke="${INK}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
-  const arms={
-    cheer:`<path d="M22 64q-12-8-10-24M98 64q12-8 10-24" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`,
-    wave:`<path d="M21 76q-7 6-5 13" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/><g class="wv"><path d="M99 66q10-6 12-20" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/></g>`,
-    think:`<path d="M21 76q-7 6-5 13" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M98 80q-8 10-24 6" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`,
-    sad:`<path d="M21 78q-5 8-2 14M99 78q5 8 2 14" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`,
-  }[mood]||`<path d="M21 76q-7 6-5 13M99 76q7 6 5 13" stroke="${ARM}" stroke-width="7" fill="none" stroke-linecap="round"/>`;
-  const extra=mood==="cheer"?`<path d="M14 26l2 5 5 2-5 2-2 5-2-5-5-2 5-2zM104 20l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="#FFC93C"/>`
-    :mood==="think"?`<circle cx="100" cy="30" r="3" fill="#B9A6D9"/><circle cx="108" cy="20" r="4.5" fill="#B9A6D9"/>`:"";
-  return `<svg class="mascot ${anim}" width="${size}" height="${size}" viewBox="0 0 120 120" aria-hidden="true">
-   <defs><radialGradient id="${id}" cx="38%" cy="30%" r="80%"><stop offset="0" stop-color="#FFE36E"/><stop offset=".55" stop-color="#FFAE1F"/><stop offset="1" stop-color="#FF7A2F"/></radialGradient></defs>
-   <ellipse cx="60" cy="112" rx="30" ry="5" fill="#000" opacity=".12"/>
-   ${arms}
-   <path d="M60 22c25 0 42 20 42 46 0 25-18 40-42 40S18 93 18 68c0-26 17-46 42-46z" fill="url(#${id})"/>
-   <ellipse cx="43" cy="42" rx="10" ry="6" fill="#fff" opacity=".45" transform="rotate(-25 43 42)"/>
-   <path d="M60 25q-1-8 3-13" stroke="#7A4A1A" stroke-width="4" fill="none" stroke-linecap="round"/>
-   <path d="M62 14c8-9 21-8 26-4-4 10-17 13-26 4z" fill="#2DBE6C"/><path d="M64 14q11-1 21-4" stroke="#1C9A55" stroke-width="2" fill="none" stroke-linecap="round"/>
-   <ellipse cx="36" cy="74" rx="6.5" ry="4.2" fill="#FF6F7D" opacity=".55"/><ellipse cx="84" cy="74" rx="6.5" ry="4.2" fill="#FF6F7D" opacity=".55"/>
-   ${eyes}${mouth}${extra}</svg>`;
-}
+/* the app mascot is Mad Mango (src/mango.js) */
+function mascot(mood="happy",size=96,anim="bob"){return madMango(mood,size,anim)}
 
 /* ---------------- STATE ---------------- */
 const IS_APP=!!window.AndroidTTS;
@@ -713,7 +693,7 @@ function renderToday(){
     {act:"lesson",ic:"book",col:"grape",t:nextL>=0?`Урок: ${LESSONS[nextL].t}`:"Повторить любой урок",s:S.lessonDay===t?"Сегодня урок пройден":`${nextL>=0?LESSONS[nextL].q.length:10} заданий · до +${nextL>=0?LESSONS[nextL].q.length*5+30:80} XP`,done:S.lessonDay===t,i:nextL>=0?nextL:0},
     {act:"dialog",ic:DLG_IC[dI],col:"coral",t:`Диалог: ${DIALOGS[dI].t}`,s:S.dialogDay===t?"Потренировано":"Вспомни свои реплики · +15 XP",done:S.dialogDay===t,i:dI},
   ];
-  if(SAMPLE)tasks.push({act:"chat",ic:"spark",col:"leaf",t:"Поболтать с Манго",s:S.chatDay===t?"Сегодня уже поговорили":"Дерзкий ИИ, ошибки поправит по-русски",done:S.chatDay===t});
+  if(SAMPLE)tasks.push({act:"chat",ic:"spark",col:"leaf",t:"Поболтать с Мэд Манго",s:S.chatDay===t?"Сегодня уже поговорили":"ИИ без тормозов, ошибки поправит по-русски",done:S.chatDay===t});
   const doneN=tasks.filter(x=>x.done).length,all=doneN===tasks.length;
   const h=new Date().getHours(),greet=h<5?"Доброй ночи!":h<12?"Доброе утро!":h<18?"Привет!":"Добрый вечер!";
   const mood=all?"cheer":xt===0?"wave":"happy";
@@ -936,7 +916,7 @@ function renderDialogs(){
   const dI=today()%DIALOGS.length;
   if(DLG===null){
     el.innerHTML=`<div><h1>Диалоги</h1><p class="sub">Сценки из жизни. Послушай целиком, потом включи «Тренировку» и вспомни свои реплики.</p></div>
-      ${SAMPLE?`<button class="aicard" data-act="chat">${mascot("wave",64)}<span class="tx"><b>Поболтать с Манго</b><small>Дерзкий ИИ-собеседник. Ошибки поправлю по-русски — с комментариями</small></span>${ic("arrow")}</button>`:""}
+      ${SAMPLE?`<button class="aicard" data-act="chat">${mascot("wave",64)}<span class="tx"><b>Поболтать с Мэд Манго</b><small>ИИ без тормозов. Ошибки поправит по-русски — с комментариями</small></span>${ic("arrow")}</button>`:""}
       <div class="list">${DIALOGS.map((d,i)=>`<button class="task ${S.dlg[i]?"done":""}" data-act="dialog" data-i="${i}"><span class="tile t-${DLG_COL[i]}">${ic(DLG_IC[i])}</span><span class="tx">${i===dI?`<span class="dtag">Диалог дня</span>`:""}<b>${esc(d.t)}</b><small>${esc(d.d)}</small></span><span class="check">${ic("check")}</span></button>`).join("")}</div>`;
     return;
   }
@@ -976,10 +956,19 @@ async function askTutor(){
       lastMe.checked=true;lastMe.corr=String(r.correction||"").trim();lastMe.better=String(r.better||"").trim();
       if(S.chatDay!==today())S.chatDay=today();addXP(5);
     }
-    CH.view.push({me:false,text:reply,ru:String(r.reply_ru||"").trim(),showRu:false});
-    CH.turns.push({role:"assistant",content:reply});
+    const mood=MANGO_MOODS.includes(r.mood)?r.mood:"smug";
+    CH.view.push({me:false,text:reply,ru:String(r.reply_ru||"").trim(),showRu:false,mood});
+    const tw=r.twist&&String(r.twist.reply||"").trim()?{text:String(r.twist.reply).trim(),ru:String(r.twist.reply_ru||"").trim(),mood:MANGO_MOODS.includes(r.twist.mood)?r.twist.mood:"evil"}:null;
+    CH.turns.push({role:"assistant",content:tw?reply+" "+tw.text:reply});
     CH.hint=String(r.hint||"").trim();CH.showHint=false;
-    if(AUTO_SPEAK)speak(reply);
+    const say=window.mangoSay||((t)=>{speak(t);return Promise.resolve()});
+    if(tw){CH.busy=false;renderChat();
+      const p=AUTO_SPEAK?say(reply,mood):Promise.resolve();
+      await Promise.all([p,new Promise(res=>setTimeout(res,1400))]);
+      CH.view.push({me:false,text:tw.text,ru:tw.ru,showRu:false,mood:tw.mood,twist:true});
+      if(navigator.vibrate)try{navigator.vibrate(60)}catch(e){}
+      sfx("bad");if(AUTO_SPEAK)say(tw.text,tw.mood);
+    } else if(AUTO_SPEAK)say(reply,mood);
   }catch(e){
     const c=e&&e.code;
     if(e&&e.ru){CH.err=e.ru;if(e.fatal)SAMPLE=null;if(e.pay&&window.openPaywall)setTimeout(()=>window.openPaywall(true),350)}
@@ -994,7 +983,7 @@ function renderChat(){
   const el=$("#tab-dialogs");
   if(!CH){
     el.innerHTML=`<button class="backlink" data-act="dlgBack">${ic("back")}Диалоги</button>
-      <div class="hero">${mascot("wave",88)}<div class="bubble"><b>Поболтаем?</b><span>Выбери ситуацию — я сыграю любую роль. Плохо, но с душой. Пиши как получается, можно вперемешку с русским — поправлю и прокомментирую.</span></div></div>
+      <div class="hero">${mascot("wave",88)}<div class="bubble"><b>Ну что, поболтаем?</b><span>Выбери ситуацию — я сыграю любую роль. Плохо, но с душой. Пиши как получается, можно вперемешку с русским — поправлю и прокомментирую.</span></div></div>
       ${window.aiQuotaPill?`<div class="row">${window.aiQuotaPill()}</div>`:""}
       <div class="scen">${SCENARIOS.map((s,i)=>`<button class="topic t-${SC_COL[i]}" data-act="scen" data-i="${i}"><span class="tile">${ic(SC_IC[i])}</span><span class="nm">${esc(s.t)}</span><small>${esc(s.d)}</small></button>`).join("")}</div>`;
     return;
@@ -1007,11 +996,11 @@ function renderChat(){
         if(m.better||m.corr)parts.push(`<div class="corr"><b>Как лучше</b>${m.better?`<div class="better">${esc(m.better)}</div>`:""}${m.corr?`<div>${esc(m.corr)}</div>`:""}</div>`);
         else parts.push(`<div class="corr okc"><b>Без ошибок</b></div>`);
       }
-    } else parts.push(`<div class="msg ai">${esc(m.text)}${m.showRu&&m.ru?`<div class="ru">${esc(m.ru)}</div>`:""}<div class="msg-actions"><button data-say="${esc(m.text)}">${ic("spk")}Слушать</button>${m.ru?`<button data-act="chatRu" data-i="${i}">${ic("lang")}${m.showRu?"Скрыть":"Перевод"}</button>`:""}</div></div>`);
+    } else parts.push(`<div class="airow ${m.twist?"twist":""}"><span class="ava-m">${mascot(m.mood||"smug",54,"")}</span><div class="msg ai">${esc(m.text)}${m.showRu&&m.ru?`<div class="ru">${esc(m.ru)}</div>`:""}<div class="msg-actions"><button data-act="sayAI" data-i="${i}">${ic("spk")}Слушать</button>${m.ru?`<button data-act="chatRu" data-i="${i}">${ic("lang")}${m.showRu?"Скрыть":"Перевод"}</button>`:""}</div></div></div>`);
   });
-  if(CH.busy)parts.push(`<div class="thinking">Манго печатает</div>`);
+  if(CH.busy)parts.push(`<div class="thinking">Мэд Манго печатает</div>`);
   el.innerHTML=`
-    <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div class="sheet-h" style="flex:1;min-width:0">${mascot("happy",52,"")}<div class="tx"><span class="qkind">Разговор с ИИ</span><h2>${esc(CH.sc.t)}</h2></div></div><button class="btn ghost small" data-act="endChat">Сменить</button></div>
+    <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div class="sheet-h" style="flex:1;min-width:0">${mascot("happy",52,"")}<div class="tx"><span class="qkind">Разговор с ИИ</span><h2>${esc(CH.sc.t)}</h2></div></div><button class="btn ghost small" style="flex:none;width:auto" data-act="endChat">Сменить</button></div>
     ${window.aiQuotaPill&&window.aiQuotaPill()?`<div class="row">${window.aiQuotaPill()}</div>`:""}
     <div class="chat" id="chatLog">${parts.join("")}</div>
     ${CH.err?`<p class="err">${esc(CH.err)}</p>`:""}
@@ -1038,7 +1027,7 @@ function settingsSheet(){
     <div class="field"><span class="flabel">Новых слов в день</span>${seg("perDay",[[5,"5"],[10,"10"],[15,"15"],[20,"20"]])}</div>
     <div class="field"><span class="flabel">Карточки</span>${seg("dir",[["en","English → рус"],["ru","Рус → English"]])}</div>
     <div class="field"><span class="flabel">Звуки успеха</span>${seg("sound",[["true","Вкл"],["false","Выкл"]])}</div>
-    ${SAMPLE?`<div class="field"><span class="flabel">Манго в разговоре с ИИ</span>${seg("spicy",[["false","Дерзкий"],["true","Без цензуры 18+"]])}<span class="sub" style="font-size:13px">«Без цензуры» — с матом, на русском и английском. Только для взрослых.</span></div>`:""}
+    ${SAMPLE?`<div class="field"><span class="flabel">Манго в разговоре с ИИ</span>${seg("spicy",[["false","Дерзкий"],["true","Без цензуры 18+"]])}<span class="sub" style="font-size:13px">«Без цензуры» — Мэд Манго ещё и матерится, на русском и английском. Только для взрослых.</span></div>`:""}
     ${window.REMIND_OK?`<div class="field"><span class="flabel">Напоминание от Манго в Telegram</span>${seg("remind",[[-1,"Выкл"],[9,"9:00"],[13,"13:00"],[19,"19:00"],[21,"21:00"]])}<span class="sub" style="font-size:13px">Приходит, только если в этот день ты ещё не занималась. С юмором, местами чёрным. Если не приходит — нажми /start в чате с ботом.</span></div>`:""}
     <button class="btn ghost block" data-act="closeSheet">Готово</button>`;
 }
@@ -1131,6 +1120,7 @@ const ACT={
   chat:()=>{CHPICK=true;CH=null;if(TAB!=="dialogs")go("dialogs");else{renderDialogs();window.scrollTo({top:0})}},
   scen:el=>{if(!SAMPLE)return;CH={sc:SCENARIOS[+el.dataset.i],turns:[],view:[],busy:false,hint:"",showHint:false,err:""};askTutor()},
   endChat:()=>{CH=null;renderChat()},
+  sayAI:el=>{const m=CH&&CH.view[+el.dataset.i];if(!m)return;playToken++;(window.mangoSay||((t)=>{speak(t);return Promise.resolve()}))(m.text,m.mood)},
   chatRu:el=>{const m=CH.view[+el.dataset.i];m.showRu=!m.showRu;renderChat()},
   send:()=>sendChat(),
   hint:()=>{CH.showHint=!CH.showHint;renderChat()},

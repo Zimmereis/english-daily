@@ -4,7 +4,7 @@ import json, os, subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 read = lambda p: open(os.path.join(ROOT, p), encoding="utf8").read()
 
-app, content, tgjs = read("src/app.html"), read("src/content.js"), read("src/tg.js")
+app, content, tgjs = read("src/app.html"), read("src/content.js") + "\n" + read("src/mango.js"), read("src/tg.js")
 
 RANGES = {
     "latin": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD",
@@ -34,7 +34,7 @@ with open(os.path.join(ROOT, "public/index.html"), "w", encoding="utf8") as f:
 # Phrases the TTS function serves without login, and AI chat roles for the chat function.
 NODE = r'''
 const vm=require("vm"),fs=require("fs");
-const code=fs.readFileSync(process.argv[1],"utf8")+"\nthis.__o={WORDS_RAW,PHRASES,LESSONS,DIALOGS,SCENARIOS,exFull,MANGO_PROMPT,MANGO_STYLE};";
+const code=fs.readFileSync(process.argv[1],"utf8")+"\nthis.__o={WORDS_RAW,PHRASES,LESSONS,DIALOGS,SCENARIOS,exFull,MANGO_PROMPT,MANGO_STYLE,MANGO_MOODS};";
 const ctx={};vm.createContext(ctx);vm.runInContext(code,ctx);const o=ctx.__o;
 const say=t=>String(t).replace(/\s*\/\s*/g,". ").replace(/…/g,"");
 const out=[];
@@ -42,7 +42,7 @@ o.WORDS_RAW.trim().split("\n").forEach(l=>{const p=l.split("|");out.push(p[1]);i
 o.PHRASES.forEach(c=>c.items.forEach(s=>out.push(s.split("|")[0])));
 o.LESSONS.forEach(L=>{L.e.forEach(s=>out.push(s.split("|")[0]));L.q.forEach(q=>{const f=o.exFull(q);if(f)out.push(f)})});
 o.DIALOGS.forEach(d=>d.l.forEach(x=>out.push(x[1])));
-console.log(JSON.stringify({texts:[...new Set(out.map(say))],roles:o.SCENARIOS.map(s=>s.role),prompt:o.MANGO_PROMPT,style:o.MANGO_STYLE}));
+console.log(JSON.stringify({texts:[...new Set(out.map(say))],roles:o.SCENARIOS.map(s=>s.role),prompt:o.MANGO_PROMPT,style:o.MANGO_STYLE,moods:o.MANGO_MOODS}));
 '''
 res = json.loads(subprocess.check_output(["node", "-e", NODE, os.path.join(ROOT, "src/content.js")]))
 with open(os.path.join(ROOT, "lib/texts.js"), "w", encoding="utf8") as f:
@@ -51,5 +51,6 @@ with open(os.path.join(ROOT, "lib/texts.js"), "w", encoding="utf8") as f:
             "export const TEXTS = " + json.dumps(res["texts"], ensure_ascii=False, indent=0) + ";\n"
             "export const ROLES = " + json.dumps(res["roles"], ensure_ascii=False, indent=1) + ";\n"
             "export const MANGO_PROMPT = " + json.dumps(res["prompt"], ensure_ascii=False) + ";\n"
-            "export const MANGO_STYLE = " + json.dumps(res["style"], ensure_ascii=False) + ";\n")
+            "export const MANGO_STYLE = " + json.dumps(res["style"], ensure_ascii=False) + ";\n"
+            "export const MANGO_MOODS = " + json.dumps(res["moods"]) + ";\n")
 print(f"built: public/index.html, lib/texts.js ({len(res['texts'])} phrases, {len(res['roles'])} chat scenarios)")

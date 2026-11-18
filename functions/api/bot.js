@@ -23,7 +23,7 @@ export async function onRequestPost({ request, env }) {
     u.started = true; u.on = true; u.name = m.from.first_name || u.name || "";
     if (u.hour == null || u.hour < 0) u.hour = DEFAULT_HOUR;
     save = true;
-    reply = `Привет${u.name ? ", " + u.name : ""}! Я Манго — фрукт, который следит за твоим английским.\n\n` +
+    reply = `Привет${u.name ? ", " + u.name : ""}! Я Мэд Манго — фрукт без тормозов, который следит за твоим английским.\n\n` +
       `Если в какой-то день ты не позанимаешься, в ${u.hour}:00 я напишу. С юмором. Иногда чёрным.\n\n` +
       `Время меняется в приложении (настройки) или командой /time 20. Выключить — /stop. Пример напоминания — /test.`;
   } else if (cmd === "/stop") {
@@ -58,7 +58,7 @@ export async function onRequestPost({ request, env }) {
     if (!pay) reply = "Формат: /refund <id пользователя> <id платежа>. Платёж не найден или уже возвращён.";
     else {
       const r = await tgApi(env, "refundStarPayment", { user_id: Number(who), telegram_payment_charge_id: charge });
-      if (r.ok) { await writeAi(kv, who, a); reply = `Вернула ${pay.stars}⭐ пользователю ${who}.`; await tgApi(env, "sendMessage", { chat_id: who, text: `Звёзды за «${(PRODUCTS[pay.product] || {}).title || pay.product}» вернули. Без обид — Манго 🥭` }); }
+      if (r.ok) { await writeAi(kv, who, a); reply = `Вернула ${pay.stars}⭐ пользователю ${who}.`; await tgApi(env, "sendMessage", { chat_id: who, text: `Звёзды за «${(PRODUCTS[pay.product] || {}).title || pay.product}» вернули. Без обид — Мэд Манго 🥭` }); }
       else reply = "Telegram не дал вернуть: " + (r.description || "ошибка");
     }
   } else if (cmd === "/test") {
@@ -102,7 +102,7 @@ async function paid(env, m) {
   const a = await readAi(env.REMIND, id);
   const applied = applyPayment(a, { product: p.p, chargeId: sp.telegram_payment_charge_id, stars: sp.total_amount, expiresAt: sp.subscription_expiration_date }, Date.now());
   if (applied) await writeAi(env.REMIND, id, a);
-  const text = applied ? `${THANKS[p.p] || "Оплата прошла, спасибо!"}\n\n${aiLine(quota(a))}\n\n— Манго 🥭` : "Этот платёж уже учтён.";
+  const text = applied ? `${THANKS[p.p] || "Оплата прошла, спасибо!"}\n\n${aiLine(quota(a))}\n\n— Мэд Манго 🥭` : "Этот платёж уже учтён.";
   await tgApi(env, "sendMessage", { chat_id: m.chat.id, text, reply_markup: openButton(PROD_ORIGIN, "Вернуться к разговору") });
   return json({ ok: true });
 }

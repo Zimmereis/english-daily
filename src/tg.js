@@ -156,6 +156,20 @@
     }).catch(() => {});
   }
 
+  /* ---------- Mad Mango's own voice (ElevenLabs) for subscribers; device voice for everyone else ---------- */
+  let VOICE_ON = false, voiceAudio = null;
+  if(inTG) fetch("/api/voice").then(r => r.ok ? r.json() : null).then(d => { VOICE_ON = !!(d && d.enabled); }).catch(() => {});
+  window.mangoSay = function(text, mood){
+    const fallback = () => new Promise(res => { speak(text); setTimeout(res, Math.min(6000, 400 + String(text).length * 60)); });
+    if(!VOICE_ON || !AIQ || !AIQ.unlimited) return fallback();
+    stopSpeech(); if(voiceAudio){ try { voiceAudio.pause(); } catch(e) {} }
+    return post("/api/voice", { text, mood }).then(r => r.ok ? r.blob() : Promise.reject())
+      .then(blob => new Promise(res => {
+        const a = new Audio(URL.createObjectURL(blob)); voiceAudio = a;
+        a.onended = res; a.onerror = res; const p = a.play(); if(p && p.catch) p.catch(res);
+      })).catch(fallback);
+  };
+
   /* ---------- AI messages left + buying more with Telegram Stars ---------- */
   let AIQ = null, PRODUCTS_LIST = [];
   const post = (url, body) => fetch(url, { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ initData: tg.initData, ...body }) });
